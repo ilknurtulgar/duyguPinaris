@@ -13,37 +13,51 @@ import SwiftUI
 //medium 20 title
 //regular 10 body
 //subtitle medium 15
-//subtitle2 regular 12 // bunu tutarsa hiç ekleme
+//subtitle2 regular 12 // bu olursa ekleme
 struct TextStyles {
-
+    
     static func hugeTitle(_ text: String) -> some View {
-            Text(text)
-                .font(.custom("SFPro-Display-Medium", size: 50))
-                .foregroundColor(.textColor)
-        }
-
-        static func title(_ text: String) -> some View {
-            Text(text)
-                .font(.custom("SFPro-Display-Medium", size: 20))
-                .foregroundColor(.textColor)
-        }
-
-        static func body(_ text: String) -> some View {
-            Text(text)
-                .font(.custom("SFPro-Display-Regular", size: 10))
-                .foregroundColor(.textColor)
-        }
-
-        static func subtitleMedium(_ text: String) -> some View {
-            Text(text)
-                .font(.custom("SFPro-Display-Medium", size: 15))
-                .foregroundColor(.secondary)
-        }
-
-    static func subtiteRegular(_ text:String) -> some View {
+        Text(text)
+            .font(.custom("SFPro-Display-Medium", size: 50))
+            .foregroundColor(.textColor)
+    }
+    static func title(_ text: String) -> some View {
+        Text(text)
+            .font(.custom("SFPro-Display-Medium", size: 20))
+            .foregroundColor(.textColor)
+    }
+    static func bodyMediumSelected(_ text: String) -> some View {
+        Text(text)
+            .font(.custom("SFPro-Display-Medium", size: 10))
+            .foregroundColor(.textColor)
+    }
+    static func bodyMediumUnselected(_ text: String) -> some View {
+        Text(text)
+            .font(.custom("SFPro-Display-Medium", size: 10))
+            .foregroundColor(.unselectedColor)
+    }
+    static func bodyRegular(_ text: String) -> some View {
+        Text(text)
+            .font(.custom("SFPro-Display-Regular", size: 10))
+            .foregroundColor(.textColor)
+    }
+    
+    static func subtitleMedium(_ text: String) -> some View {
+        Text(text)
+            .font(.custom("SFPro-Display-Medium", size: 15))
+            .foregroundColor(.textColor)
+    }
+    static func subtitleRegular(_ text:String) -> some View {
+        Text(text)
+            .font(.custom("SFPro-Display-Regular", size: 15))
+            .foregroundColor(.textColor)
+    }
+    
+    static func subtitleRegular2(_ text:String) -> some View {
         Text(text)
             .font(.custom("SFPro-Display-Regular", size: 12))
             .foregroundColor(.secondary)
     }
-
+    
+    
 }

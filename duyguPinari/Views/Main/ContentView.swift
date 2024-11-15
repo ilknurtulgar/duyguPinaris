@@ -7,15 +7,46 @@
 
 import SwiftUI
 
+
 struct ContentView: View {
+    @State private var selectedTab: String? = "Home"
+    @State private var isLoggedIn = false
+    @State private var showBottomTabBar = true
     var body: some View {
-        ZStack{
+        ZStack {
             Color.backgroundPrimary.ignoresSafeArea()
-            LoginUI()
+            
+            if isLoggedIn {
+                VStack(spacing:0) {
+                    NavigationView {
+                        ZStack {
+                            Color.backgroundPrimary.ignoresSafeArea()
+                            if selectedTab == "Home" {
+                                HomeView()
+                            } else if selectedTab == "Profile" {
+                                ProfileView( showBottomTabBar: $showBottomTabBar)
+                            }
+                        }
+                        .navigationBarHidden(true)
+                    }
+
+                    if showBottomTabBar {
+                        BottomTabBar(selectedTab: $selectedTab)
+                            .padding(.bottom, 10)
+                    }
+                }
+            } else {
+                LoginView(isLoggedIn: $isLoggedIn)
+            }
         }
     }
 }
 
-#Preview {
-    ContentView()
+
+
+// Preview
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
 }

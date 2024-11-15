@@ -15,5 +15,6 @@ extension Color {
     static let secondaryColor = Color(red: 0.95,green:0.41,blue: 0.33).opacity(0.35)
     static let textColor = Color(red: 0.29,green: 0.38,blue: 0.54)
     static let tertiaryColor = Color(red: 0.78,green: 0.78,blue: 0.80)
+    static let unselectedColor = Color(red: 74/255, green: 98/255, blue: 138/255).opacity(0.7)
 }
 

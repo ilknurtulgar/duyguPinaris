@@ -20,5 +20,6 @@ struct AuthTitle: View {
             .padding(.leading,130)
             
         }
+        .HugeTitlePadding()
     }
 }
