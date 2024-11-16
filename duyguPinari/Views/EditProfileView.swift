@@ -23,7 +23,6 @@ struct EditProfileView: View {
                 CustomToolBar(title: "Profil Düzenleme",  icon: Image(systemName: "chevron.left")){
                     dismiss()
                 }
-                .padding(.top,30)
                 
                 ScrollView{
                     VStack(spacing:16){

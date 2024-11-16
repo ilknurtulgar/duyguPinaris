@@ -29,11 +29,12 @@ struct CustomToolBar: View {
                 
             }
             .frame(width: 430, height: 40)
-
-                Rectangle()
-                    .frame(height: 1)
-                    .foregroundColor(.secondaryColor)
+            
+            Rectangle()
+                .frame(height: 1)
+                .foregroundColor(.secondaryColor)
         }
         .frame(width: 430)
+        .padding(.top,30)
     }
 }

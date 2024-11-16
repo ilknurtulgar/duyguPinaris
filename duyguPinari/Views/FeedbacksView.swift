@@ -12,12 +12,21 @@ struct FeedbacksView: View {
     var body: some View {
         ZStack{
             Color.backgroundPrimary.ignoresSafeArea()
-            VStack{
+            VStack(){
                 CustomToolBar(title: "Geri Bildirimler", icon: Image(systemName: "chevron.left")){
                     dismiss()
                 }
-                .padding(.top,30)
-                Spacer()
+                ScrollView{
+                    VStack{
+                        FeedbackCard(
+                            profileImage: Image(systemName: "person.circle"),
+                            name: "Alexa Richardson",
+                            role: "Listener",
+                            rating: 3,
+                            feedbackText: "Great conversation! Overall, I enjoyed chatting with you!"
+                        )
+                    }
+                }
             }
         }
     }
