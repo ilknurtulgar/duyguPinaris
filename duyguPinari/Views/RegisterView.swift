@@ -55,7 +55,7 @@ struct RegisterView: View {
                             HomeView()
                                 .navigationBarHidden(true)
                             Color.backgroundPrimary.ignoresSafeArea()
-                                .frame(width: 0,height: 0)// Üst çubuğu gizle
+                                .frame(width: 0,height: 0)
                         }
                         self.withHorizontalLinesAndText(Constants.TextConstants.or)
                         CustomButton(
@@ -73,7 +73,7 @@ struct RegisterView: View {
                         .padding(.top, 15)
                         .navigationDestination(isPresented: $isNavigatingToLogin) {
                             LoginView(isLoggedIn: .constant(false))
-                                .navigationBarHidden(true) // Üst çubuğu gizle
+                                .navigationBarHidden(true)
                         }
                     }
                 }
