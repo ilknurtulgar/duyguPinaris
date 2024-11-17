@@ -36,17 +36,20 @@ struct RegisterView: View {
                         
                         CustomButton(
                             title: Constants.TextConstants.signup,
+                            width: 295,
+                            height: 40,
                             backgroundColor: Color.primaryColor,
                             borderColor: Color.primaryColor,
-                            textcolor: .white
-                        ) {
-                            if viewModel.registerUser(){
-                                isRegistering = true
-                            }else
-                            {
-                                isRegistering = false
-                            }
-                        }
+                            textcolor: .white,
+                            action:
+                                {
+                                    if viewModel.registerUser(){
+                                        isRegistering = true
+                                    }else
+                                    {
+                                        isRegistering = false
+                                    }
+                                },font: .custom("SFPro-Display-Medium", size: 15))
                         .padding(.top, 65)
                         .navigationDestination(isPresented: $isRegistering) {
                             HomeView()
@@ -57,12 +60,16 @@ struct RegisterView: View {
                         self.withHorizontalLinesAndText(Constants.TextConstants.or)
                         CustomButton(
                             title: Constants.TextConstants.signin,
+                            width: 295,
+                            height: 40,
                             backgroundColor: Color.white,
                             borderColor: Color.primaryColor,
-                            textcolor: .primaryColor
-                        ) {
-                            isNavigatingToLogin = true
-                        }
+                            textcolor: .primaryColor,
+                            action:
+                                {
+                                    isNavigatingToLogin = true
+                                },
+                            font: .custom("SFPro-Display-Medium", size: 15))
                         .padding(.top, 15)
                         .navigationDestination(isPresented: $isNavigatingToLogin) {
                             LoginView(isLoggedIn: .constant(false))
@@ -73,7 +80,7 @@ struct RegisterView: View {
                 .padding(.top)
             }
         }
-        .navigationBarHidden(true) // RegisterView'de de üst çubuğu gizle
+        .navigationBarHidden(true)
     }
 }
 

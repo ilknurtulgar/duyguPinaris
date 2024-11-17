@@ -22,14 +22,13 @@ class RegisterViewModel: ObservableObject{
     }
     private var registeredUsers:[User]=[]
     func registerUser() -> Bool {
-        
-        if !isValidEmail(email){
-            errorMessage = Constants.TextConstants.unvalidEmail
-            return false
-        }
-       
+    
         if username.isEmpty {
             errorMessage = RegisterConstants.usernameEmpty
+            return false
+        }
+        if !isValidEmail(email){
+            errorMessage = Constants.TextConstants.unvalidEmail
             return false
         }
         if !isValidAge(age){

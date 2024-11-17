@@ -22,6 +22,8 @@ struct Constants {
         static let unvalidEmail = "Geçersiz e posta adresi"
         static let emptyPassword = "Şifre boş olamaz"
         static let unvalidInfo = "E posta veya şifre hatalı"
+        static let accept = "Onayla"
+        static let cancel = "Vazgeç"
     
     }
 }

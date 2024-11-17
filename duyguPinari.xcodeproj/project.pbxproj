@@ -29,11 +29,11 @@
 		836D5EBB2CEA10B90065D027 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836D5EBA2CEA10B90065D027 /* RegisterViewModel.swift */; };
 		836D5EBD2CEA13DA0065D027 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836D5EBC2CEA13DA0065D027 /* LoginViewModel.swift */; };
 		836D5EC02CEA81BA0065D027 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836D5EBF2CEA81BA0065D027 /* Constants.swift */; };
+		836D5EC42CEAA1CA0065D027 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836D5EC32CEAA1CA0065D027 /* CustomButton.swift */; };
 		8371EDF12CD975640069E1CE /* AuthTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8371EDF02CD975640069E1CE /* AuthTitle.swift */; };
 		8371EDF32CDA048A0069E1CE /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8371EDF22CDA048A0069E1CE /* RegisterView.swift */; };
 		8371EDF52CDA04DF0069E1CE /* PaddingExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8371EDF42CDA04DF0069E1CE /* PaddingExtensions.swift */; };
 		8371EDF72CDA07470069E1CE /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8371EDF62CDA07470069E1CE /* CustomTextField.swift */; };
-		839CBAC62CDAC6650066BE03 /* BigButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839CBAC52CDAC6650066BE03 /* BigButton.swift */; };
 		839CBAC82CDAC9710066BE03 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839CBAC72CDAC9710066BE03 /* HomeView.swift */; };
 		839CBACA2CDC1C500066BE03 /* withHorizontalLinesAndText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839CBAC92CDC1C500066BE03 /* withHorizontalLinesAndText.swift */; };
 		839CBACC2CDC21970066BE03 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839CBACB2CDC21970066BE03 /* ProfileView.swift */; };
@@ -86,11 +86,11 @@
 		836D5EBA2CEA10B90065D027 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		836D5EBC2CEA13DA0065D027 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		836D5EBF2CEA81BA0065D027 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		836D5EC32CEAA1CA0065D027 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		8371EDF02CD975640069E1CE /* AuthTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTitle.swift; sourceTree = "<group>"; };
 		8371EDF22CDA048A0069E1CE /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		8371EDF42CDA04DF0069E1CE /* PaddingExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingExtensions.swift; sourceTree = "<group>"; };
 		8371EDF62CDA07470069E1CE /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
-		839CBAC52CDAC6650066BE03 /* BigButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigButton.swift; sourceTree = "<group>"; };
 		839CBAC72CDAC9710066BE03 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		839CBAC92CDC1C500066BE03 /* withHorizontalLinesAndText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = withHorizontalLinesAndText.swift; sourceTree = "<group>"; };
 		839CBACB2CDC21970066BE03 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -250,7 +250,6 @@
 			children = (
 				8371EDF02CD975640069E1CE /* AuthTitle.swift */,
 				8371EDF62CDA07470069E1CE /* CustomTextField.swift */,
-				839CBAC52CDAC6650066BE03 /* BigButton.swift */,
 				839CBAC92CDC1C500066BE03 /* withHorizontalLinesAndText.swift */,
 				839CBACD2CDC21EF0066BE03 /* BottomTabBar.swift */,
 				839CBACF2CDC30FE0066BE03 /* ProfileImage.swift */,
@@ -259,6 +258,7 @@
 				835660612CE3EA280081F52B /* ConversationStartButton.swift */,
 				835660652CE619830081F52B /* customToolBar.swift */,
 				832755582CE78396000A5EFB /* FeedbackCard.swift */,
+				836D5EC32CEAA1CA0065D027 /* CustomButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -403,6 +403,7 @@
 				839CBACC2CDC21970066BE03 /* ProfileView.swift in Sources */,
 				8371EDF52CDA04DF0069E1CE /* PaddingExtensions.swift in Sources */,
 				836D5EB92CEA109C0065D027 /* User.swift in Sources */,
+				836D5EC42CEAA1CA0065D027 /* CustomButton.swift in Sources */,
 				8339AA862CD8B340002A98B1 /* LoginView.swift in Sources */,
 				8371EDF12CD975640069E1CE /* AuthTitle.swift in Sources */,
 				839CBACA2CDC1C500066BE03 /* withHorizontalLinesAndText.swift in Sources */,
@@ -419,7 +420,6 @@
 				839CBAD32CDC337D0066BE03 /* CustomAboutText.swift in Sources */,
 				835660642CE616E90081F52B /* EditProfileView.swift in Sources */,
 				8339AA882CD8B68D002A98B1 /* UIColorExtensions.swift in Sources */,
-				839CBAC62CDAC6650066BE03 /* BigButton.swift in Sources */,
 				835660682CE6650F0081F52B /* FeedbacksView.swift in Sources */,
 				832755592CE78396000A5EFB /* FeedbackCard.swift in Sources */,
 				836D5EBB2CEA10B90065D027 /* RegisterViewModel.swift in Sources */,

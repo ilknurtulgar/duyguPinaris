@@ -32,18 +32,29 @@ struct EditProfileView: View {
                         CustomTextField( text: $email,placeholder: "alexa@example.com",subtitle: "E mail:")
                         CustomTextField(text: $age,placeholder: "15.10.1997",subtitle: "Age:")
                         CustomTextField( text: $about,placeholder: "Alexa Richardson",isAbout: true,subtitle: "About:")
+                        HStack(spacing: 68){
+                            CustomButton(
+                                title: Constants.TextConstants.cancel,
+                                width: 123, height: 35, backgroundColor: Color.white, borderColor: Color.primaryColor, textcolor: Color.primaryColor, action: {
+                                print("here")
+                                //
+                            },
+                            font: .custom("SFPro-Display-Medium", size: 10))
+                            
+                            CustomButton(title: Constants.TextConstants.accept, width: 123, height: 35, backgroundColor: Color.primaryColor, borderColor: Color.primaryColor, textcolor: Color.white, action: {
+                                print("here")
+                                //
+                            },  font: .custom("SFPro-Display-Medium", size: 10))
+                            
+                        }
+                        .padding(.top,24)
+                        .padding(.bottom,40)
                     }
+                    .padding(.horizontal,16)
                 }
             }
             .padding(.top)
         }
-       /* .onAppear {
-            showBottomTabBar = false
-        }
-        
-        .onDisappear {
-            showBottomTabBar = true
-        }*/
     }
 }
 
