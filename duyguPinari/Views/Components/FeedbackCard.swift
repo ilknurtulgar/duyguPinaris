@@ -25,7 +25,7 @@ struct FeedbackCard: View {
                 HStack{
                     TextStyles.roleSubtitleRegular(role)
                     HStack(spacing:2){
-                        ForEach(0..<rating){index in
+                        ForEach(0..<rating, id:\.self){_ in
                             Image(systemName: "star.fill")
                                 .resizable()
                                 .scaledToFit()
@@ -36,12 +36,14 @@ struct FeedbackCard: View {
                     }
                 }
                 .padding(.bottom,13)
+            
                 TextStyles.subtitleRegular2(feedbackText)
+                    .lineLimit(nil)
                 
             }
         }
         .padding(12)
-        .frame(width: 330,height: 100)
+        .frame(width: 330)
         .background(
             RoundedRectangle(cornerRadius: 15)
                 .stroke(Color.primaryColor,lineWidth: 1)

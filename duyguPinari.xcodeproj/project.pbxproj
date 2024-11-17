@@ -23,6 +23,11 @@
 		835660642CE616E90081F52B /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835660632CE616E90081F52B /* EditProfileView.swift */; };
 		835660662CE619830081F52B /* customToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835660652CE619830081F52B /* customToolBar.swift */; };
 		835660682CE6650F0081F52B /* FeedbacksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835660672CE6650F0081F52B /* FeedbacksView.swift */; };
+		836D5EB42CEA02ED0065D027 /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836D5EB32CEA02ED0065D027 /* Feedback.swift */; };
+		836D5EB72CEA03120065D027 /* FeedbacksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836D5EB62CEA03120065D027 /* FeedbacksViewModel.swift */; };
+		836D5EB92CEA109C0065D027 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836D5EB82CEA109C0065D027 /* User.swift */; };
+		836D5EBB2CEA10B90065D027 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836D5EBA2CEA10B90065D027 /* RegisterViewModel.swift */; };
+		836D5EBD2CEA13DA0065D027 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836D5EBC2CEA13DA0065D027 /* LoginViewModel.swift */; };
 		8371EDF12CD975640069E1CE /* AuthTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8371EDF02CD975640069E1CE /* AuthTitle.swift */; };
 		8371EDF32CDA048A0069E1CE /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8371EDF22CDA048A0069E1CE /* RegisterView.swift */; };
 		8371EDF52CDA04DF0069E1CE /* PaddingExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8371EDF42CDA04DF0069E1CE /* PaddingExtensions.swift */; };
@@ -74,6 +79,11 @@
 		835660632CE616E90081F52B /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		835660652CE619830081F52B /* customToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customToolBar.swift; sourceTree = "<group>"; };
 		835660672CE6650F0081F52B /* FeedbacksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbacksView.swift; sourceTree = "<group>"; };
+		836D5EB32CEA02ED0065D027 /* Feedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feedback.swift; sourceTree = "<group>"; };
+		836D5EB62CEA03120065D027 /* FeedbacksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbacksViewModel.swift; sourceTree = "<group>"; };
+		836D5EB82CEA109C0065D027 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		836D5EBA2CEA10B90065D027 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		836D5EBC2CEA13DA0065D027 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		8371EDF02CD975640069E1CE /* AuthTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTitle.swift; sourceTree = "<group>"; };
 		8371EDF22CDA048A0069E1CE /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		8371EDF42CDA04DF0069E1CE /* PaddingExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingExtensions.swift; sourceTree = "<group>"; };
@@ -136,6 +146,8 @@
 		8343C9972CD2136700107507 /* duyguPinari */ = {
 			isa = PBXGroup;
 			children = (
+				836D5EB52CEA02F50065D027 /* ViewModels */,
+				836D5EB22CEA02D10065D027 /* Models */,
 				8371EDEE2CD972DE0069E1CE /* Extensions */,
 				8371EDEC2CD971E50069E1CE /* Views */,
 				8343C99C2CD2136800107507 /* Assets.xcassets */,
@@ -167,6 +179,25 @@
 				8343C9B52CD2136800107507 /* duyguPinariUITestsLaunchTests.swift */,
 			);
 			path = duyguPinariUITests;
+			sourceTree = "<group>";
+		};
+		836D5EB22CEA02D10065D027 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				836D5EB32CEA02ED0065D027 /* Feedback.swift */,
+				836D5EB82CEA109C0065D027 /* User.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		836D5EB52CEA02F50065D027 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				836D5EB62CEA03120065D027 /* FeedbacksViewModel.swift */,
+				836D5EBA2CEA10B90065D027 /* RegisterViewModel.swift */,
+				836D5EBC2CEA13DA0065D027 /* LoginViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		8371EDEC2CD971E50069E1CE /* Views */ = {
@@ -360,15 +391,18 @@
 				8339AA8A2CD8BB50002A98B1 /* TextStyles.swift in Sources */,
 				839CBACC2CDC21970066BE03 /* ProfileView.swift in Sources */,
 				8371EDF52CDA04DF0069E1CE /* PaddingExtensions.swift in Sources */,
+				836D5EB92CEA109C0065D027 /* User.swift in Sources */,
 				8339AA862CD8B340002A98B1 /* LoginView.swift in Sources */,
 				8371EDF12CD975640069E1CE /* AuthTitle.swift in Sources */,
 				839CBACA2CDC1C500066BE03 /* withHorizontalLinesAndText.swift in Sources */,
 				8371EDF32CDA048A0069E1CE /* RegisterView.swift in Sources */,
+				836D5EBD2CEA13DA0065D027 /* LoginViewModel.swift in Sources */,
 				839CBAC82CDAC9710066BE03 /* HomeView.swift in Sources */,
 				8343C99B2CD2136700107507 /* ContentView.swift in Sources */,
 				8343C9992CD2136700107507 /* duyguPinariApp.swift in Sources */,
 				839CBAD02CDC30FE0066BE03 /* ProfileImage.swift in Sources */,
 				835660622CE3EA280081F52B /* ConversationStartButton.swift in Sources */,
+				836D5EB42CEA02ED0065D027 /* Feedback.swift in Sources */,
 				835660662CE619830081F52B /* customToolBar.swift in Sources */,
 				839CBAD32CDC337D0066BE03 /* CustomAboutText.swift in Sources */,
 				835660642CE616E90081F52B /* EditProfileView.swift in Sources */,
@@ -376,9 +410,11 @@
 				839CBAC62CDAC6650066BE03 /* BigButton.swift in Sources */,
 				835660682CE6650F0081F52B /* FeedbacksView.swift in Sources */,
 				832755592CE78396000A5EFB /* FeedbackCard.swift in Sources */,
+				836D5EBB2CEA10B90065D027 /* RegisterViewModel.swift in Sources */,
 				839CBACE2CDC21EF0066BE03 /* BottomTabBar.swift in Sources */,
 				832A70922CDC96A2005064DA /* RedirectButton.swift in Sources */,
 				8371EDF72CDA07470069E1CE /* CustomTextField.swift in Sources */,
+				836D5EB72CEA03120065D027 /* FeedbacksViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

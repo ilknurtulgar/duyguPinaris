@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct FeedbacksView: View {
+    @StateObject var viewModel = FeedbacksViewModel()
     @Environment(\.dismiss) private var dismiss
     var body: some View {
         ZStack{
@@ -16,15 +17,13 @@ struct FeedbacksView: View {
                 CustomToolBar(title: "Geri Bildirimler", icon: Image(systemName: "chevron.left")){
                     dismiss()
                 }
+                .padding(.bottom,30)
                 ScrollView{
-                    VStack{
-                        FeedbackCard(
-                            profileImage: Image(systemName: "person.circle"),
-                            name: "Alexa Richardson",
-                            role: "Listener",
-                            rating: 3,
-                            feedbackText: "Great conversation! Overall, I enjoyed chatting with you!"
-                        )
+                    VStack(spacing: 30){
+                        ForEach(viewModel.feedbacks){ feedback in
+                            FeedbackCard(profileImage: feedback.profileImage, name: feedback.name, role: feedback.role, rating: feedback.rating, feedbackText: feedback.feedbackText)
+                            
+                        }
                     }
                 }
             }

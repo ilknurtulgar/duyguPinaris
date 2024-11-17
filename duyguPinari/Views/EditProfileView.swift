@@ -28,13 +28,14 @@ struct EditProfileView: View {
                     VStack(spacing:16){
                         ProfileImage()
                             .padding(.top,16)
-                        CustomTextField(placeholder: "Alexa Richardson", text: $username,subtitle: "UserName:")
-                        CustomTextField(placeholder: "alexa@example.com", text: $email,subtitle: "E mail:")
-                        CustomTextField(placeholder: "15.10.1997", text: $age,subtitle: "Age:")
-                        CustomTextField(placeholder: "Alexa Richardson", text: $about,isAbout: true,subtitle: "About:")
+                        CustomTextField( text: $username,placeholder: "Alexa Richardson",subtitle: "UserName:")
+                        CustomTextField( text: $email,placeholder: "alexa@example.com",subtitle: "E mail:")
+                        CustomTextField(text: $age,placeholder: "15.10.1997",subtitle: "Age:")
+                        CustomTextField( text: $about,placeholder: "Alexa Richardson",isAbout: true,subtitle: "About:")
                     }
                 }
             }
+            .padding(.top)
         }
        /* .onAppear {
             showBottomTabBar = false

@@ -8,10 +8,8 @@
 import SwiftUI
 
 struct RegisterView: View {
-    @State private var username = ""
-    @State private var email = ""
-    @State private var age = ""
-    @State private var password = ""
+    
+    @StateObject private var viewModel = RegisterViewModel()
     @State private var isRegistering = false
     @State private var isNavigatingToLogin = false
     
@@ -25,10 +23,10 @@ struct RegisterView: View {
                     VStack {
                         AuthTitle(title: "KAYIT", subtitle: "OL")
                         
-                        CustomTextField(placeholder: "Alara Orea", text: $username, subtitle: "Kullanıcı Adı:")
-                        CustomTextField(placeholder: "alara@example.com", text: $email, subtitle: "E mail:")
-                        CustomTextField(placeholder: "15.11.1997", text: $age, subtitle: "Yaş:")
-                        CustomTextField(placeholder: "******", text: $password, isSecure: true, subtitle: "Şifre:")
+                        CustomTextField( text: $viewModel.username,placeholder: "Alara Orea", subtitle: "Kullanıcı Adı:")
+                        CustomTextField(text: $viewModel.email,placeholder: "alara@example.com",  subtitle: "E mail:")
+                        CustomTextField( text: $viewModel.age,placeholder: "15.11.1997", subtitle: "Yaş:")
+                        CustomTextField(text: $viewModel.password, placeholder: "******", isSecure: true, subtitle: "Şifre:")
                         
                         Spacer()
                         
@@ -43,7 +41,7 @@ struct RegisterView: View {
                         }
                         .padding(.top, 65)
                         .navigationDestination(isPresented: $isRegistering) {
-                            HomeView()
+                           HomeView()
                                 .navigationBarHidden(true)
                             Color.backgroundPrimary.ignoresSafeArea()
                                 .frame(width: 0,height: 0)// Üst çubuğu gizle
@@ -64,8 +62,8 @@ struct RegisterView: View {
                                 .navigationBarHidden(true) // Üst çubuğu gizle
                         }
                     }
-                    .padding()
                 }
+                .padding(.top)
             }
         }
         .navigationBarHidden(true) // RegisterView'de de üst çubuğu gizle

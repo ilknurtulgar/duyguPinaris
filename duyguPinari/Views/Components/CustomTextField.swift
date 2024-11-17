@@ -5,16 +5,17 @@
 //  Created by İlknur Tulgar on 5.11.2024.
 //
 
-import Foundation
 import SwiftUI
 
 struct CustomTextField: View {
+    @Binding var text: String
+    @State private var isPasswordVisible: Bool = false
     var placeholder: String
-    @Binding var text:String
     var isSecure: Bool = false
-    var isAbout: Bool=false
+    var isAbout: Bool = false
     var keyboardType: UIKeyboardType = .default
     var subtitle: String? = nil
+    
     var body: some View {
         VStack(alignment: .leading) {
             if let subtitle = subtitle, !subtitle.isEmpty {
@@ -44,7 +45,24 @@ struct CustomTextField: View {
     private var inputField: some View{
         if isSecure
         {
-            SecureField(placeholder,text: $text)
+            HStack{
+                if isPasswordVisible{
+                    TextField(placeholder,text: $text)
+                        .autocapitalization(.none)
+                        .disableAutocorrection(true)
+                }else{
+                    SecureField(placeholder,text: $text)
+                }
+                Button(action: {
+                    isPasswordVisible.toggle()
+                }){
+                    Image(systemName: isPasswordVisible ? "eye.slash" : "eye")
+                        .frame(width: 18,height: 14)
+                        .foregroundColor(Color.unselectedColor)
+                        .padding(.trailing,15)
+                }
+                    
+            }
         }else if isAbout{
             TextEditor(text: $text)
         }else{

@@ -43,6 +43,7 @@ struct ProfileView: View {
                     
                 }
                 
+                .padding(.top)
             }
             .navigationDestination(for: String.self) { value in
                 if value == "editProfile" {

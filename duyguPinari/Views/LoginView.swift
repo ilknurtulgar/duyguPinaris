@@ -5,14 +5,13 @@
 //  Created by İlknur Tulgar on 4.11.2024.
 //
 
-//Vstack kullanacağım
 import SwiftUI
+
 struct LoginView: View {
     @Binding var isLoggedIn: Bool
-    @State private var username = ""
-    @State private var password = ""
     @State private var isNavigatingToHome = false
     @State private var isNavigatingToRegister = false
+    @StateObject private var viewModel = LoginViewModel()
     
     var body: some View {
         NavigationStack {
@@ -24,8 +23,12 @@ struct LoginView: View {
                     VStack {
                         AuthTitle(title: "GİRİŞ", subtitle: "YAP")
                         
-                        CustomTextField(placeholder: "alara@example.com", text: $username, subtitle: "E mail:")
-                        CustomTextField(placeholder: "******", text: $password, isSecure: true, subtitle: "Şifre:")
+                        CustomTextField(text: $viewModel.email,placeholder: "alara@example.com",  subtitle: "E mail:")
+                        CustomTextField(text: $viewModel.password,placeholder: "******",  isSecure: true, subtitle: "Şifre:")
+                        if let errorMessage = viewModel.errorMessage{
+                            Text(errorMessage)
+                                .foregroundStyle(.red)
+                        }
                         
                         Spacer()
                         CustomButton(
@@ -34,8 +37,14 @@ struct LoginView: View {
                             borderColor: Color.primaryColor,
                             textcolor: .white
                         ) {
-                            isNavigatingToHome = true
-                            isLoggedIn=true
+                            if viewModel.loginUser(){
+                                isNavigatingToHome = true
+                                isLoggedIn=true
+                            }else{
+                                isLoggedIn = false
+                            }
+                            
+                           
                         }
                         .padding(.top, 65)
                         .navigationDestination(isPresented: $isNavigatingToHome) {
@@ -59,8 +68,8 @@ struct LoginView: View {
                                 .navigationBarHidden(true) // Üst çubuğu gizle
                         }
                     }
-                    .padding()
                 }
+                .padding(.top)
             }
         }
         .navigationBarHidden(true) // LoginView için de üst çubuğu gizle
