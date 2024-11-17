@@ -21,39 +21,46 @@ struct RegisterView: View {
                 
                 ScrollView {
                     VStack {
-                        AuthTitle(title: "KAYIT", subtitle: "OL")
+                        AuthTitle(title: RegisterViewModel.RegisterConstants.sign, subtitle: RegisterViewModel.RegisterConstants.signUp)
                         
-                        CustomTextField( text: $viewModel.username,placeholder: "Alara Orea", subtitle: "Kullanıcı Adı:")
-                        CustomTextField(text: $viewModel.email,placeholder: "alara@example.com",  subtitle: "E mail:")
-                        CustomTextField( text: $viewModel.age,placeholder: "15.11.1997", subtitle: "Yaş:")
-                        CustomTextField(text: $viewModel.password, placeholder: "******", isSecure: true, subtitle: "Şifre:")
+                        CustomTextField( text: $viewModel.username,placeholder: Constants.TextConstants.placeholderUsername, subtitle:Constants.TextConstants.usernameTitle)
+                        CustomTextField(text: $viewModel.email,placeholder: Constants.TextConstants.placeholderEmail,  subtitle: Constants.TextConstants.emailTitle)
+                        CustomTextField( text: $viewModel.age,placeholder: Constants.TextConstants.placeholderAge, subtitle: Constants.TextConstants.ageTitle)
+                        CustomTextField(text: $viewModel.password, placeholder: Constants.TextConstants.placeholderPassword, isSecure: true, subtitle: Constants.TextConstants.passwordTitle)
+                        if let errorMessage = viewModel.errorMessage{
+                            Text(errorMessage)
+                                .foregroundStyle(.red)
+                        }
                         
                         Spacer()
                         
                         CustomButton(
-                            title: "Kayıt Yap",
+                            title: Constants.TextConstants.signup,
                             backgroundColor: Color.primaryColor,
                             borderColor: Color.primaryColor,
                             textcolor: .white
                         ) {
-                            print("Kayıt Yap butonuna tıklandı!")
-                            isRegistering = true
+                            if viewModel.registerUser(){
+                                isRegistering = true
+                            }else
+                            {
+                                isRegistering = false
+                            }
                         }
                         .padding(.top, 65)
                         .navigationDestination(isPresented: $isRegistering) {
-                           HomeView()
+                            HomeView()
                                 .navigationBarHidden(true)
                             Color.backgroundPrimary.ignoresSafeArea()
                                 .frame(width: 0,height: 0)// Üst çubuğu gizle
                         }
-                        self.withHorizontalLinesAndText("YA DA")
+                        self.withHorizontalLinesAndText(Constants.TextConstants.or)
                         CustomButton(
-                            title: "Giriş Yap",
+                            title: Constants.TextConstants.signin,
                             backgroundColor: Color.white,
                             borderColor: Color.primaryColor,
                             textcolor: .primaryColor
                         ) {
-                            print("Giriş Yap butonuna tıklandı!")
                             isNavigatingToLogin = true
                         }
                         .padding(.top, 15)

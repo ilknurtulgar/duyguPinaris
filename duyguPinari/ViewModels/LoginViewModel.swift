@@ -12,34 +12,30 @@ class LoginViewModel: ObservableObject{
     @Published  var password: String = ""
     @Published var errorMessage: String? = nil
     
+    struct LoginConstants{
+        static let sign = "GİRİŞ"
+        static let signIn = "YAP"
+    }
+    
     //dummy kullanıcı verisi
     private var dummyUsers: [User] = [
         User(username: "Alara Orea", email: "alara@example.com", age: "15.11.2002", password: "123")]
     func loginUser() -> Bool {
-        // E-posta doğrulama
         if !isValidEmail(email) {
-            errorMessage = "Geçersiz e-posta adresi"
-            print("Hata: Geçersiz e-posta adresi") // Debug log
+            errorMessage = Constants.TextConstants.unvalidEmail
             return false
         }
         
-        // Şifre boş kontrolü
         if password.isEmpty {
-            errorMessage = "Şifre boş olamaz"
-            print("Hata: Şifre boş olamaz") // Debug log
+            errorMessage = Constants.TextConstants.emptyPassword
             return false
         }
         
-        // Kullanıcı kontrolü
         if let _ = dummyUsers.first(where: { $0.email == email && $0.password == password }) {
-            // Başarılı giriş
             errorMessage = nil
-            print("Başarılı giriş!") // Debug log
             return true
         } else {
-            // E-posta veya şifre hatalı
-            errorMessage = "E-posta veya şifre hatalı"
-            print("Hata: E-posta veya şifre hatalı") // Debug log
+            errorMessage = Constants.TextConstants.unvalidInfo
             return false
         }
     }

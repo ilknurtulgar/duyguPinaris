@@ -65,8 +65,12 @@ struct CustomTextField: View {
             }
         }else if isAbout{
             TextEditor(text: $text)
+                .autocapitalization(.none)
+                .disableAutocorrection(true)
         }else{
             TextField(placeholder,text:$text)
+                .autocapitalization(.none)
+                .disableAutocorrection(true)
         }
     }
 }

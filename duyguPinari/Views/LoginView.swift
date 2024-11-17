@@ -21,10 +21,10 @@ struct LoginView: View {
                 
                 ScrollView {
                     VStack {
-                        AuthTitle(title: "GİRİŞ", subtitle: "YAP")
+                        AuthTitle(title:LoginViewModel.LoginConstants.sign, subtitle: LoginViewModel.LoginConstants.signIn)
                         
-                        CustomTextField(text: $viewModel.email,placeholder: "alara@example.com",  subtitle: "E mail:")
-                        CustomTextField(text: $viewModel.password,placeholder: "******",  isSecure: true, subtitle: "Şifre:")
+                        CustomTextField(text: $viewModel.email,placeholder: Constants.TextConstants.placeholderEmail,  subtitle: Constants.TextConstants.emailTitle)
+                        CustomTextField(text: $viewModel.password,placeholder: Constants.TextConstants.placeholderPassword,  isSecure: true, subtitle: Constants.TextConstants.passwordTitle)
                         if let errorMessage = viewModel.errorMessage{
                             Text(errorMessage)
                                 .foregroundStyle(.red)
@@ -32,7 +32,7 @@ struct LoginView: View {
                         
                         Spacer()
                         CustomButton(
-                            title: "Giriş Yap",
+                            title: Constants.TextConstants.signin,
                             backgroundColor: Color.primaryColor,
                             borderColor: Color.primaryColor,
                             textcolor: .white
@@ -52,10 +52,10 @@ struct LoginView: View {
                                 .navigationBarHidden(true) // Üst çubuğu gizle
                          
                         }
-                        self.withHorizontalLinesAndText("YA DA")
+                        self.withHorizontalLinesAndText(Constants.TextConstants.or)
                         
                         CustomButton(
-                            title: "Kayıt Ol",
+                            title: Constants.TextConstants.signup,
                             backgroundColor: Color.white,
                             borderColor: Color.primaryColor,
                             textcolor: .primaryColor
