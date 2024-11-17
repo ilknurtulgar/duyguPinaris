@@ -9,13 +9,14 @@ import SwiftUI
 
 struct HomeView: View {
     var body: some View {
-        ZStack{
-            VStack {
+        VStack{
+            HStack{
                 Spacer()
-                Text("Home Screen")
-                    .font(.title)
-                Spacer()
+                AddConversationButton(action: {})
+                    .padding(.top,10)
+                    .padding(.trailing,45)
             }
+            FeedbackCard(profileImage: Image(systemName: "person.fill"), name: "ilknur", role: "listener", rating: 2, feedbackText: "ı love you")
         }
     }
 }

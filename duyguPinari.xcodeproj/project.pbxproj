@@ -30,6 +30,7 @@
 		836D5EBD2CEA13DA0065D027 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836D5EBC2CEA13DA0065D027 /* LoginViewModel.swift */; };
 		836D5EC02CEA81BA0065D027 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836D5EBF2CEA81BA0065D027 /* Constants.swift */; };
 		836D5EC42CEAA1CA0065D027 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836D5EC32CEAA1CA0065D027 /* CustomButton.swift */; };
+		836D5EC62CEAB1870065D027 /* AddConversationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836D5EC52CEAB1870065D027 /* AddConversationButton.swift */; };
 		8371EDF12CD975640069E1CE /* AuthTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8371EDF02CD975640069E1CE /* AuthTitle.swift */; };
 		8371EDF32CDA048A0069E1CE /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8371EDF22CDA048A0069E1CE /* RegisterView.swift */; };
 		8371EDF52CDA04DF0069E1CE /* PaddingExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8371EDF42CDA04DF0069E1CE /* PaddingExtensions.swift */; };
@@ -87,6 +88,7 @@
 		836D5EBC2CEA13DA0065D027 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		836D5EBF2CEA81BA0065D027 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		836D5EC32CEAA1CA0065D027 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		836D5EC52CEAB1870065D027 /* AddConversationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddConversationButton.swift; sourceTree = "<group>"; };
 		8371EDF02CD975640069E1CE /* AuthTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTitle.swift; sourceTree = "<group>"; };
 		8371EDF22CDA048A0069E1CE /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		8371EDF42CDA04DF0069E1CE /* PaddingExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingExtensions.swift; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 				835660652CE619830081F52B /* customToolBar.swift */,
 				832755582CE78396000A5EFB /* FeedbackCard.swift */,
 				836D5EC32CEAA1CA0065D027 /* CustomButton.swift */,
+				836D5EC52CEAB1870065D027 /* AddConversationButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -401,6 +404,7 @@
 			files = (
 				8339AA8A2CD8BB50002A98B1 /* TextStyles.swift in Sources */,
 				839CBACC2CDC21970066BE03 /* ProfileView.swift in Sources */,
+				836D5EC62CEAB1870065D027 /* AddConversationButton.swift in Sources */,
 				8371EDF52CDA04DF0069E1CE /* PaddingExtensions.swift in Sources */,
 				836D5EB92CEA109C0065D027 /* User.swift in Sources */,
 				836D5EC42CEAA1CA0065D027 /* CustomButton.swift in Sources */,
