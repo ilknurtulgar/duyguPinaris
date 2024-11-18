@@ -9,27 +9,30 @@ import SwiftUI
 
 struct HomeView: View {
     var body: some View {
-        VStack{
-            HStack{
-                Spacer()
-                AddConversationButton(action: {})
-            }
-            .padding(.top,10)
-            .padding(.trailing,100)
-        
-            ScrollView{
-                VStack(spacing: 16){
-                 /*   FeedbackCard(profileImage: Image(systemName: "person.fill"), name: "ilknur", role: "listener", rating: 2, feedbackText: "ı love you")
-                    FeedbackCard(profileImage: Image(systemName: "person.fill"), name: "ilknur", role: "listener", rating: 2, feedbackText: "ı love you ı love you ı love you ı love you ı love you")
-                    FeedbackCard(profileImage: Image(systemName: "person.fill"), name: "ilknur", role: "listener", rating: 2, feedbackText: "ı love you")
-                    FeedbackCard(profileImage: Image(systemName: "person.fill"), name: "ilknur", role: "listener", rating: 2, feedbackText: "ı love you")
-                  */
+        NavigationView{
+            ZStack{
+                Color.backgroundPrimary.ignoresSafeArea()
+                VStack{
+                    HStack{
+                        Spacer()
+                        AddConversationButton(action: {})
+                    }
+                    .padding(.top,10)
+                    .padding(.trailing,100)
+                    
+                    ScrollView{
+                        VStack(spacing: 45){
+                            ChatListCard(profileImage: Image(systemName: "person.circle"), title: "Alexa", messageDetails: "How you doin?", unreadMessages: 2)
+                            ChatListCard(profileImage: Image(systemName: "person.circle"), title: "Rachel", messageDetails: "How you doin?", unreadMessages: 1)
+                        }
+                        .padding(.top,30)
+                    }
                 }
-                .padding(.top,30)
             }
         }
     }
 }
+
 #Preview {
     HomeView()
 }
