@@ -19,7 +19,7 @@ class LoginViewModel: ObservableObject{
     
     //dummy kullanıcı verisi
     private var dummyUsers: [User] = [
-        User(username: "Alara Orea", email: "alara@example.com", age: "15.11.2002", password: "123")]
+        User(username: "Alara Orea", email: "ala@example.com", age: "15.11.2002", password: "123")]
     func loginUser() -> Bool {
         if !isValidEmail(email) {
             errorMessage = Constants.TextConstants.unvalidEmail

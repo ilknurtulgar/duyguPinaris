@@ -22,14 +22,15 @@ struct FeedbackCard: View {
                 .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
             VStack(alignment: .leading,spacing: 4){
                 TextStyles.subtitleMedium(name)
-                HStack{
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                HStack(spacing: 8){
                     TextStyles.roleSubtitleRegular(role)
                     HStack(spacing:2){
                         ForEach(0..<rating, id:\.self){_ in
                             Image(systemName: "star.fill")
                                 .resizable()
                                 .scaledToFit()
-                            .frame(width: 12,height: 12)
+                                .frame(width: 12,height: 12)
                             .foregroundColor(  Color.primaryColor)
                             .shadow(color: Color.black.opacity(0.5), radius: 4, x: 0, y: 2)
                         }
@@ -39,6 +40,7 @@ struct FeedbackCard: View {
             
                 TextStyles.subtitleRegular2(feedbackText)
                     .lineLimit(nil)
+                    .multilineTextAlignment(.leading)
                 
             }
         }
