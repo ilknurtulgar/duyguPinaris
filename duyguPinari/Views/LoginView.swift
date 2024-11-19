@@ -14,68 +14,69 @@ struct LoginView: View {
     @StateObject private var viewModel = LoginViewModel()
     
     var body: some View {
-        
-        ZStack {
-            Color.backgroundPrimary
-                .ignoresSafeArea()
-            
-            ScrollView {
-                VStack {
-                    AuthTitle(title:LoginViewModel.LoginConstants.sign, subtitle: LoginViewModel.LoginConstants.signIn)
-                    
-                    CustomTextField(text: $viewModel.email,placeholder: Constants.TextConstants.placeholderEmail,  subtitle: Constants.TextConstants.emailTitle)
-                    CustomTextField(text: $viewModel.password,placeholder: Constants.TextConstants.placeholderPassword,  isSecure: true, subtitle: Constants.TextConstants.passwordTitle)
-                    if let errorMessage = viewModel.errorMessage{
-                        Text(errorMessage)
-                            .foregroundStyle(.red)
-                    }
-                    
-                    Spacer()
-                    CustomButton(
-                        title: Constants.TextConstants.signin,
-                        width: 295,
-                        height: 40,
-                        backgroundColor: Color.primaryColor,
-                        borderColor: Color.primaryColor,
-                        textcolor: .white,
-                        action: {
-                            if viewModel.loginUser() {
-                                isNavigatingToHome = true
-                                isLoggedIn = true
-                            } else {
-                                isLoggedIn = false
-                            }
-                        },
-                        font: .custom("SFPro-Display-Medium", size: 15))
-                    
-                    .padding(.top, 65)
-                    .navigationDestination(isPresented: $isNavigatingToHome) {
-                        HomeView()
-                            .navigationBarHidden(true) // Üst çubuğu gizle
+        NavigationStack{
+            ZStack {
+                Color.backgroundPrimary
+                    .ignoresSafeArea()
+                
+                ScrollView {
+                    VStack {
+                        AuthTitle(title:LoginViewModel.LoginConstants.sign, subtitle: LoginViewModel.LoginConstants.signIn)
                         
-                    }
-                    self.withHorizontalLinesAndText(Constants.TextConstants.or)
-                    
-                    CustomButton(
-                        title: Constants.TextConstants.signup,
-                        width: 295,
-                        height: 40,
-                        backgroundColor: Color.white,
-                        borderColor: Color.primaryColor,
-                        textcolor: .primaryColor,
-                        action:{
-                        isNavigatingToRegister = true
-                    },
-                    font:.custom("SFPro-Display-Medium", size: 15))
-                    
-                    .padding(.top, 15)
-                    .navigationDestination(isPresented: $isNavigatingToRegister) {
-                        RegisterView()
-                            .navigationBarHidden(true) // Üst çubuğu gizle
+                        CustomTextField(text: $viewModel.email,placeholder: Constants.TextConstants.placeholderEmail,  subtitle: Constants.TextConstants.emailTitle)
+                        CustomTextField(text: $viewModel.password,placeholder: Constants.TextConstants.placeholderPassword,  isSecure: true, subtitle: Constants.TextConstants.passwordTitle)
+                        if let errorMessage = viewModel.errorMessage{
+                            Text(errorMessage)
+                                .foregroundStyle(.red)
+                        }
+                        
+                        Spacer()
+                        CustomButton(
+                            title: Constants.TextConstants.signin,
+                            width: 295,
+                            height: 40,
+                            backgroundColor: Color.primaryColor,
+                            borderColor: Color.primaryColor,
+                            textcolor: .white,
+                            action: {
+                                if viewModel.loginUser() {
+                                    isNavigatingToHome = true
+                                    isLoggedIn = true
+                                } else {
+                                    isLoggedIn = false
+                                }
+                            },
+                            font: .custom("SFPro-Display-Medium", size: 15))
+                        
+                        .padding(.top, 65)
+                        .navigationDestination(isPresented: $isNavigatingToHome) {
+                            HomeView()
+                                .navigationBarHidden(true) // Üst çubuğu gizle
+                            
+                        }
+                        self.withHorizontalLinesAndText(Constants.TextConstants.or)
+                        
+                        CustomButton(
+                            title: Constants.TextConstants.signup,
+                            width: 295,
+                            height: 40,
+                            backgroundColor: Color.white,
+                            borderColor: Color.primaryColor,
+                            textcolor: .primaryColor,
+                            action:{
+                                isNavigatingToRegister = true
+                            },
+                            font:.custom("SFPro-Display-Medium", size: 15))
+                        
+                        .padding(.top, 15)
+                        .navigationDestination(isPresented: $isNavigatingToRegister) {
+                            RegisterView()
+                                .navigationBarHidden(true) // Üst çubuğu gizle
+                        }
                     }
                 }
+                .padding(.top)
             }
-            .padding(.top)
         }
     }
 }

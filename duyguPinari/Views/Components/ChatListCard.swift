@@ -20,7 +20,7 @@ struct ChatListCard: View {
                     .clipShape(Circle())
                     .padding(.leading,25)
                 VStack(alignment: .leading,spacing: 10){
-                    TextStyles.title(title)
+                    TextStyles.subtitleMedium(title)
                     TextStyles.bodyRegular(messageDetails)
                 }
                 
