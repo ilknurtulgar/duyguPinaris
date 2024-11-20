@@ -10,23 +10,29 @@ import SwiftUI
 
 struct CustomToolBar: View {
     let title: String
-    let icon: Image
-    let action: () -> Void
+    let icon: Image?
+    let action: (() -> Void)?
+    
     var body: some View {
-        VStack{
+        VStack {
             HStack {
-                Button(action: action) {
-                    icon
-                        .frame(width: 24, height: 24)
+                if let icon = icon, let action = action {
+                    Button(action: action) {
+                        icon
+                            .frame(width: 24, height: 24)
+                            .padding(.leading, 20)
+                            .foregroundColor(Color.textColor)
+                    }
+                } else {
+                    Spacer()
+                        .frame(width: 24)
                         .padding(.leading, 20)
-                        .foregroundColor(Color.textColor)
                 }
                 Spacer()
                 TextStyles.title(title)
                     .multilineTextAlignment(.center)
                     .foregroundColor(Color.textColor)
                 Spacer()
-                
             }
             .frame(width: 430, height: 40)
             
@@ -35,6 +41,7 @@ struct CustomToolBar: View {
                 .foregroundColor(.secondaryColor)
         }
         .frame(width: 430)
-        .padding(.top,30)
+        .padding(.top, 30)
     }
 }
+

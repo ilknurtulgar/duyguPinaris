@@ -8,6 +8,7 @@
 import SwiftUI
 
 class StartChattingViewModel: ObservableObject {
+    @Published var isLoading: Bool = false
     @Published  var selectionAge = ""
     @Published  var selectionRole = ""
     @Published  var topic = ""
@@ -20,6 +21,7 @@ class StartChattingViewModel: ObservableObject {
         static let roleSubtitle = "Konuşma rolünü seçin:"
         static let topicTitle = "Konu seçiniz:"
         static let find = "Bul"
+        static let loadingTitle = "Oluşturuluyor, lütfen bekleyin..."
     }
     let agesList = ["18 - 30","31 - 45","46 - 60"]
     let roleList = ["Dinleyici", "Anatıcı"]
@@ -31,5 +33,11 @@ class StartChattingViewModel: ObservableObject {
             return false
         }
         return true
+    }
+    func startChat()  {
+        isLoading = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0){
+            self.isLoading = false
+        }
     }
 }

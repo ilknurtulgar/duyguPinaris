@@ -46,7 +46,7 @@
 		83CC4D102CEC7FCB005ABF77 /* CustomPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CC4D0F2CEC7FCB005ABF77 /* CustomPicker.swift */; };
 		83CC4D122CECAF2C005ABF77 /* ChatSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CC4D112CECAF2C005ABF77 /* ChatSelection.swift */; };
 		83CC4D142CECB04D005ABF77 /* StartChattingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CC4D132CECB04D005ABF77 /* StartChattingViewModel.swift */; };
-		83CC4D162CECBAA7005ABF77 /* LoadingChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CC4D152CECBAA7005ABF77 /* LoadingChatView.swift */; };
+		83CC4D182CECBE49005ABF77 /* SelectConversationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CC4D172CECBE49005ABF77 /* SelectConversationView.swift */; };
 		83DB027E2CEBF854000CBCD6 /* ChatListCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DB027D2CEBF854000CBCD6 /* ChatListCard.swift */; };
 		83DB02802CEC01BF000CBCD6 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DB027F2CEC01BF000CBCD6 /* ChatView.swift */; };
 /* End PBXBuildFile section */
@@ -110,7 +110,7 @@
 		83CC4D0F2CEC7FCB005ABF77 /* CustomPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPicker.swift; sourceTree = "<group>"; };
 		83CC4D112CECAF2C005ABF77 /* ChatSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatSelection.swift; sourceTree = "<group>"; };
 		83CC4D132CECB04D005ABF77 /* StartChattingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartChattingViewModel.swift; sourceTree = "<group>"; };
-		83CC4D152CECBAA7005ABF77 /* LoadingChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingChatView.swift; sourceTree = "<group>"; };
+		83CC4D172CECBE49005ABF77 /* SelectConversationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectConversationView.swift; sourceTree = "<group>"; };
 		83DB027D2CEBF854000CBCD6 /* ChatListCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListCard.swift; sourceTree = "<group>"; };
 		83DB027F2CEC01BF000CBCD6 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -242,7 +242,7 @@
 				835660632CE616E90081F52B /* EditProfileView.swift */,
 				83DB027F2CEC01BF000CBCD6 /* ChatView.swift */,
 				83CC4D0D2CEC73F7005ABF77 /* StartChattingView.swift */,
-				83CC4D152CECBAA7005ABF77 /* LoadingChatView.swift */,
+				83CC4D172CECBE49005ABF77 /* SelectConversationView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -427,11 +427,11 @@
 				839CBACC2CDC21970066BE03 /* ProfileView.swift in Sources */,
 				836D5EC62CEAB1870065D027 /* AddConversationButton.swift in Sources */,
 				8371EDF52CDA04DF0069E1CE /* PaddingExtensions.swift in Sources */,
+				83CC4D182CECBE49005ABF77 /* SelectConversationView.swift in Sources */,
 				83CC4D142CECB04D005ABF77 /* StartChattingViewModel.swift in Sources */,
 				836D5EB92CEA109C0065D027 /* User.swift in Sources */,
 				836D5EC42CEAA1CA0065D027 /* CustomButton.swift in Sources */,
 				83CC4D122CECAF2C005ABF77 /* ChatSelection.swift in Sources */,
-				83CC4D162CECBAA7005ABF77 /* LoadingChatView.swift in Sources */,
 				8339AA862CD8B340002A98B1 /* LoginView.swift in Sources */,
 				83DB027E2CEBF854000CBCD6 /* ChatListCard.swift in Sources */,
 				83CC4D102CEC7FCB005ABF77 /* CustomPicker.swift in Sources */,

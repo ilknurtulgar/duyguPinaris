@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct StartChattingView: View {
-    @State var isComplete: Bool = false
     @Environment(\.dismiss) private var dismiss
+    @State private var navigateToNextView = false
     @StateObject private var viewModel = StartChattingViewModel()
     var body: some View {
         NavigationStack{
@@ -31,26 +31,40 @@ struct StartChattingView: View {
                             }
                             CustomButton(title: StartChattingViewModel.StartChattingConstants.find, width: 295, height: 40, backgroundColor: Color.primaryColor, borderColor: Color.primaryColor, textcolor: Color.white, action: {
                                 if viewModel.validateSelections(){
-                                    isComplete = true
-                                }else
-                                {
-                                    isComplete = false
+                                    viewModel.startChat()
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                                        navigateToNextView = true
+                                    }
+                                    
+                                }else{
+                                    viewModel.isLoading = false
                                 }
                             }, font:   .custom("SFPro-Display-Medium", size: 15))
-                            .navigationDestination(isPresented: $isComplete){
-                                LoadingChatView()
-                                    .navigationBarHidden(true)
-                            }
                         }
                     }
                 }
-                
+                if viewModel.isLoading{
+                    ZStack{
+                        Color.gray.opacity(0.2).ignoresSafeArea()
+                        VStack(spacing: 20){
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle(tint: Color.primaryColor))
+                                .scaleEffect(1.5)
+                            Text(StartChattingViewModel.StartChattingConstants.loadingTitle)
+                                .font(.custom("SFPro-Display-Medium", size: 20))
+                                .foregroundColor(Color.white)
+                        }
+                    }
+                }
             }
-            
+            .navigationDestination(isPresented: $navigateToNextView){
+                SelectConversationView()
+                    .navigationBarHidden(true)
+            }
         }
     }
 }
 
 /*#Preview {
-    StartChattingView()
-}*/
+ StartChattingView()
+ }*/
