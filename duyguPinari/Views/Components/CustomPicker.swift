@@ -48,7 +48,7 @@ struct CustomPicker<T: Hashable>: View {
                                 isExpanded = false
                             }
                         }){
-                            TextStyles.subtitleRegular2("\(option)")
+                            TextStyles.subtitleMedium2("\(option)")
                                 .padding(.leading,20)
                                 .frame(maxWidth: .infinity,alignment: .leading)
                         }

@@ -53,7 +53,7 @@ struct TextStyles {
             .foregroundColor(.textColor)
     }
     
-    static func subtitleRegular2(_ text:String) -> some View {
+    static func subtitleMedium2(_ text:String) -> some View {
         Text(text)
             .font(.custom("SFPro-Display-Medium", size: 12))
             .foregroundColor(.textColor)

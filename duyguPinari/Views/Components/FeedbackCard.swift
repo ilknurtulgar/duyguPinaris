@@ -38,7 +38,7 @@ struct FeedbackCard: View {
                 }
                 .padding(.bottom,13)
             
-                TextStyles.subtitleRegular2(feedbackText)
+                TextStyles.subtitleMedium2(feedbackText)
                     .lineLimit(nil)
                     .multilineTextAlignment(.leading)
                 
