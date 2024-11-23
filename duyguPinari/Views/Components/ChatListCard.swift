@@ -11,8 +11,9 @@ struct ChatListCard: View {
     var title: String
     var messageDetails: String
     var unreadMessages: Int
+    @Binding var showBottomTabBar: Bool
     var body: some View{
-        NavigationLink(destination: ChatView()){
+        NavigationLink(destination: ChatView(showBottomTabBar: $showBottomTabBar)){
             HStack{
                 profileImage
                     .resizable()

@@ -19,70 +19,69 @@ struct EditProfileView: View {
     
     
     var body: some View {
-        ZStack {
-            Color.backgroundPrimary.ignoresSafeArea()
-            VStack(spacing: 0) {
-                CustomToolBar(title: "Profil Düzenleme", icon: Image(systemName: "chevron.left")) {
-                    dismiss()
-                }
-                
-                ScrollView {
-                    VStack(spacing: 16) {
-                        ProfileImage()
-                            .padding(.top, 16)
-                        CustomTextField(text: $username, placeholder: "Alexa Richardson", subtitle: "UserName:")
-                        CustomTextField(text: $email, placeholder: "alexa@example.com", subtitle: "E mail:")
-                        CustomTextField(text: $password,placeholder: Constants.TextConstants.placeholderPassword,  isSecure: true, subtitle: Constants.TextConstants.passwordTitle)
-                        CustomTextField(text: $age, placeholder: "15.10.1997", subtitle: "Age:")
-                        CustomTextField(text: $about, placeholder: "Alexa Richardson", isAbout: true, subtitle: "About:")
-                    
-                        
-                        HStack(spacing: 68) {
-                            CustomButton(
-                                title: Constants.TextConstants.cancel,
-                                width: 123,
-                                height: 35,
-                                backgroundColor: Color.white,
-                                borderColor: Color.primaryColor,
-                                textcolor: Color.primaryColor,
-                                action: {
-                                    dismiss()
-                                },
-                                font: .custom("SFPro-Display-Medium", size: 10)
-                            )
-                            CustomButton(
-                                title: Constants.TextConstants.accept,
-                                width: 123,
-                                height: 35,
-                                backgroundColor: Color.primaryColor,
-                                borderColor: Color.primaryColor,
-                                textcolor: Color.white,
-                                action: {
-                                   showAlert=true
-                                },
-                                font: .custom("SFPro-Display-Medium", size: 10)
-                            )
+        NavigationStack{
+            ZStack {
+                VStack(spacing: 0) {
+                    CustomToolBar(title: "Profil Düzenleme", icon: Image(systemName: "chevron.left")) {
+                        dismiss()
+                    }
+                    ScrollView {
+                        VStack(spacing: 16) {
+                            ProfileImage()
+                                .padding(.top, 16)
+                            CustomTextField(text: $username, placeholder: "Alexa Richardson", subtitle: "UserName:")
+                            CustomTextField(text: $email, placeholder: "alexa@example.com", subtitle: "E mail:")
+                            CustomTextField(text: $password,placeholder: Constants.TextConstants.placeholderPassword,  isSecure: true, subtitle: Constants.TextConstants.passwordTitle)
+                            CustomTextField(text: $age, placeholder: "15.10.1997", subtitle: "Age:")
+                            CustomTextField(text: $about, placeholder: "Alexa Richardson", isAbout: true, subtitle: "About:")
+                            
+                            
+                            HStack(spacing: 68) {
+                                CustomButton(
+                                    title: Constants.TextConstants.cancel,
+                                    width: 123,
+                                    height: 35,
+                                    backgroundColor: Color.white,
+                                    borderColor: Color.primaryColor,
+                                    textcolor: Color.primaryColor,
+                                    action: {
+                                        dismiss()
+                                    },
+                                    font: .custom("SFPro-Display-Medium", size: 10)
+                                )
+                                CustomButton(
+                                    title: Constants.TextConstants.accept,
+                                    width: 123,
+                                    height: 35,
+                                    backgroundColor: Color.primaryColor,
+                                    borderColor: Color.primaryColor,
+                                    textcolor: Color.white,
+                                    action: {
+                                        showAlert=true
+                                    },
+                                    font: .custom("SFPro-Display-Medium", size: 10)
+                                )
+                            }
+                            .padding(.top, 24)
+                            .padding(.bottom, 40)
+                            
                         }
-                        .padding(.top, 24)
-                        .padding(.bottom, 40)
-                       
+                        .padding(.horizontal, 16)
                     }
                     
                 }
-                .padding(.horizontal, 16)
             }
-            .padding(.top)
-        }
-        .alert("Profil Düzenleme",isPresented: $showAlert){
-            Button("İptal",role: .cancel){}
+            .alert("Profil Düzenleme",isPresented: $showAlert){
+                Button("İptal",role: .cancel){}
+                
+                Button("Onayla"){
+                    dismiss()
+                }
+            }message: {
+                Text("Değişiklikleri kaydetmeyi onaylıyor musunuz?")
+            }
             
-            Button("Onayla"){
-                dismiss()
-            }
-        }message: {
-            Text("Değişiklikleri kaydetmeyi onaylıyor musunuz?")
         }
-  
     }
 }
 

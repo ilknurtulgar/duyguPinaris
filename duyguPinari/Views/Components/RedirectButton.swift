@@ -10,9 +10,11 @@ import SwiftUI
 struct CustomRedirectButton: View {
     let icon: Image
     let title: String
-    let action:()->Void
+    let action: () -> Void
     var body: some View {
-        Button(action:action){
+        Button(action:{
+            action()
+        }){
             HStack {
                 icon
                     .resizable()

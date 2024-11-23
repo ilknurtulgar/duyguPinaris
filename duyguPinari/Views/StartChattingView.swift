@@ -10,6 +10,7 @@ import SwiftUI
 struct StartChattingView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var navigateToNextView = false
+    @Binding var showBottomTabBar: Bool
     @StateObject private var viewModel = StartChattingViewModel()
     var body: some View {
         NavigationStack{
@@ -58,7 +59,13 @@ struct StartChattingView: View {
                 }
             }
             .navigationDestination(isPresented: $navigateToNextView){
-                SelectConversationView()
+                SelectConversationView(showBottomTabBar: $showBottomTabBar)
+                    .onAppear{
+                        showBottomTabBar = false
+                    }
+                    .onDisappear{
+                        showBottomTabBar = true
+                    }
                     .navigationBarHidden(true)
             }
         }

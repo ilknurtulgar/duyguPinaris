@@ -15,14 +15,13 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             Color.backgroundPrimary.ignoresSafeArea()
-            
             if isLoggedIn {
                 VStack(spacing:0) {
-                    NavigationView {
+                    NavigationStack {
                         ZStack {
                             Color.backgroundPrimary.ignoresSafeArea()
                             if selectedTab == "Home" {
-                                HomeView()
+                                HomeView(showBottomTabBar: $showBottomTabBar)
                             } else if selectedTab == "Profile" {
                                 ProfileView( showBottomTabBar: $showBottomTabBar)
                             }
@@ -36,7 +35,7 @@ struct ContentView: View {
                     }
                 }
             } else {
-                LoginView(isLoggedIn: $isLoggedIn)
+                LoginView(isLoggedIn: $isLoggedIn,showBottomTabBar: $showBottomTabBar)
             }
         }
     }

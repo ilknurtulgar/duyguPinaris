@@ -11,6 +11,7 @@ struct RegisterView: View {
     
     @StateObject private var viewModel = RegisterViewModel()
     @State private var isRegistering = false
+    @Binding var showBottomTabBar: Bool
     @State private var isNavigatingToLogin = false
     
     var body: some View {
@@ -52,7 +53,7 @@ struct RegisterView: View {
                                 },font: .custom("SFPro-Display-Medium", size: 15))
                         .padding(.top, 65)
                         .navigationDestination(isPresented: $isRegistering) {
-                            HomeView()
+                            HomeView(showBottomTabBar: $showBottomTabBar)
                                 .navigationBarHidden(true)
                             Color.backgroundPrimary.ignoresSafeArea()
                                 .frame(width: 0,height: 0)
@@ -72,7 +73,7 @@ struct RegisterView: View {
                             font: .custom("SFPro-Display-Medium", size: 15))
                         .padding(.top, 15)
                         .navigationDestination(isPresented: $isNavigatingToLogin) {
-                            LoginView(isLoggedIn: .constant(false))
+                            LoginView(isLoggedIn: .constant(false),showBottomTabBar: $showBottomTabBar)
                                 .navigationBarHidden(true)
                         }
                     }
@@ -84,6 +85,6 @@ struct RegisterView: View {
     }
 }
 
-#Preview {
+/*#Preview {
     RegisterView()
-}
+}*/

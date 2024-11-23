@@ -10,6 +10,8 @@ import SwiftUI
 struct SelectConversationView: View {
     @State private var navigateToHomeView = false
     @State private var navigateToChatView = false
+    @Environment(\.dismiss) private var dismiss
+    @Binding var showBottomTabBar: Bool
     var body: some View {
         ZStack{
             Color.backgroundPrimary.ignoresSafeArea()
@@ -34,7 +36,11 @@ struct SelectConversationView: View {
                             FeedbackCard(profileImage: Image(systemName: "person.circle"), name: "Jane Smith", role: "Listener", rating: 5, feedbackText: "Good conversation. Thanks for listening!")
                         }
                         HStack(spacing: 80){
-                            CustomButton(title: Constants.TextConstants.cancel, width: 123, height: 35, backgroundColor: Color.white, borderColor: Color.primaryColor, textcolor: Color.primaryColor, action: {navigateToHomeView = true}, font: .custom("SFPro-Display-Medium", size: 10))
+                            CustomButton(title: Constants.TextConstants.cancel, width: 123, height: 35, backgroundColor: Color.white, borderColor: Color.primaryColor, textcolor: Color.primaryColor, action: {
+                                navigateToHomeView = true
+                                dismiss()
+                            },
+                                     font: .custom("SFPro-Display-Medium", size: 10))
                             
                             CustomButton(title: Constants.TextConstants.accept, width: 123, height: 35, backgroundColor: Color.primaryColor, borderColor: Color.primaryColor, textcolor: Color.white, action: {navigateToChatView = true}, font: .custom("SFPro-Display-Medium",size: 10))
                         }
@@ -42,14 +48,15 @@ struct SelectConversationView: View {
                         
                     }
                 }
-                .navigationDestination(isPresented: $navigateToHomeView)
-                {
-                    HomeView()
-                        .navigationBarBackButtonHidden(true)
-                }
                 .navigationDestination(isPresented: $navigateToChatView)
                 {
-                    ChatView()
+                    ChatView(showBottomTabBar: $showBottomTabBar)
+                        .onAppear{
+                            showBottomTabBar = false
+                        }
+                        .onDisappear{
+                            showBottomTabBar = true
+                        }
                         .navigationBarBackButtonHidden(true)
                 }
             }

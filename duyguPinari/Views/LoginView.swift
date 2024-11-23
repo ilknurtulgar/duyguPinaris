@@ -12,6 +12,7 @@ struct LoginView: View {
     @State private var isNavigatingToHome = false
     @State private var isNavigatingToRegister = false
     @StateObject private var viewModel = LoginViewModel()
+    @Binding var showBottomTabBar: Bool
     
     var body: some View {
         NavigationStack{
@@ -50,7 +51,7 @@ struct LoginView: View {
                         
                         .padding(.top, 65)
                         .navigationDestination(isPresented: $isNavigatingToHome) {
-                            HomeView()
+                            HomeView(showBottomTabBar: $showBottomTabBar)
                                 .navigationBarHidden(true) // Üst çubuğu gizle
                             
                         }
@@ -70,7 +71,7 @@ struct LoginView: View {
                         
                         .padding(.top, 15)
                         .navigationDestination(isPresented: $isNavigatingToRegister) {
-                            RegisterView()
+                            RegisterView(showBottomTabBar: $showBottomTabBar)
                                 .navigationBarHidden(true) // Üst çubuğu gizle
                         }
                     }
@@ -81,7 +82,7 @@ struct LoginView: View {
     }
 }
 
-#Preview {
+/*#Preview {
     LoginView(isLoggedIn: .constant(false))
-}
+}*/
 

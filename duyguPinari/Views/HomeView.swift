@@ -9,15 +9,16 @@ import SwiftUI
 
 struct HomeView: View {
     @State private var navigateToFilterView: Bool = false
+    @Binding var showBottomTabBar: Bool
     var body: some View {
         NavigationStack{
             ZStack{
-                Color.backgroundPrimary.ignoresSafeArea()
                 VStack{
                     HStack{
                         Spacer()
                         AddConversationButton(action: {
                             navigateToFilterView=true
+                            showBottomTabBar=false
                         })
                     }
                     .padding(.top,10)
@@ -25,8 +26,8 @@ struct HomeView: View {
                     
                     ScrollView{
                         VStack(spacing: 45){
-                            ChatListCard(profileImage: Image(systemName: "person.circle"), title: "Alexa Richardson", messageDetails: "How you doin?", unreadMessages: 2)
-                            ChatListCard(profileImage: Image(systemName: "person.circle"), title: "Rachel Green", messageDetails: "How you doin?", unreadMessages: 1)
+                            ChatListCard(profileImage: Image(systemName: "person.circle"), title: "Alexa Richardson", messageDetails: "How you doin?", unreadMessages: 2,showBottomTabBar: $showBottomTabBar)
+                            ChatListCard(profileImage: Image(systemName: "person.circle"), title: "Rachel Green", messageDetails: "How you doin?", unreadMessages: 1,showBottomTabBar: $showBottomTabBar)
                         }
                         .padding(.top,30)
                     }
@@ -34,14 +35,17 @@ struct HomeView: View {
             }
         
             .navigationDestination(isPresented: $navigateToFilterView){
-                StartChattingView()
+                StartChattingView(showBottomTabBar: $showBottomTabBar)
+                    .onDisappear{
+                        showBottomTabBar=true
+                    }
                     .navigationBarBackButtonHidden(true)
             }
         }
     }
 }
 
-#Preview {
+/*#Preview {
     HomeView()
-}
+}*/
 
