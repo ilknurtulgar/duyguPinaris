@@ -10,6 +10,8 @@ import SwiftUI
 struct HomeView: View {
     @State private var navigateToFilterView: Bool = false
     @Binding var showBottomTabBar: Bool
+    @State private var destination: String?
+    
     var body: some View {
         NavigationStack{
             ZStack{
@@ -17,8 +19,8 @@ struct HomeView: View {
                     HStack{
                         Spacer()
                         AddConversationButton(action: {
-                            navigateToFilterView=true
                             showBottomTabBar=false
+                            navigateToFilterView=true
                         })
                     }
                     .padding(.top,10)
@@ -26,18 +28,38 @@ struct HomeView: View {
                     
                     ScrollView{
                         VStack(spacing: 45){
-                            ChatListCard(profileImage: Image(systemName: "person.circle"), title: "Alexa Richardson", messageDetails: "How you doin?", unreadMessages: 2,showBottomTabBar: $showBottomTabBar)
-                            ChatListCard(profileImage: Image(systemName: "person.circle"), title: "Rachel Green", messageDetails: "How you doin?", unreadMessages: 1,showBottomTabBar: $showBottomTabBar)
+                            ChatListCard(profileImage: Image(systemName: "person.circle"), title: "Alexa Richardson", messageDetails: "How you doin?", unreadMessages: 2,showBottomTabBar: $showBottomTabBar,
+                                         action: {
+                                showBottomTabBar = false
+                                destination = "chat"
+                            })
+                            ChatListCard(profileImage: Image(systemName: "person.circle"), title: "Rachel Green", messageDetails: "How you doin?", unreadMessages: 1,showBottomTabBar: $showBottomTabBar,
+                                         action: {
+                                showBottomTabBar = false
+                                destination = "chat"
+                            })
                         }
                         .padding(.top,30)
                     }
                 }
             }
-        
+            
             .navigationDestination(isPresented: $navigateToFilterView){
                 StartChattingView(showBottomTabBar: $showBottomTabBar)
                     .onDisappear{
                         showBottomTabBar=true
+                    }
+                    .navigationBarBackButtonHidden(true)
+            }
+            
+            .navigationDestination(isPresented: .constant(destination == "chat")){
+                ChatView(showBottomTabBar: $showBottomTabBar)
+                    .onAppear{
+                        showBottomTabBar = false
+                    }
+                    .onDisappear{
+                        
+                        destination = nil
                     }
                     .navigationBarBackButtonHidden(true)
             }
@@ -47,6 +69,6 @@ struct HomeView: View {
 }
 
 /*#Preview {
-    HomeView()
-}*/
+ HomeView()
+ }*/
 

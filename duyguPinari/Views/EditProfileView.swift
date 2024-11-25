@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct EditProfileView: View {
+    
     @Environment(\.dismiss) private var dismiss
     @Binding var showBottomTabBar: Bool
     @State private var showAlert: Bool = false
@@ -25,6 +26,7 @@ struct EditProfileView: View {
                 VStack(spacing: 0) {
                     CustomToolBar(title: "Profil Düzenleme", icon: Image(systemName: "chevron.left")) {
                         dismiss()
+                            showBottomTabBar = true
                     }
                     ScrollView {
                         VStack(spacing: 16) {

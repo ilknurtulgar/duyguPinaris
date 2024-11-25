@@ -16,19 +16,15 @@ struct ChatView: View {
             Color.backgroundPrimary.ignoresSafeArea()
             VStack(spacing: 0) {
                 CustomToolBar(title: "Chat view", icon: Image(systemName: "chevron.left")){
+                    showBottomTabBar = true
                     dismiss()
+                   
                 }
                 VStack{
                     Text("asas")
                 }
                 .padding(.top, 24)
                 .padding(.bottom, 40)
-            }
-            .onAppear{
-                showBottomTabBar = false
-            }
-            .onDisappear{
-                showBottomTabBar = true
             }
         }
     }

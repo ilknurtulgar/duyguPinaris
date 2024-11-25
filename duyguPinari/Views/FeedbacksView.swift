@@ -9,6 +9,7 @@ import SwiftUI
 
 struct FeedbacksView: View {
     @StateObject var viewModel = FeedbacksViewModel()
+    @Binding var showBotttomTabBar: Bool
     @Environment(\.dismiss) private var dismiss
     var body: some View {
         ZStack{
@@ -16,6 +17,7 @@ struct FeedbacksView: View {
             VStack(){
                 CustomToolBar(title: "Geri Bildirimler", icon: Image(systemName: "chevron.left")){
                     dismiss()
+                    showBotttomTabBar = true
                 }
                 .padding(.bottom,30)
                 ScrollView{
@@ -31,6 +33,6 @@ struct FeedbacksView: View {
     }
 }
 
-#Preview {
+/*#Preview {
     FeedbacksView()
-}
+}*/
