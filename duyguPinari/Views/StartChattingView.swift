@@ -17,7 +17,10 @@ struct StartChattingView: View {
             ZStack{
                 Color.backgroundPrimary.ignoresSafeArea()
                 VStack(spacing:0){
-                    CustomToolBar(title: StartChattingViewModel.StartChattingConstants.startConversation, icon:Image(systemName: "chevron.left"), action: {dismiss()})
+                    CustomToolBar(title: StartChattingViewModel.StartChattingConstants.startConversation, icon:Image(systemName: "chevron.left"), action: {
+                    showBottomTabBar = true
+                        dismiss()
+                    })
                         .padding(.bottom,45)
                     
                     ScrollView{
