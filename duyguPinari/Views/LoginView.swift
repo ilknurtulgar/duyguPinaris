@@ -30,8 +30,6 @@ struct LoginView: View {
                             Text(errorMessage)
                                 .foregroundStyle(.red)
                         }
-                        
-                        Spacer()
                         CustomButton(
                             title: Constants.TextConstants.signin,
                             width: 295,
@@ -40,13 +38,14 @@ struct LoginView: View {
                             borderColor: Color.primaryColor,
                             textcolor: .white,
                             action: {
-                                if viewModel.loginUser() {
-                                    isNavigatingToHome = true
-                                    isLoggedIn = true
-                                } else {
-                                    isLoggedIn = false
-                                }
-                            },
+                                viewModel.loginUser { success in
+                                    if success{
+                                        isNavigatingToHome = true
+                                        isLoggedIn = true
+                                    }
+                                    else {
+                                        isLoggedIn = false
+                                    }}},
                             font: .custom("SFPro-Display-Medium", size: 15))
                         
                         .padding(.top, 65)
@@ -72,17 +71,17 @@ struct LoginView: View {
                         .padding(.top, 15)
                         .navigationDestination(isPresented: $isNavigatingToRegister) {
                             RegisterView(showBottomTabBar: $showBottomTabBar)
-                                .navigationBarHidden(true) // Üst çubuğu gizle
+                                .navigationBarHidden(true)
                         }
                     }
                 }
-                .padding(.top)
+               // .padding(.top)
             }
         }
     }
 }
 
 /*#Preview {
-    LoginView(isLoggedIn: .constant(false))
-}*/
+ LoginView(isLoggedIn: .constant(false))
+ }*/
 

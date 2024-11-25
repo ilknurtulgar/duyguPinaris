@@ -6,37 +6,50 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 class LoginViewModel: ObservableObject{
     @Published var email: String = ""
     @Published  var password: String = ""
-    @Published var errorMessage: String? = nil
+    @Published var errorMessage: String?
     
     struct LoginConstants{
         static let sign = "GİRİŞ"
         static let signIn = "YAP"
     }
     
-    //dummy kullanıcı verisi
-    private var dummyUsers: [User] = [
-        User(username: "Alara Orea", email: "ala@example.com", age: "15.11.2002", password: "123")]
-    func loginUser() -> Bool {
-        if !isValidEmail(email) {
+    
+    func loginUser(completion: @escaping (Bool) -> Void) {
+        
+        guard !email.isEmpty else {
+            errorMessage = "Lütfen e-posta adresinizi girin."
+            completion(false)
+            return
+        }
+        
+        guard isValidEmail(email) else  {
             errorMessage = Constants.TextConstants.unvalidEmail
-            return false
+            completion(false)
+            return
         }
         
-        if password.isEmpty {
+        guard !password.isEmpty  else{
             errorMessage = Constants.TextConstants.emptyPassword
-            return false
+            completion(false)
+            return
         }
         
-        if let _ = dummyUsers.first(where: { $0.email == email && $0.password == password }) {
-            errorMessage = nil
-            return true
-        } else {
-            errorMessage = Constants.TextConstants.unvalidInfo
-            return false
+        Auth.auth().signIn(withEmail: email, password: password){[weak self] authResult,error in
+            if let error = error {
+                self?.errorMessage = error.localizedDescription
+                completion(false)
+            }
+            return
+        }
+        // girişin başarılı olması durumu
+        DispatchQueue.main.async{
+            self.errorMessage = nil
+            completion(true)
         }
     }
     private func isValidEmail(_ email: String) -> Bool {

@@ -33,8 +33,6 @@ struct RegisterView: View {
                                 .foregroundStyle(.red)
                         }
                         
-                        Spacer()
-                        
                         CustomButton(
                             title: Constants.TextConstants.signup,
                             width: 295,
@@ -44,19 +42,20 @@ struct RegisterView: View {
                             textcolor: .white,
                             action:
                                 {
-                                    if viewModel.registerUser(){
-                                        isRegistering = true
-                                    }else
-                                    {
-                                        isRegistering = false
-                                    }
-                                },font: .custom("SFPro-Display-Medium", size: 15))
+                                    viewModel.registerUser{ success in
+                                        if success{
+                                            isRegistering = true
+                                            showBottomTabBar = true
+                                        }
+                                        else
+                                        {
+                                            isRegistering = false
+                                        }
+                                    }},font: .custom("SFPro-Display-Medium", size: 15))
                         .padding(.top, 65)
                         .navigationDestination(isPresented: $isRegistering) {
                             HomeView(showBottomTabBar: $showBottomTabBar)
                                 .navigationBarHidden(true)
-                            Color.backgroundPrimary.ignoresSafeArea()
-                                .frame(width: 0,height: 0)
                         }
                         self.withHorizontalLinesAndText(Constants.TextConstants.or)
                         CustomButton(
@@ -78,7 +77,7 @@ struct RegisterView: View {
                         }
                     }
                 }
-                .padding(.top)
+              //  .padding(.top)
             }
         }
         .navigationBarHidden(true)
@@ -86,5 +85,5 @@ struct RegisterView: View {
 }
 
 /*#Preview {
-    RegisterView()
-}*/
+ RegisterView()
+ }*/

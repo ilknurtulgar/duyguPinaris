@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 class RegisterViewModel: ObservableObject{
     @Published var username: String = ""
@@ -20,28 +21,43 @@ class RegisterViewModel: ObservableObject{
         static let usernameEmpty = "Kullanıcı adı boş"
         static let invalidAgeFormat = "Yaş formatı geçersiz.Lütfen '15.11.1997' formatını kullanın."
     }
-    private var registeredUsers:[User]=[]
-    func registerUser() -> Bool {
+
+    func registerUser(completion: @escaping (Bool) -> Void) {
     
         if username.isEmpty {
             errorMessage = RegisterConstants.usernameEmpty
-            return false
+            completion(false)
+            return
         }
         if !isValidEmail(email){
             errorMessage = Constants.TextConstants.unvalidEmail
-            return false
+            completion(false)
+            return
         }
         if !isValidAge(age){
             errorMessage = RegisterConstants.invalidAgeFormat
-            return false
+            completion(false)
+            return
         }
         if password.isEmpty {
             errorMessage = Constants.TextConstants.emptyPassword
-            return false
+            completion(false)
+            return
         }
-        let newUser=User(username: username, email: email, age: age, password: password)
-        registeredUsers.append(newUser)
-        return true
+        Auth.auth().createUser(withEmail: email, password: password){ [weak self] authResult, error in
+            if let error = error{
+                DispatchQueue.main.async {
+                    self?.errorMessage = error.localizedDescription
+                    completion(false)
+                }
+                return
+            }
+            // kullanıcı kaydedildi ve veri ekleme
+            DispatchQueue.main.async {
+                self?.errorMessage = nil
+                completion(true)
+            }
+        }
     }
     
     private func isValidEmail(_ email: String) -> Bool {

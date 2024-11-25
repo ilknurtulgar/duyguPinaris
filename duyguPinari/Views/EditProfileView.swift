@@ -16,11 +16,12 @@ struct EditProfileView: View {
     @State private var age: String = "15.10.1997"
     @State private var password="123"
     @State private var about: String = "sacdcdövdöşwedbwsüdflçöeğrldfacdcdövdöşwedbwsüdflçöeğrldfacdcdövdöşwedbwsüdflçöeğrldfacdcdövdöşwedbwsüdflçöeğrldfacdcdövdöşwedbwsüdflçöeğrldfacdcdövdöşwedbwsüdflçöeğrldfacdcdövdöşwedbwsüdflçöeğrldf"
-    
-    
+
     var body: some View {
         NavigationStack{
             ZStack {
+                Color.backgroundPrimary
+                    .ignoresSafeArea()
                 VStack(spacing: 0) {
                     CustomToolBar(title: "Profil Düzenleme", icon: Image(systemName: "chevron.left")) {
                         dismiss()

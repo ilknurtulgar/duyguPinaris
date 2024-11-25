@@ -14,7 +14,6 @@ extension Text {
             .font(.custom("SFPro-Display-Regular", size: 12))
             .foregroundColor(.textColor)
             .frame(width: 294)
-           // .padding()
             .cornerRadius(15)
     }
 }

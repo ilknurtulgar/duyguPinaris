@@ -6,11 +6,11 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+
 
 struct ProfileImage: View {
     var body: some View {
-        WebImage(url: URL(string: "https://www.brit.co/media-library/jennifer-aniston-rachel-green-friends.jpg?id=35237685&width=600&height=600&quality=90&coordinates=0%2C0%2C0%2C3"))
+       Image(systemName: "person.circle")
             .resizable()
             .scaledToFit()
             .frame(width: 244, height: 230)  // Boyutu ayarlayın
