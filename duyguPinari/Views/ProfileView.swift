@@ -16,7 +16,7 @@ enum Destination: Hashable {
 struct ProfileView: View {
     @Binding var showBottomTabBar: Bool
     @State private var destination: Destination?
-    
+    @EnvironmentObject var appState: AppState
     var body: some View {
         NavigationStack {
             ZStack {
@@ -58,7 +58,11 @@ struct ProfileView: View {
                             icon: Image(systemName: "xmark.circle"),
                             title: "Çıkış",
                             action: {
+                                showBottomTabBar = false
+                                appState.isLoggedIn = false
+                                appState.selectedTab = "Home"
                                 destination = .logout
+                                
                             }
                         )
                         .padding(.bottom, 14)
@@ -90,9 +94,6 @@ struct ProfileView: View {
                     }
                     .navigationBarBackButtonHidden(true)
             }
-            /* .navigationDestination(isPresented: .constant(destination == .logout)) {
-             ProfileView(showBottomTabBar: $showBottomTabBar)
-             }*/
         }
     }
 }

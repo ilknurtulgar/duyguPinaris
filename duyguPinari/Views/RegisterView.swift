@@ -72,7 +72,7 @@ struct RegisterView: View {
                             font: .custom("SFPro-Display-Medium", size: 15))
                         .padding(.top, 15)
                         .navigationDestination(isPresented: $isNavigatingToLogin) {
-                            LoginView(isLoggedIn: .constant(false),showBottomTabBar: $showBottomTabBar)
+                            LoginView(showBottomTabBar: $showBottomTabBar)
                                 .navigationBarHidden(true)
                         }
                     }

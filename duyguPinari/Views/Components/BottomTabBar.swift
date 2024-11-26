@@ -10,12 +10,11 @@ import SwiftUI
 
 
 struct BottomTabBar: View {
-    @Binding var selectedTab: String?
+    @Binding var selectedTab: String
     
     var body: some View {
         HStack {
             Spacer()
-            
             // Home Tab
             Button(action: {
                 selectedTab = "Home"

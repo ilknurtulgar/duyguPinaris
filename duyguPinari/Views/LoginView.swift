@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct LoginView: View {
-    @Binding var isLoggedIn: Bool
     @State private var isNavigatingToHome = false
     @State private var isNavigatingToRegister = false
     @StateObject private var viewModel = LoginViewModel()
+    @EnvironmentObject var appState: AppState
     @Binding var showBottomTabBar: Bool
     
     var body: some View {
@@ -40,12 +40,11 @@ struct LoginView: View {
                             action: {
                                 viewModel.loginUser { success in
                                     if success{
+                                        appState.isLoggedIn = true
+                                        showBottomTabBar = true
                                         isNavigatingToHome = true
-                                        isLoggedIn = true
                                     }
-                                    else {
-                                        isLoggedIn = false
-                                    }}},
+                                   }},
                             font: .custom("SFPro-Display-Medium", size: 15))
                         
                         .padding(.top, 65)
@@ -75,7 +74,6 @@ struct LoginView: View {
                         }
                     }
                 }
-               // .padding(.top)
             }
         }
     }

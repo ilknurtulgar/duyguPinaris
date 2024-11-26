@@ -7,34 +7,44 @@
 
 import SwiftUI
 
+
+class AppState: ObservableObject {
+    @Published var isLoggedIn = false
+    @Published var selectedTab: String = "Home"
+}
+
+
 struct ContentView: View {
-    @State private var selectedTab: String? = "Home"
-    @State private var isLoggedIn = false
+    @StateObject private var appState = AppState()
     @State private var showBottomTabBar = true
     var body: some View {
         ZStack {
             Color.backgroundPrimary.ignoresSafeArea()
-            if isLoggedIn {
+
+            if appState.isLoggedIn {
                 VStack(spacing:0) {
                     NavigationStack {
                         ZStack {
                             Color.backgroundPrimary.ignoresSafeArea()
-                            if selectedTab == "Home" {
+                            if appState.selectedTab == "Home" {
                                 HomeView(showBottomTabBar: $showBottomTabBar)
-                            } else if selectedTab == "Profile" {
+                            } else if appState.selectedTab == "Profile" {
                                 ProfileView( showBottomTabBar: $showBottomTabBar)
+                                    .environmentObject(appState)
                             }
                         }
                         .navigationBarHidden(true)
                     }
 
                     if showBottomTabBar {
-                        BottomTabBar(selectedTab: $selectedTab)
+                        BottomTabBar(selectedTab: $appState.selectedTab)
                             .padding(.bottom, 10)
                     }
                 }
             } else {
-                LoginView(isLoggedIn: $isLoggedIn,showBottomTabBar: $showBottomTabBar)
+                LoginView(showBottomTabBar: $showBottomTabBar)
+                    .environmentObject(appState)
+                   
             }
         }
     }
