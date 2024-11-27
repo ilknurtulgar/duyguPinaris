@@ -17,6 +17,7 @@ struct ProfileView: View {
     @Binding var showBottomTabBar: Bool
     @State private var destination: Destination?
     @EnvironmentObject var appState: AppState
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -25,11 +26,11 @@ struct ProfileView: View {
                         ProfileImage()
                             .padding(.top, 100)
                         
-                        TextStyles.title("Rachel Green")
+                        TextStyles.title(appState.currentUser?.username ?? "nullim")
                             .padding(.top, 18)
                             .padding(.bottom, 18)
                         
-                        Text("A creative and dedicated software developer...")
+                        Text(appState.currentUser?.about ?? "Hakkında bilgisi bulunmamaktadır.")
                             .customAboutText()
                         
                         Spacer()
@@ -71,32 +72,29 @@ struct ProfileView: View {
                 }
             }
             .navigationDestination(isPresented: .constant(destination == .editProfile)) {
-                EditProfileView(showBottomTabBar: $showBottomTabBar)
+                EditProfileView(appState: appState, showBottomTabBar: $showBottomTabBar)
                     .navigationBarBackButtonHidden(true)
-                    .onAppear{
+                    .onAppear {
                         showBottomTabBar = false
                     }
-                    .onDisappear{
+                    .onDisappear {
                         destination = nil
-                        
-                        
                     }
             }
             .navigationDestination(isPresented: .constant(destination == .feedbacks)) {
-                FeedbacksView(showBotttomTabBar: $showBottomTabBar)
-                
-                    .onAppear{
+               FeedbacksView(showBotttomTabBar: $showBottomTabBar)
+                    .navigationBarBackButtonHidden(true)
+                    .onAppear {
                         showBottomTabBar = false
                     }
-                    .onDisappear{
-                        
+                    .onDisappear {
                         destination = nil
                     }
-                    .navigationBarBackButtonHidden(true)
             }
         }
     }
 }
+
 
 
 

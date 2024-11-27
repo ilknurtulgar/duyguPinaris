@@ -20,7 +20,7 @@ struct CustomToolBar: View {
                     Button(action: action) {
                         icon
                             .frame(width: 24, height: 24)
-                            .padding(.leading, 20)
+                            .padding(.leading, 40)
                             .foregroundColor(Color.textColor)
                     }
                 } else {

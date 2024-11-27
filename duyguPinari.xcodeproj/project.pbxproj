@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8323D1282CF62EDF00159B07 /* ChatUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8323D1272CF62EDF00159B07 /* ChatUser.swift */; };
+		8323D12A2CF62F5800159B07 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8323D1292CF62F5800159B07 /* HomeViewModel.swift */; };
+		8323D12C2CF6598D00159B07 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8323D12B2CF6598D00159B07 /* ProfileViewModel.swift */; };
+		8323D12E2CF73AE200159B07 /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8323D12D2CF73AE200159B07 /* EditProfileViewModel.swift */; };
 		832755592CE78396000A5EFB /* FeedbackCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832755582CE78396000A5EFB /* FeedbackCard.swift */; };
 		832A70922CDC96A2005064DA /* RedirectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832A70912CDC96A2005064DA /* RedirectButton.swift */; };
 		8339AA862CD8B340002A98B1 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8339AA852CD8B340002A98B1 /* LoginView.swift */; };
@@ -73,6 +77,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8323D1272CF62EDF00159B07 /* ChatUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatUser.swift; sourceTree = "<group>"; };
+		8323D1292CF62F5800159B07 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		8323D12B2CF6598D00159B07 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		8323D12D2CF73AE200159B07 /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
 		832755582CE78396000A5EFB /* FeedbackCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackCard.swift; sourceTree = "<group>"; };
 		832A70912CDC96A2005064DA /* RedirectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedirectButton.swift; sourceTree = "<group>"; };
 		8339AA852CD8B340002A98B1 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -224,6 +232,7 @@
 				836D5EB32CEA02ED0065D027 /* Feedback.swift */,
 				836D5EB82CEA109C0065D027 /* User.swift */,
 				83CC4D112CECAF2C005ABF77 /* ChatSelection.swift */,
+				8323D1272CF62EDF00159B07 /* ChatUser.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -235,6 +244,9 @@
 				836D5EBA2CEA10B90065D027 /* RegisterViewModel.swift */,
 				836D5EBC2CEA13DA0065D027 /* LoginViewModel.swift */,
 				83CC4D132CECB04D005ABF77 /* StartChattingViewModel.swift */,
+				8323D1292CF62F5800159B07 /* HomeViewModel.swift */,
+				8323D12B2CF6598D00159B07 /* ProfileViewModel.swift */,
+				8323D12D2CF73AE200159B07 /* EditProfileViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -459,6 +471,7 @@
 				83CC4D102CEC7FCB005ABF77 /* CustomPicker.swift in Sources */,
 				8371EDF12CD975640069E1CE /* AuthTitle.swift in Sources */,
 				835B6BD22CF3A26F002FF44A /* AppDelegate.swift in Sources */,
+				8323D12C2CF6598D00159B07 /* ProfileViewModel.swift in Sources */,
 				839CBACA2CDC1C500066BE03 /* withHorizontalLinesAndText.swift in Sources */,
 				8371EDF32CDA048A0069E1CE /* RegisterView.swift in Sources */,
 				836D5EBD2CEA13DA0065D027 /* LoginViewModel.swift in Sources */,
@@ -469,15 +482,18 @@
 				8343C9992CD2136700107507 /* duyguPinariApp.swift in Sources */,
 				839CBAD02CDC30FE0066BE03 /* ProfileImage.swift in Sources */,
 				835660622CE3EA280081F52B /* ConversationStartButton.swift in Sources */,
+				8323D1282CF62EDF00159B07 /* ChatUser.swift in Sources */,
 				836D5EB42CEA02ED0065D027 /* Feedback.swift in Sources */,
 				835660662CE619830081F52B /* customToolBar.swift in Sources */,
 				83DB02802CEC01BF000CBCD6 /* ChatView.swift in Sources */,
+				8323D12E2CF73AE200159B07 /* EditProfileViewModel.swift in Sources */,
 				839CBAD32CDC337D0066BE03 /* CustomAboutText.swift in Sources */,
 				835660642CE616E90081F52B /* EditProfileView.swift in Sources */,
 				8339AA882CD8B68D002A98B1 /* UIColorExtensions.swift in Sources */,
 				835660682CE6650F0081F52B /* FeedbacksView.swift in Sources */,
 				832755592CE78396000A5EFB /* FeedbackCard.swift in Sources */,
 				836D5EBB2CEA10B90065D027 /* RegisterViewModel.swift in Sources */,
+				8323D12A2CF62F5800159B07 /* HomeViewModel.swift in Sources */,
 				839CBACE2CDC21EF0066BE03 /* BottomTabBar.swift in Sources */,
 				832A70922CDC96A2005064DA /* RedirectButton.swift in Sources */,
 				8371EDF72CDA07470069E1CE /* CustomTextField.swift in Sources */,

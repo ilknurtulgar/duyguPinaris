@@ -24,8 +24,8 @@ struct LoginView: View {
                     VStack {
                         AuthTitle(title:LoginViewModel.LoginConstants.sign, subtitle: LoginViewModel.LoginConstants.signIn)
                         
-                        CustomTextField(text: $viewModel.email,placeholder: Constants.TextConstants.placeholderEmail,  subtitle: Constants.TextConstants.emailTitle)
-                        CustomTextField(text: $viewModel.password,placeholder: Constants.TextConstants.placeholderPassword,  isSecure: true, subtitle: Constants.TextConstants.passwordTitle)
+                        CustomTextField(text: $viewModel.user.email,placeholder: Constants.TextConstants.placeholderEmail,  subtitle: Constants.TextConstants.emailTitle)
+                        CustomTextField(text: $viewModel.user.password,placeholder: Constants.TextConstants.placeholderPassword,  isSecure: true, subtitle: Constants.TextConstants.passwordTitle)
                         if let errorMessage = viewModel.errorMessage{
                             Text(errorMessage)
                                 .foregroundStyle(.red)
@@ -38,6 +38,7 @@ struct LoginView: View {
                             borderColor: Color.primaryColor,
                             textcolor: .white,
                             action: {
+                                
                                 viewModel.loginUser { success in
                                     if success{
                                         appState.isLoggedIn = true

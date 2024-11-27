@@ -24,10 +24,10 @@ struct RegisterView: View {
                     VStack {
                         AuthTitle(title: RegisterViewModel.RegisterConstants.sign, subtitle: RegisterViewModel.RegisterConstants.signUp)
                         
-                        CustomTextField( text: $viewModel.username,placeholder: Constants.TextConstants.placeholderUsername, subtitle:Constants.TextConstants.usernameTitle)
-                        CustomTextField(text: $viewModel.email,placeholder: Constants.TextConstants.placeholderEmail,  subtitle: Constants.TextConstants.emailTitle)
-                        CustomTextField( text: $viewModel.age,placeholder: Constants.TextConstants.placeholderAge, subtitle: Constants.TextConstants.ageTitle)
-                        CustomTextField(text: $viewModel.password, placeholder: Constants.TextConstants.placeholderPassword, isSecure: true, subtitle: Constants.TextConstants.passwordTitle)
+                        CustomTextField( text: $viewModel.user.username,placeholder: Constants.TextConstants.placeholderUsername, subtitle:Constants.TextConstants.usernameTitle)
+                        CustomTextField(text: $viewModel.user.email,placeholder: Constants.TextConstants.placeholderEmail,  subtitle: Constants.TextConstants.emailTitle)
+                        CustomTextField( text: $viewModel.user.age,placeholder: Constants.TextConstants.placeholderAge, subtitle: Constants.TextConstants.ageTitle)
+                        CustomTextField(text: $viewModel.user.password, placeholder: Constants.TextConstants.placeholderPassword, isSecure: true, subtitle: Constants.TextConstants.passwordTitle)
                         if let errorMessage = viewModel.errorMessage{
                             Text(errorMessage)
                                 .foregroundStyle(.red)
@@ -42,13 +42,11 @@ struct RegisterView: View {
                             textcolor: .white,
                             action:
                                 {
-                                    viewModel.registerUser{ success in
+                                    viewModel.registerUser{ success, _ in
                                         if success{
                                             isRegistering = true
                                             showBottomTabBar = true
-                                        }
-                                        else
-                                        {
+                                        }else{
                                             isRegistering = false
                                         }
                                     }},font: .custom("SFPro-Display-Medium", size: 15))
@@ -77,7 +75,6 @@ struct RegisterView: View {
                         }
                     }
                 }
-              //  .padding(.top)
             }
         }
         .navigationBarHidden(true)

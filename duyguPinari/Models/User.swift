@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct User{
+    var id: String
     var username: String
     var email: String
     var age: String
     var password: String
+    var about: String?
 }

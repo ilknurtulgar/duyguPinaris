@@ -8,36 +8,35 @@
 import SwiftUI
 
 struct EditProfileView: View {
-    
     @Environment(\.dismiss) private var dismiss
     @Binding var showBottomTabBar: Bool
+    @StateObject private var viewModel: EditProfileViewModel
     @State private var showAlert: Bool = false
-    @State private var username: String = "alexa"
-    @State private var email: String = "alexa@example.com"
-    @State private var age: String = "15.10.1997"
-    @State private var password="123"
-    @State private var about: String = "sacdcdövdöşwedbwsüdflçöeğrldfacdcdövdöşwedbwsüdflçöeğrldfacdcdövdöşwedbwsüdflçöeğrldfacdcdövdöşwedbwsüdflçöeğrldfacdcdövdöşwedbwsüdflçöeğrldfacdcdövdöşwedbwsüdflçöeğrldfacdcdövdöşwedbwsüdflçöeğrldf"
+    
+    init(appState: AppState, showBottomTabBar: Binding<Bool>) {
+        _viewModel = StateObject(wrappedValue: EditProfileViewModel(appState: appState))
+        _showBottomTabBar = showBottomTabBar
+    }
 
     var body: some View {
-        NavigationStack{
+        NavigationStack {
             ZStack {
                 Color.backgroundPrimary
                     .ignoresSafeArea()
                 VStack(spacing: 0) {
                     CustomToolBar(title: "Profil Düzenleme", icon: Image(systemName: "chevron.left")) {
                         dismiss()
-                            showBottomTabBar = true
+                        showBottomTabBar = true
                     }
                     ScrollView {
                         VStack(spacing: 16) {
                             ProfileImage()
                                 .padding(.top, 16)
-                            CustomTextField(text: $username, placeholder: "Alexa Richardson", subtitle: "UserName:")
-                            CustomTextField(text: $email, placeholder: "alexa@example.com", subtitle: "E mail:")
-                            CustomTextField(text: $password,placeholder: Constants.TextConstants.placeholderPassword,  isSecure: true, subtitle: Constants.TextConstants.passwordTitle)
-                            CustomTextField(text: $age, placeholder: "15.10.1997", subtitle: "Age:")
-                            CustomTextField(text: $about, placeholder: "Alexa Richardson", isAbout: true, subtitle: "About:")
-                            
+                            CustomTextField(text: $viewModel.user.username, placeholder: "", subtitle: "UserName:")
+                            CustomTextField(text: $viewModel.user.email, placeholder: "alexa@example.com", subtitle: "E mail:")
+                            CustomTextField(text: $viewModel.user.password, placeholder: Constants.TextConstants.placeholderPassword, isSecure: true, subtitle: Constants.TextConstants.passwordTitle)
+                            CustomTextField(text: $viewModel.user.age, placeholder: "15.10.1997", subtitle: "Age:")
+                            CustomTextField(text: Binding(get: { viewModel.user.about ?? "" }, set: { viewModel.user.about = $0 }), placeholder: "Alexa Richardson", isAbout: true, subtitle: "About:")
                             
                             HStack(spacing: 68) {
                                 CustomButton(
@@ -48,6 +47,7 @@ struct EditProfileView: View {
                                     borderColor: Color.primaryColor,
                                     textcolor: Color.primaryColor,
                                     action: {
+                                        showBottomTabBar = true
                                         dismiss()
                                     },
                                     font: .custom("SFPro-Display-Medium", size: 10)
@@ -60,33 +60,33 @@ struct EditProfileView: View {
                                     borderColor: Color.primaryColor,
                                     textcolor: Color.white,
                                     action: {
-                                        showAlert=true
+                                       
+                                        showAlert = true
                                     },
                                     font: .custom("SFPro-Display-Medium", size: 10)
                                 )
                             }
                             .padding(.top, 24)
                             .padding(.bottom, 40)
-                            
                         }
                         .padding(.horizontal, 16)
                     }
-                    
                 }
             }
-            .alert("Profil Düzenleme",isPresented: $showAlert){
-                Button("İptal",role: .cancel){}
-                
-                Button("Onayla"){
+            .alert("Profil Düzenleme", isPresented: $showAlert) {
+                Button("İptal", role: .cancel) { }
+                Button("Onayla") {
+                    viewModel.updateUserProfile()
+                    showBottomTabBar = true
                     dismiss()
                 }
-            }message: {
+            } message: {
                 Text("Değişiklikleri kaydetmeyi onaylıyor musunuz?")
             }
-            
         }
     }
 }
+
 
 
 
