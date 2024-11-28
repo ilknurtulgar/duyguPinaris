@@ -66,9 +66,6 @@ struct StartChattingView: View {
                     .onAppear{
                         showBottomTabBar = false
                     }
-                    .onDisappear{
-                        showBottomTabBar = true
-                    }
                     .navigationBarHidden(true)
             }
         }

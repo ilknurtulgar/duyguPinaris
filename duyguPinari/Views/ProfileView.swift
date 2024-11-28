@@ -21,6 +21,7 @@ struct ProfileView: View {
     var body: some View {
         NavigationStack {
             ZStack {
+                Color.backgroundPrimary.ignoresSafeArea()
                 ScrollView {
                     VStack {
                         ProfileImage()

@@ -39,6 +39,7 @@ struct SelectConversationView: View {
                             CustomButton(title: Constants.TextConstants.cancel, width: 123, height: 35, backgroundColor: Color.white, borderColor: Color.primaryColor, textcolor: Color.primaryColor, action: {
                                 navigateToHomeView = true
                                 dismiss()
+                                showBottomTabBar = true
                             },
                                      font: .custom("SFPro-Display-Medium", size: 10))
                             

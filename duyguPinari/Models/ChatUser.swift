@@ -7,9 +7,10 @@
 
 import SwiftUI
 
-struct ChatUser {
+struct ChatUser: Identifiable {
+    var id: String
     var username: String
     var message: String
     var unreadMessage: Int
-    var profileImage: Image
+    var profileImage: String?
 }

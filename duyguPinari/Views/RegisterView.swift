@@ -13,6 +13,7 @@ struct RegisterView: View {
     @State private var isRegistering = false
     @Binding var showBottomTabBar: Bool
     @State private var isNavigatingToLogin = false
+    @EnvironmentObject var appState: AppState
     
     var body: some View {
         NavigationStack {
@@ -46,13 +47,14 @@ struct RegisterView: View {
                                         if success{
                                             isRegistering = true
                                             showBottomTabBar = true
+                                            appState.selectedTab = "Home"
                                         }else{
                                             isRegistering = false
                                         }
                                     }},font: .custom("SFPro-Display-Medium", size: 15))
                         .padding(.top, 65)
                         .navigationDestination(isPresented: $isRegistering) {
-                            HomeView(showBottomTabBar: $showBottomTabBar)
+                            HomeView(appState: appState, showBottomTabBar: $showBottomTabBar)
                                 .navigationBarHidden(true)
                         }
                         self.withHorizontalLinesAndText(Constants.TextConstants.or)
@@ -77,7 +79,6 @@ struct RegisterView: View {
                 }
             }
         }
-        .navigationBarHidden(true)
     }
 }
 

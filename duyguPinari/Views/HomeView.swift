@@ -11,10 +11,17 @@ struct HomeView: View {
     @State private var navigateToFilterView: Bool = false
     @Binding var showBottomTabBar: Bool
     @State private var destination: String?
+    @StateObject var viewModel: HomeViewModel
+    
+    init(appState: AppState, showBottomTabBar: Binding<Bool>) {
+           _viewModel = StateObject(wrappedValue: HomeViewModel(appState: appState))
+           _showBottomTabBar = showBottomTabBar
+       }
     
     var body: some View {
         NavigationStack{
             ZStack{
+                Color.backgroundPrimary.ignoresSafeArea()
                 VStack{
                     HStack{
                         Spacer()
@@ -28,22 +35,24 @@ struct HomeView: View {
                     
                     ScrollView{
                         VStack(spacing: 45){
-                            ChatListCard(profileImage: Image(systemName: "person.circle"), title: "Alexa Richardson", messageDetails: "How you doin?", unreadMessages: 2,showBottomTabBar: $showBottomTabBar,
-                                         action: {
-                                showBottomTabBar = false
-                                destination = "chat"
-                            })
-                            ChatListCard(profileImage: Image(systemName: "person.circle"), title: "Rachel Green", messageDetails: "How you doin?", unreadMessages: 1,showBottomTabBar: $showBottomTabBar,
-                                         action: {
-                                showBottomTabBar = false
-                                destination = "chat"
-                            })
+                            if viewModel.chatUsers.isEmpty{
+                                TextStyles.subtitleMedium("Mesaj oluşturmak için mesaj butonuna tıklayın\n ve sohbete başlayın!")
+                                    .multilineTextAlignment(.center)
+                                    .padding()
+                                    
+                            }else {
+                                ForEach(viewModel.chatUsers){user in
+                                    ChatListCard(profileImageURL: user.profileImage, title: user.username, messageDetails: user.message, unreadMessages: user.unreadMessage, showBottomTabBar: $showBottomTabBar, action: {
+                                        showBottomTabBar = false
+                                        destination = "chat"
+                                    })
+                                }
+                            }
                         }
                         .padding(.top,30)
                     }
                 }
             }
-            
             .navigationDestination(isPresented: $navigateToFilterView){
                 StartChattingView(showBottomTabBar: $showBottomTabBar)
                     .onDisappear{
@@ -63,7 +72,7 @@ struct HomeView: View {
                     }
                     .navigationBarBackButtonHidden(true)
             }
-            
+            .navigationBarHidden(true)
         }
     }
 }

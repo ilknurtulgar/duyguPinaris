@@ -42,7 +42,7 @@ struct LoginView: View {
                                 viewModel.loginUser { success in
                                     if success{
                                         appState.isLoggedIn = true
-                                        showBottomTabBar = true
+                                            showBottomTabBar = true
                                         isNavigatingToHome = true
                                     }
                                    }},
@@ -50,7 +50,7 @@ struct LoginView: View {
                         
                         .padding(.top, 65)
                         .navigationDestination(isPresented: $isNavigatingToHome) {
-                            HomeView(showBottomTabBar: $showBottomTabBar)
+                            HomeView(appState: appState, showBottomTabBar: $showBottomTabBar)
                                 .navigationBarHidden(true) // Üst çubuğu gizle
                             
                         }
@@ -65,6 +65,7 @@ struct LoginView: View {
                             textcolor: .primaryColor,
                             action:{
                                 isNavigatingToRegister = true
+                              
                             },
                             font:.custom("SFPro-Display-Medium", size: 15))
                         
@@ -72,6 +73,7 @@ struct LoginView: View {
                         .navigationDestination(isPresented: $isNavigatingToRegister) {
                             RegisterView(showBottomTabBar: $showBottomTabBar)
                                 .navigationBarHidden(true)
+                            
                         }
                     }
                 }

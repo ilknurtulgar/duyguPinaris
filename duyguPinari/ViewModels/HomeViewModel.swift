@@ -8,63 +8,37 @@
 import SwiftUI
 import FirebaseFirestore
 
-class HomeViewModel: ObservableObject {
-//    @Published var currentUser: User?
-  //  @Published var chatUsers: [ChatUser] = []
-}
-
-  /*  func fetchChatUsers(for user: User) {
-        let db = Firestore.firestore()
-
-        db.collection("chatUsers")
-            .document(user.id)
-            .collection("chatUsers")
-            .getDocuments { (snapshot, error) in
+class HomeViewModel: ObservableObject{
+    @Published var chatUsers: [ChatUser] = []
+    private var appState: AppState
+    private var db = Firestore.firestore()
+    
+    init(appState: AppState) {
+        self.appState = appState
+    fetchChatUsers()
+    }
+    
+    func fetchChatUsers(){
+        guard let userID = appState.currentUser?.id else{
+            print("no user logged in")
+            return
+        }
+        
+        db.collection("users").document(userID).collection("chats")
+            .getDocuments{[weak self] snapshot, error in
                 if let error = error {
-                    print("Error fetching chat users: \(error.localizedDescription)")
+                    print("error fetching chats: \(error.localizedDescription)")
                     return
                 }
-
-                guard let documents = snapshot?.documents else {
-                    print("No documents found.")
-                    return
-                }*/
-
-               /* let users: [ChatUser] = documents.compactMap { doc in
-                    guard let username = doc["username"] as? String,
-                          let message = doc["message"] as? String,
-                          let unreadMessages = doc["unreadMessages"] as? Int,
-                          let profileImageURL = doc["profileImage"] as? String else {
-                        return nil
-                    }
-
-                    let defaultImage = Image(systemName: "person.circle")
-                    let image = URL(string: profileImageURL).flatMap { self.loadImage(from: $0) } ?? defaultImage
-
-                    return ChatUser(
-                        username: username,
-                        message: message,
-                        unreadMessages: unreadMessages,
-                        profileImage: image
+                
+                self?.chatUsers = snapshot?.documents.compactMap{ document in
+                    let data = document.data()
+                    return ChatUser(id: document.documentID, username: data["username"] as? String ?? "nullim", message: data["lastMessage"] as? String ?? "", unreadMessage: data["unreadMessages"] as? Int ?? 0,
+                    profileImage: data["profileImage"] as? String ?? ""
                     )
-                }*/
-
-               /* DispatchQueue.main.async {
-                    self.chatUsers = users
-                }*/
-// 
-   /*}
-
-    private func loadImage(from url: URL) -> Image? {
-        do {
-            let data = try Data(contentsOf: url)
-            if let uiImage = UIImage(data: data) {
-                return Image(uiImage: uiImage)
+                } ?? []
+                
             }
-        } catch {
-            print("Error loading image: \(error.localizedDescription)")
-        }
-        return nil
     }
-   */
+}
 

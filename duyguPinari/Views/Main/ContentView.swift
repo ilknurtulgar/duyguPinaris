@@ -18,10 +18,11 @@ struct ContentView: View {
                 VStack(spacing:0) {
                     NavigationStack {
                         ZStack {
-                            Color.backgroundPrimary.ignoresSafeArea()
+                          
                             if appState.selectedTab == "Home" {
-                                HomeView(showBottomTabBar: $showBottomTabBar)
+                                HomeView(appState: appState ,showBottomTabBar: $showBottomTabBar)
                                     .environmentObject(appState)
+                                   
                             } else if appState.selectedTab == "Profile" {
                                 ProfileView( showBottomTabBar: $showBottomTabBar)
                                     .environmentObject(appState)
