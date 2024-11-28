@@ -6,29 +6,83 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 
-class FeedbacksViewModel: ObservableObject{
-    @Published var feedbacks: [Feedback] = [
-        Feedback(
-                  profileImage: Image(systemName: "person.circle"),
-                  name: "Alexa Richardson",
-                  role: "Listener",
-                  rating: 4,
-                  feedbackText: "Great conversation! Really enjoyed it!"
-              ),
-              Feedback(
-                  profileImage: Image(systemName: "person.circle"),
-                  name: "John Doe",
-                  role: "Narrator",
-                  rating: 5,
-                  feedbackText: "Fantastic insights. Thank you for your support!"
-              ),
-              Feedback(
-                  profileImage: Image(systemName: "person.circle"),
-                  name: "Jane Smith",
-                  role: "Listener",
-                  rating: 3,
-                  feedbackText: "Good conversation. Thanks for listening!"
-              )
-    ]
+class FeedbacksViewModel: ObservableObject {
+    @Published var feedbacks: [Feedback] = []
+    private var appState: AppState
+    
+    init(appState: AppState) {
+        self.appState = appState
+        fetchFeedbacks()
+    }
+    
+    func fetchFeedbacks() {
+        guard let userID = appState.currentUser?.id else {
+            print("No user logged in")
+            return
+        }
+        print("Fetching feedbacks for user ID: \(userID)")
+        let db = Firestore.firestore()
+        
+        // userID'yi kullanarak doğru koleksiyona sorgu gönderiyoruz
+        
+        db.collection("feedbacks")
+            .whereField("receiverID", isEqualTo: userID)
+            .getDocuments{ [weak self] snapshot, error in
+                if let error = error {
+                    print("error getting feedbacks: \(error.localizedDescription)")
+                    return
+                }
+                
+                self?.feedbacks = snapshot?.documents.compactMap { document in
+                    let data = document.data()
+                    return Feedback(
+                        id: document.documentID,
+                        receiverID: data["receiverID"] as? String ?? "",
+                        senderID:  data["senderID"] as? String ?? "",
+                        profileImage: data["profileImageURL"] as? String,
+                        username: data["username"] as? String ?? "nullim",
+                        role: data["role"] as? String ?? "nullim",
+                        rating: data["rating"] as? Int ?? 0,
+                        feedbackText: data["feedbackText"] as? String ?? "nullim"
+                    )
+                } ?? []
+            }
+            }
+        
+        
+     /*   db.collection("users").document(userID).collection("feedbacks")
+            .getDocuments { [weak self] snapshot, error in
+                if let error = error {
+                    print("Error getting feedbacks: \(error.localizedDescription)")
+                    return
+                }
+                
+                // Firestore belgelerini Feedback modeline dönüştürmek
+                self?.feedbacks = snapshot?.documents.compactMap { document in
+                    let data = document.data()
+                    return Feedback(
+                        id: document.documentID,
+                        receiverID: data["receiverID"] as? String ?? "",
+                        senderID:  data["senderID"] as? String ?? "",
+                        profileImage: data["profileImageURL"] as? String,
+                        username: data["username"] as? String ?? "nullim",
+                        role: data["role"] as? String ?? "nullim",
+                        rating: data["rating"] as? Int ?? 0,
+                        feedbackText: data["feedbackText"] as? String ?? "nullim"
+                    )
+                } ?? []
+            }*/
+    }
+
+/*{
+ "feedbackText": "Çok yardımsever birisin!",
+ "rating": 4,
+ "role": "user",
+ "senderId": "userA123",
+ "receiverId": "userB456",
+ "profileImageURL": "https://.../userA.jpg",
+ "name": "Kullanıcı A"
 }
+*/

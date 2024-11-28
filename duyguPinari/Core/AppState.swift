@@ -19,15 +19,19 @@ class AppState: ObservableObject {
     init() {
         if let _ = Auth.auth().currentUser {
             fetchUserProfile()
+
         }
     }
     
     func fetchUserProfile() {
-        guard let userID = Auth.auth().currentUser?.uid else { return }
+        guard let userID = Auth.auth().currentUser?.uid else { 
+            print("No Firebase Auth user found.")
+            return }
         let db = Firestore.firestore()
         
         self.isLoading = true // Yükleme başladığında loading durumu aktif
         db.collection("users").document(userID).getDocument { (document, error) in
+            
             if let document = document, document.exists {
                 let data = document.data()
                 let id = data?["id"] as? String ?? ""
@@ -41,4 +45,5 @@ class AppState: ObservableObject {
             self.isLoading = false // Veri yüklendikten sonra loading durumu false
         }
     }
+    
 }

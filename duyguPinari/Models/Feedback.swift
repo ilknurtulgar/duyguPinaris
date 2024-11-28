@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct Feedback: Identifiable{
-    let id = UUID()
-    var profileImage: Image
-    var name: String
+    var id:String
+    var receiverID: String
+    var senderID: String
+    var profileImage: String?
+    var username: String
     var role: String
     var rating: Int
     var feedbackText: String

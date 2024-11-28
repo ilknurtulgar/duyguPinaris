@@ -82,7 +82,7 @@ struct ProfileView: View {
                     }
             }
             .navigationDestination(isPresented: .constant(destination == .feedbacks)) {
-               FeedbacksView(showBotttomTabBar: $showBottomTabBar)
+                FeedbacksView(appState: appState, showBottomTabBar: $showBottomTabBar)
                     .navigationBarBackButtonHidden(true)
                     .onAppear {
                         showBottomTabBar = false

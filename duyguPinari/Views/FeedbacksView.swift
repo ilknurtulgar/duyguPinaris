@@ -8,9 +8,15 @@
 import SwiftUI
 
 struct FeedbacksView: View {
-    @StateObject var viewModel = FeedbacksViewModel()
+    @StateObject var viewModel: FeedbacksViewModel
     @Binding var showBotttomTabBar: Bool
     @Environment(\.dismiss) private var dismiss
+    
+    init(appState: AppState, showBottomTabBar: Binding<Bool>) {
+           _viewModel = StateObject(wrappedValue: FeedbacksViewModel(appState: appState))
+           self._showBotttomTabBar = showBottomTabBar // Doğrudan atama, burada doğru.
+       }
+    
     var body: some View {
         ZStack{
             Color.backgroundPrimary.ignoresSafeArea()
@@ -23,7 +29,7 @@ struct FeedbacksView: View {
                 ScrollView{
                     VStack(spacing: 30){
                         ForEach(viewModel.feedbacks){ feedback in
-                            FeedbackCard(profileImage: feedback.profileImage, name: feedback.name, role: feedback.role, rating: feedback.rating, feedbackText: feedback.feedbackText)
+                            FeedbackCard(profileImageURL: feedback.profileImage, name: feedback.username, role: feedback.role, rating: feedback.rating, feedbackText: feedback.feedbackText)
                             
                         }
                     }
