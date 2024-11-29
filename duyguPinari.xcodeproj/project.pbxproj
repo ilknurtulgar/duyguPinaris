@@ -16,6 +16,7 @@
 		8339AA862CD8B340002A98B1 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8339AA852CD8B340002A98B1 /* LoginView.swift */; };
 		8339AA882CD8B68D002A98B1 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8339AA872CD8B68D002A98B1 /* UIColorExtensions.swift */; };
 		8339AA8A2CD8BB50002A98B1 /* TextStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8339AA892CD8BB50002A98B1 /* TextStyles.swift */; };
+		833E87092CF9FD6E004A844C /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833E87082CF9FD6E004A844C /* ProfileViewModel.swift */; };
 		8343C9992CD2136700107507 /* duyguPinariApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8343C9982CD2136700107507 /* duyguPinariApp.swift */; };
 		8343C99B2CD2136700107507 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8343C99A2CD2136700107507 /* ContentView.swift */; };
 		8343C99D2CD2136800107507 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8343C99C2CD2136800107507 /* Assets.xcassets */; };
@@ -86,6 +87,7 @@
 		8339AA852CD8B340002A98B1 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		8339AA872CD8B68D002A98B1 /* UIColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
 		8339AA892CD8BB50002A98B1 /* TextStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStyles.swift; sourceTree = "<group>"; };
+		833E87082CF9FD6E004A844C /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		8343C9952CD2136700107507 /* duyguPinari.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = duyguPinari.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8343C9982CD2136700107507 /* duyguPinariApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = duyguPinariApp.swift; sourceTree = "<group>"; };
 		8343C99A2CD2136700107507 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 				83CC4D132CECB04D005ABF77 /* StartChattingViewModel.swift */,
 				8323D1292CF62F5800159B07 /* HomeViewModel.swift */,
 				8323D12D2CF73AE200159B07 /* EditProfileViewModel.swift */,
+				833E87082CF9FD6E004A844C /* ProfileViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -463,6 +466,7 @@
 				8371EDF52CDA04DF0069E1CE /* PaddingExtensions.swift in Sources */,
 				83CC4D182CECBE49005ABF77 /* SelectConversationView.swift in Sources */,
 				83CC4D142CECB04D005ABF77 /* StartChattingViewModel.swift in Sources */,
+				833E87092CF9FD6E004A844C /* ProfileViewModel.swift in Sources */,
 				836D5EB92CEA109C0065D027 /* User.swift in Sources */,
 				836D5EC42CEAA1CA0065D027 /* CustomButton.swift in Sources */,
 				83CC4D122CECAF2C005ABF77 /* ChatSelection.swift in Sources */,

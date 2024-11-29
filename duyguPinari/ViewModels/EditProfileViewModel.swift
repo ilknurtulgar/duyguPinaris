@@ -41,11 +41,6 @@ class EditProfileViewModel: ObservableObject {
                 print("error updating profile: \(error.localizedDescription)")
             }else{
                 self.appState.currentUser = self.user
-               /* self.appState.currentUser?.username = self.user.username
-                self.appState.currentUser?.email = self.user.email
-                self.appState.currentUser?.age = self.user.age
-                self.appState.currentUser?.password = self.user.password
-                self.appState.currentUser?.about = self.user.about*/
                 print("profile updated successfully")
             }
             

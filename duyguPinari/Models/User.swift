@@ -14,4 +14,5 @@ struct User{
     var age: String
     var password: String
     var about: String?
+    var talkState: Bool?
 }

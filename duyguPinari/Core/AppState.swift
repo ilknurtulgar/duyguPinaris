@@ -15,7 +15,6 @@ class AppState: ObservableObject {
     @Published var selectedTab: String = "Home"
     @Published var currentUser: User?
     @Published var isLoading: Bool = false // Veri yükleniyor durumu
-    
     init() {
         print("appstate initialized")
         if let _ = Auth.auth().currentUser {
@@ -39,7 +38,8 @@ class AppState: ObservableObject {
             }
             else  if let document = document, document.exists {
                 let data = document.data()
-                self.currentUser = User(id: data?["id"] as? String ?? "", username: data?["username"] as? String ?? "", email: data?["email"] as? String ?? "", age: data?["age"] as? String ?? "", password:  data?["password"] as? String ?? "",about:data?["about"] as? String ?? "" )
+                self.currentUser = User(id: data?["id"] as? String ?? "", username: data?["username"] as? String ?? "", email: data?["email"] as? String ?? "", age: data?["age"] as? String ?? "", password:  data?["password"] as? String ?? "",about:data?["about"] as? String ?? "" ,
+                talkState: data?["talkState"] as? Bool ?? false)
             }else{
                 print("no document found for userID: \(userID)")
             }

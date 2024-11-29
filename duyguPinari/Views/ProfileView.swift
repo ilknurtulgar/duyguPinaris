@@ -17,6 +17,7 @@ struct ProfileView: View {
     @Binding var showBottomTabBar: Bool
     @State private var destination: Destination?
     @EnvironmentObject var appState: AppState
+    private let viewModel = ProfileViewModel()
     
     var body: some View {
         NavigationStack {
@@ -55,6 +56,24 @@ struct ProfileView: View {
                             }
                         )
                         .padding(.bottom, 14)
+                        
+                        CustomRedirectButton(icon: Image(systemName: "person.2.circle"), title: "Dinleyici",isTalk: true,action: {
+                            if let currentUser = appState.currentUser{
+                                let newState = !(currentUser.talkState ?? false)
+                                appState.currentUser?.talkState = newState
+                                viewModel.updateTalkState(id: currentUser.id, newTalkState: newState){
+                                    result in
+                                    switch result {
+                                    case .success():
+                                        print("takstate updated")
+                                    case .failure(let failure):
+                                        print("talkstate didnt update: \(failure.localizedDescription)")
+                                    }
+                                }
+                            }
+                            
+                        })
+                            .padding(.bottom,14)
                         
                         CustomRedirectButton(
                             icon: Image(systemName: "xmark.circle"),
