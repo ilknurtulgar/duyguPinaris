@@ -4,7 +4,7 @@
 //
 //  Created by İlknur Tulgar on 7.11.2024.
 //
-
+import FirebaseAuth
 import SwiftUI
 
 enum Destination: Hashable {
@@ -64,6 +64,11 @@ struct ProfileView: View {
                                 appState.isLoggedIn = false
                                 appState.selectedTab = "Home"
                                 appState.currentUser = nil
+                                do{
+                                    try Auth.auth().signOut()
+                                }catch{
+                                    print("error signing out: \(error.localizedDescription)")
+                                }
                                 destination = .logout
                                 
                             }

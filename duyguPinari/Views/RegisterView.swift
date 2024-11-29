@@ -48,6 +48,7 @@ struct RegisterView: View {
                                             isRegistering = true
                                             showBottomTabBar = true
                                             appState.isLoggedIn = true
+                                            appState.fetchUserProfile()
                                         }else{
                                             isRegistering = false
                                         }

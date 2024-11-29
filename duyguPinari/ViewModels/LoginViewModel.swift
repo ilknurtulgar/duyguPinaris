@@ -12,7 +12,7 @@ import FirebaseFirestore
 class LoginViewModel: ObservableObject{
     @Published var errorMessage: String?
     @Published var user = User(id: "",username: "", email: "", age: "", password: "")
-    
+   
     struct LoginConstants{
         static let sign = "GİRİŞ"
         static let signIn = "YAP"
@@ -54,8 +54,10 @@ class LoginViewModel: ObservableObject{
                         self?.user.email = data?["email"] as? String ?? ""
                         self?.user.age = data?["age"] as? String ?? ""
                         self?.user.password = self?.user.password ?? ""
+                        
                         DispatchQueue.main.async{
                             self?.errorMessage = nil
+                           
                             completion(true)
                         }
                     }else{
@@ -64,13 +66,6 @@ class LoginViewModel: ObservableObject{
                     }
                 }
             }
-        }
-        
-    
-        // girişin başarılı olması durumu
-        DispatchQueue.main.async{
-            self.errorMessage = nil
-            completion(true)
         }
     }
     private func isValidEmail(_ email: String) -> Bool {

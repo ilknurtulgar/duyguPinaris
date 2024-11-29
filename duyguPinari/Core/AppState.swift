@@ -17,6 +17,7 @@ class AppState: ObservableObject {
     @Published var isLoading: Bool = false // Veri yükleniyor durumu
     
     init() {
+        print("appstate initialized")
         if let _ = Auth.auth().currentUser {
             fetchUserProfile()
 
@@ -28,22 +29,19 @@ class AppState: ObservableObject {
             print("No Firebase Auth user found.")
             self.currentUser = nil
             return }
+        print("fetching profile for userID: \(userID)")
         let db = Firestore.firestore()
         
         self.isLoading = true // Yükleme başladığında loading durumu aktif
         db.collection("users").document(userID).getDocument { (document, error) in
-            
-            if let document = document, document.exists {
+            if let error = error {
+                print("error fetching user profile: \(error.localizedDescription)")
+            }
+            else  if let document = document, document.exists {
                 let data = document.data()
-                let id = data?["id"] as? String ?? ""
-                let username = data?["username"] as? String ?? ""
-                let email = data?["email"] as? String ?? ""
-                let age = data?["age"] as? String ?? ""
-                let password = data?["password"] as? String ?? ""
-                let about = data?["about"] as? String ?? ""
-                self.currentUser = User(id: id, username: username, email: email, age: age, password: password,about: about)
+                self.currentUser = User(id: data?["id"] as? String ?? "", username: data?["username"] as? String ?? "", email: data?["email"] as? String ?? "", age: data?["age"] as? String ?? "", password:  data?["password"] as? String ?? "",about:data?["about"] as? String ?? "" )
             }else{
-                print("no loggeed")
+                print("no document found for userID: \(userID)")
             }
             self.isLoading = false // Veri yüklendikten sonra loading durumu false
         }

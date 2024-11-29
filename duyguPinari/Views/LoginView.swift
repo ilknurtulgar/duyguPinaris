@@ -44,6 +44,7 @@ struct LoginView: View {
                                         appState.isLoggedIn = true
                                             showBottomTabBar = true
                                         isNavigatingToHome = true
+                                        appState.fetchUserProfile()
                                     }
                                    }},
                             font: .custom("SFPro-Display-Medium", size: 15))
