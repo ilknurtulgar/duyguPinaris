@@ -26,6 +26,7 @@ class AppState: ObservableObject {
     func fetchUserProfile() {
         guard let userID = Auth.auth().currentUser?.uid else { 
             print("No Firebase Auth user found.")
+            self.currentUser = nil
             return }
         let db = Firestore.firestore()
         
@@ -41,6 +42,8 @@ class AppState: ObservableObject {
                 let password = data?["password"] as? String ?? ""
                 let about = data?["about"] as? String ?? ""
                 self.currentUser = User(id: id, username: username, email: email, age: age, password: password,about: about)
+            }else{
+                print("no loggeed")
             }
             self.isLoading = false // Veri yüklendikten sonra loading durumu false
         }

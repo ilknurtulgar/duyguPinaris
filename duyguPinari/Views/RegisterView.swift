@@ -47,7 +47,7 @@ struct RegisterView: View {
                                         if success{
                                             isRegistering = true
                                             showBottomTabBar = true
-                                            appState.selectedTab = "Home"
+                                            appState.isLoggedIn = true
                                         }else{
                                             isRegistering = false
                                         }

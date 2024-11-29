@@ -63,6 +63,7 @@ struct ProfileView: View {
                                 showBottomTabBar = false
                                 appState.isLoggedIn = false
                                 appState.selectedTab = "Home"
+                                appState.currentUser = nil
                                 destination = .logout
                                 
                             }
