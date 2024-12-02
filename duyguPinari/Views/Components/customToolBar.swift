@@ -12,10 +12,16 @@ struct CustomToolBar: View {
     let title: String
     let icon: Image?
     let action: (() -> Void)?
+    let userImageURL: String?
+    let hasUserImage: Bool // Kullanıcı resmi varsa farklı padding uygulamak için
+    let titleAlignment: TextAlignment
+    let textAction: (() -> Void)? // Metin tıklama eylemi
+    let paddingSize: CGFloat
     
     var body: some View {
         VStack {
             HStack {
+                // Sol İkon
                 if let icon = icon, let action = action {
                     Button(action: action) {
                         icon
@@ -26,22 +32,57 @@ struct CustomToolBar: View {
                 } else {
                     Spacer()
                         .frame(width: 24)
-                        .padding(.leading, 20)
                 }
-                Spacer()
-                TextStyles.title(title)
-                    .multilineTextAlignment(.center)
-                    .foregroundColor(Color.textColor)
+                
+                // Kullanıcı Resmi
+                if hasUserImage, let userImageURL = userImageURL {
+                    AsyncImage(url: URL(string: userImageURL)) { phase in
+                        switch phase {
+                        case .empty:
+                            Image(systemName: "person.circle")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 24, height: 24)
+                        case .success(let image):
+                            image
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 24, height: 24)
+                        case .failure:
+                            Image(systemName: "person.circle")
+                                .resizable()
+                                .frame(width: 24, height: 24)
+                        @unknown default:
+                            EmptyView()
+                        }
+                    }
+                    .padding(.leading, 10)
+                }
+                
+                // Metin (tıklanabilir hale getirme)
+                if hasUserImage, let textAction = textAction {
+                    Button(action: textAction) {
+                        TextStyles.title(title)
+                            .multilineTextAlignment(titleAlignment)
+                            .foregroundColor(Color.textColor)
+                            .padding(.leading, hasUserImage ? 10 : 70)
+                    }
+                } else {
+                    TextStyles.title(title)
+                        .multilineTextAlignment(titleAlignment)
+                        .foregroundColor(Color.textColor)
+                        .padding(.leading, paddingSize)
+                }
                 Spacer()
             }
             .frame(width: 430, height: 40)
             
+            // Alt Çizgi
             Rectangle()
                 .frame(height: 1)
                 .foregroundColor(.secondaryColor)
         }
-        .frame(width: 430)
+        .padding(.horizontal, 10)
         .padding(.top, 30)
     }
 }
-

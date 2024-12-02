@@ -24,10 +24,12 @@ struct EditProfileView: View {
                 Color.backgroundPrimary
                     .ignoresSafeArea()
                 VStack(spacing: 0) {
-                    CustomToolBar(title: "Profil Düzenleme", icon: Image(systemName: "chevron.left")) {
+                    CustomToolBar(title: "Profil Düzenleme", icon: Image(systemName: "chevron.left"),action: {
                         dismiss()
                         showBottomTabBar = true
-                    }
+                    }, userImageURL: "",hasUserImage: false,titleAlignment: .center ,textAction: {
+                    
+                    },paddingSize: 70)
                     ScrollView {
                         VStack(spacing: 16) {
                             ProfileImage()
@@ -35,7 +37,7 @@ struct EditProfileView: View {
                             CustomTextField(text: $viewModel.user.username, placeholder: "", subtitle: "UserName:")
                             CustomTextField(text: $viewModel.user.email, placeholder: "alexa@example.com", subtitle: "E mail:")
                             CustomTextField(text: $viewModel.user.password, placeholder: Constants.TextConstants.placeholderPassword, isSecure: true, subtitle: Constants.TextConstants.passwordTitle)
-                            CustomTextField(text: $viewModel.user.age, placeholder: "15.10.1997", subtitle: "Age:")
+                            CustomTextField(text: $viewModel.user.age, placeholder: "25", subtitle: "Yaş:")
                             CustomTextField(text: Binding(get: { viewModel.user.about ?? "" }, set: { viewModel.user.about = $0 }), placeholder: "Alexa Richardson", isAbout: true, subtitle: "About:")
                             
                             HStack(spacing: 68) {

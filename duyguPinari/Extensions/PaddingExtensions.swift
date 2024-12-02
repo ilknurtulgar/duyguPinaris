@@ -10,7 +10,7 @@ import SwiftUI
 
 extension View {
     func HugeTitlePadding()-> some View{
-        self.padding(.top,100)
-            .padding(.bottom,65)
+        self.padding(.top,50)
+            .padding(.bottom,25)
     }
 }

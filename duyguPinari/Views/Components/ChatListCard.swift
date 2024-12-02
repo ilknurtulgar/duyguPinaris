@@ -21,23 +21,19 @@ struct ChatListCard: View {
                 if let url = profileImageURL, let imageURL = URL(string: url) {
                     AsyncImage(url: imageURL) { image in
                         image.resizable()
-                            .frame(width: 50, height: 50)
+                            .frame(width: 45, height: 45)
                             .clipShape(Circle())
                     } placeholder: {
-                        Image(systemName: "person.circle") // URL yoksa default resim
-                            .resizable()
-                            .frame(width: 50, height: 50)
-                            .clipShape(Circle())
-                            .foregroundColor(.gray)
                     }
-                } else {
-                    // URL yoksa varsayılan "person.circle" resmi göster
+                }else{
                     Image(systemName: "person.circle")
                         .resizable()
-                        .frame(width: 50, height: 50)
+                        .frame(width: 45, height: 45)
                         .clipShape(Circle())
                         .foregroundColor(.gray)
+                        .padding()
                 }
+                
                 
                 VStack(alignment: .leading, spacing: 10) {
                     TextStyles.subtitleMedium(title)

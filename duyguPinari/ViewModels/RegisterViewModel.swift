@@ -17,7 +17,7 @@ class RegisterViewModel: ObservableObject {
         static let sign = "KAYIT"
         static let signUp = "OL"
         static let usernameEmpty = "Kullanıcı adı boş"
-        static let invalidAgeFormat = "Yaş formatı geçersiz. Lütfen '15.11.1997' formatını kullanın."
+        static let invalidAgeFormat = "Yaş formatı geçersiz. Lütfen yaşınızı giriniz."
     }
     
     func registerUser(completion: @escaping (Bool, User?) -> Void) {
@@ -98,21 +98,10 @@ class RegisterViewModel: ObservableObject {
     }
     
     private func isValidAge(_ age: String) -> Bool {
-        let ageRegex = "^\\d{2}\\.\\d{2}\\.\\d{4}$"
-        let ageTest = NSPredicate(format: "SELF MATCHES %@", ageRegex)
-        if !ageTest.evaluate(with: age) {
+        guard let userAge = Int(user.age) else {
             return false
         }
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.yyyy"
-        dateFormatter.locale = Locale(identifier: "tr_TR")
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
-        
-        if let _ = dateFormatter.date(from: age) {
-            return true
-        } else {
-            return false
-        }
+        return userAge >= 18
     }
 }
 

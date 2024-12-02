@@ -37,7 +37,7 @@ struct CustomTextField: View {
                     )
             }
         }
-        .padding(.vertical,20)
+        .padding(.vertical,10)
         
     }
     
@@ -50,8 +50,10 @@ struct CustomTextField: View {
                     TextField(placeholder,text: $text)
                         .autocapitalization(.none)
                         .disableAutocorrection(true)
+                        .accentColor(Color.primaryColor)
                 }else{
                     SecureField(placeholder,text: $text)
+                        .accentColor(Color.primaryColor)
                 }
                 Button(action: {
                     isPasswordVisible.toggle()
@@ -67,10 +69,12 @@ struct CustomTextField: View {
             TextEditor(text: $text)
                 .autocapitalization(.none)
                 .disableAutocorrection(true)
+                .accentColor(Color.primaryColor)
         }else{
             TextField(placeholder,text:$text)
                 .autocapitalization(.none)
                 .disableAutocorrection(true)
+                .accentColor(Color.primaryColor)
         }
     }
 }

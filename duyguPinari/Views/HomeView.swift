@@ -11,12 +11,13 @@ struct HomeView: View {
     @State private var navigateToFilterView: Bool = false
     @Binding var showBottomTabBar: Bool
     @State private var destination: String?
+    @EnvironmentObject var appState: AppState
     @StateObject var viewModel: HomeViewModel
     
-    init(appState: AppState, showBottomTabBar: Binding<Bool>) {
-           _viewModel = StateObject(wrappedValue: HomeViewModel(appState: appState))
-           _showBottomTabBar = showBottomTabBar
-       }
+    init(showBottomTabBar: Binding<Bool>, appState: AppState) {
+          _viewModel = StateObject(wrappedValue: HomeViewModel(appState: appState))
+          _showBottomTabBar = showBottomTabBar
+      }
     
     var body: some View {
         NavigationStack{
@@ -34,7 +35,7 @@ struct HomeView: View {
                     .padding(.trailing,85)
                     
                     ScrollView{
-                        VStack(spacing: 45){
+                        VStack(spacing: 40){
                             if viewModel.chatUsers.isEmpty{
                                 TextStyles.subtitleMedium("Mesaj oluşturmak için mesaj butonuna tıklayın\n ve sohbete başlayın!")
                                     .multilineTextAlignment(.center)
@@ -53,6 +54,7 @@ struct HomeView: View {
                     }
                 }
             }
+        
             .navigationDestination(isPresented: $navigateToFilterView){
                 StartChattingView(showBottomTabBar: $showBottomTabBar)
                     .onDisappear{
@@ -67,15 +69,24 @@ struct HomeView: View {
                         showBottomTabBar = false
                     }
                     .onDisappear{
-                        
                         destination = nil
+                        
                     }
                     .navigationBarBackButtonHidden(true)
             }
             .navigationBarHidden(true)
+           .onAppear {
+               viewModel.fetchChatUsers(for: appState.currentUser?.id ?? "") {
+                   
+               } // ilk yükleme
+           
+                  }
+           
         }
     }
+    
 }
+
 
 /*#Preview {
  HomeView()

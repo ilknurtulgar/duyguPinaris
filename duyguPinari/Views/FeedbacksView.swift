@@ -21,10 +21,10 @@ struct FeedbacksView: View {
         ZStack{
             Color.backgroundPrimary.ignoresSafeArea()
             VStack(){
-                CustomToolBar(title: "Geri Bildirimler", icon: Image(systemName: "chevron.left")){
-                    dismiss()
-                    showBotttomTabBar = true
-                }
+                CustomToolBar(title: "Geri Bildirimler", icon: Image(systemName: "chevron.left"),action: { dismiss()
+                    showBotttomTabBar = true},userImageURL: "",hasUserImage: false,titleAlignment: .center,textAction: {
+                        
+                    },paddingSize: 70)
                 .padding(.bottom,30)
                 ScrollView{
                     VStack(spacing: 30){

@@ -10,9 +10,15 @@ import SwiftUI
 struct LoginView: View {
     @State private var isNavigatingToHome = false
     @State private var isNavigatingToRegister = false
-    @StateObject private var viewModel = LoginViewModel()
-    @EnvironmentObject var appState: AppState
+    @StateObject private var viewModel: LoginViewModel
+    @ObservedObject var appState: AppState
     @Binding var showBottomTabBar: Bool
+    
+    init(appState: AppState, showBottomTabBar: Binding<Bool>) {
+            _viewModel = StateObject(wrappedValue: LoginViewModel(appState: appState))
+            self.appState = appState
+        _showBottomTabBar = showBottomTabBar
+        }
     
     var body: some View {
         NavigationStack{
@@ -26,9 +32,16 @@ struct LoginView: View {
                         
                         CustomTextField(text: $viewModel.user.email,placeholder: Constants.TextConstants.placeholderEmail,  subtitle: Constants.TextConstants.emailTitle)
                         CustomTextField(text: $viewModel.user.password,placeholder: Constants.TextConstants.placeholderPassword,  isSecure: true, subtitle: Constants.TextConstants.passwordTitle)
+                        Button(action:{
+                            print("heres")
+                        }){
+                            TextStyles.bodyRegular("Şifrenizi mi unuttunuz?")
+                                .padding(.leading,200)
+                        }
                         if let errorMessage = viewModel.errorMessage{
                             Text(errorMessage)
                                 .foregroundStyle(.red)
+                                .padding(.top,10)
                         }
                         CustomButton(
                             title: Constants.TextConstants.signin,
@@ -41,17 +54,20 @@ struct LoginView: View {
                                 
                                 viewModel.loginUser { success in
                                     if success{
+                                      
                                         appState.isLoggedIn = true
                                             showBottomTabBar = true
                                         isNavigatingToHome = true
                                         appState.fetchUserProfile()
+                                   
+                            
                                     }
                                    }},
                             font: .custom("SFPro-Display-Medium", size: 15))
-                        
-                        .padding(.top, 65)
+                        //65
+                        .padding(.top, 35)
                         .navigationDestination(isPresented: $isNavigatingToHome) {
-                            HomeView(appState: appState, showBottomTabBar: $showBottomTabBar)
+                            HomeView( showBottomTabBar: $showBottomTabBar, appState: appState)
                                 .navigationBarHidden(true) // Üst çubuğu gizle
                             
                         }
@@ -71,6 +87,7 @@ struct LoginView: View {
                             font:.custom("SFPro-Display-Medium", size: 15))
                         
                         .padding(.top, 15)
+                        
                         .navigationDestination(isPresented: $isNavigatingToRegister) {
                             RegisterView(showBottomTabBar: $showBottomTabBar)
                                 .navigationBarHidden(true)

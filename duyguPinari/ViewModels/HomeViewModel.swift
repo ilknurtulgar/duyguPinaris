@@ -8,36 +8,75 @@
 import SwiftUI
 import FirebaseFirestore
 
-class HomeViewModel: ObservableObject{
+class HomeViewModel: ObservableObject {
     @Published var chatUsers: [ChatUser] = []
     private var appState: AppState
-    private var db = Firestore.firestore()
+    let db = Firestore.firestore()
     
     init(appState: AppState) {
         self.appState = appState
-    fetchChatUsers()
+        self.chatUsers = appState.chatUsers // Başlangıçta AppState'teki kullanıcıları al
     }
     
-    func fetchChatUsers(){
-        guard let userID = appState.currentUser?.id else{
-            print("no user logged in")
+    func fetchChatUsers(for userId: String,completion: @escaping () -> Void ){
+        guard appState.chatUsers.isEmpty else {
+            print("AppState'den kullanıcılar gösteriliyor, tekrar yüklenmiyor.")
+            self.chatUsers = appState.chatUsers
+            completion()
             return
         }
         
-        db.collection("users").document(userID).collection("chats")
-            .getDocuments{[weak self] snapshot, error in
+        db.collection("users").document(userId).collection("chats")
+            .order(by: "timestamp", descending: true)
+            .getDocuments { [weak self] snapshot, error in
                 if let error = error {
-                    print("error fetching chats: \(error.localizedDescription)")
+                    print("Sohbet verisi çekilemedi: \(error.localizedDescription)")
+                    completion()
                     return
                 }
                 
-                self?.chatUsers = snapshot?.documents.compactMap{ document in
+                guard let self = self else { return }
+                let chatDocuments = snapshot?.documents ?? []
+                var fetchedUsers: [ChatUser] = []
+
+                let group = DispatchGroup()
+
+                for document in chatDocuments {
                     let data = document.data()
-                    return ChatUser(id: document.documentID, username: data["username"] as? String ?? "nullim", message: data["lastMessage"] as? String ?? "", unreadMessage: data["unreadMessages"] as? Int ?? 0,
-                    profileImage: data["profileImage"] as? String ?? ""
-                    )
-                } ?? []
-                
+                    
+                    guard let users = data["users"] as? [String],
+                          let lastMessage = data["lastMessage"] as? String,
+                          let unreadMessage = data["unreadMessage"] as? Int,
+                          let profileImage = data["profileImage"] as? String else {
+                        continue
+                    }
+                    
+                    let chatUserId = users.first { $0 != userId } ?? ""
+                    
+                    group.enter()
+                    self.db.collection("users").document(chatUserId).getDocument { userSnapshot, userError in
+                        if let userError = userError {
+                            print("Kullanıcı bilgisi getirilemedi: \(userError.localizedDescription)")
+                        } else if let userData = userSnapshot?.data(),
+                                  let username = userData["username"] as? String {
+                            let chatUser = ChatUser(
+                                id: chatUserId,
+                                username: username,
+                                message: lastMessage,
+                                unreadMessage: unreadMessage,
+                                profileImage: profileImage
+                            )
+                            fetchedUsers.append(chatUser)
+                        }
+                        group.leave()
+                    }
+                }
+
+                group.notify(queue: .main) {
+                    self.chatUsers = fetchedUsers
+                    self.appState.chatUsers = fetchedUsers // AppState'i güncelle
+                    completion()
+                }
             }
     }
 }

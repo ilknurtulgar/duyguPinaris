@@ -16,7 +16,7 @@ struct Constants {
         static let emailTitle = "E mail:"
         static let placeholderEmail = "alara@example.com"
         static let ageTitle = "Yaş:"
-        static let placeholderAge =  "15.11.1997"
+        static let placeholderAge =  "25"
         static let passwordTitle = "Şifre:"
         static let placeholderPassword = "******"
         static let unvalidEmail = "Geçersiz e posta adresi"

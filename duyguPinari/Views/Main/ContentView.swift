@@ -20,7 +20,7 @@ struct ContentView: View {
                         ZStack {
                           
                             if appState.selectedTab == "Home" {
-                                HomeView(appState: appState ,showBottomTabBar: $showBottomTabBar)
+                                HomeView(showBottomTabBar: $showBottomTabBar, appState: appState)
                                     .environmentObject(appState)
                                    
                             } else if appState.selectedTab == "Profile" {
@@ -37,7 +37,7 @@ struct ContentView: View {
                     }
                 }
             } else {
-                LoginView(showBottomTabBar: $showBottomTabBar)
+                LoginView(appState: appState,showBottomTabBar: $showBottomTabBar)
                     .environmentObject(appState)
                    
             }

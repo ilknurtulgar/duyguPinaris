@@ -55,7 +55,7 @@ struct RegisterView: View {
                                     }},font: .custom("SFPro-Display-Medium", size: 15))
                         .padding(.top, 65)
                         .navigationDestination(isPresented: $isRegistering) {
-                            HomeView(appState: appState, showBottomTabBar: $showBottomTabBar)
+                            HomeView( showBottomTabBar: $showBottomTabBar, appState: appState)
                                 .navigationBarHidden(true)
                         }
                         self.withHorizontalLinesAndText(Constants.TextConstants.or)
@@ -73,7 +73,7 @@ struct RegisterView: View {
                             font: .custom("SFPro-Display-Medium", size: 15))
                         .padding(.top, 15)
                         .navigationDestination(isPresented: $isNavigatingToLogin) {
-                            LoginView(showBottomTabBar: $showBottomTabBar)
+                            LoginView(appState: appState,showBottomTabBar: $showBottomTabBar)
                                 .navigationBarHidden(true)
                         }
                     }

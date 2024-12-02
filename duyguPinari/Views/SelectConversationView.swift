@@ -9,59 +9,83 @@ import SwiftUI
 
 struct SelectConversationView: View {
     @State private var navigateToHomeView = false
-    @State private var navigateToChatView = false
+    @State private var navigateToAccept = false
     @Environment(\.dismiss) private var dismiss
+    @Binding var matchedUser: User?
+    @EnvironmentObject var appState: AppState
     @Binding var showBottomTabBar: Bool
+    @StateObject private var viewModel = SelectConversationViewModel()
     var body: some View {
-        ZStack{
-            Color.backgroundPrimary.ignoresSafeArea()
-            VStack(spacing: 0){
-                CustomToolBar(title: "Konuşma Seç",icon: nil,action: nil)
-                ScrollView{
-                    VStack(spacing: 35){
-                        HStack{
-                            TextStyles.subtitleMedium("3 kere değiştirme hakkınız bulunmakta").padding(.top,40)
-                                .padding(.leading,35)
-                            Button(action:{}){
-                                Image(systemName: "gobackward")
-                                    .foregroundColor(Color.primaryColor)
-                                    .padding(.top,40)
-                                    .padding(.leading,35)
-                            }
-                        }
-                        FeedbackCard( name: "Alexa Richardson", role:"Listener", rating: 3, feedbackText:  "I'm a mobile app developer who loves creating meaningful digital experiences. Passionate about iOS development and always eager to learn new things. In my free time, I enjoy coding, reading about tech innovations, and connecting with people through creative projects.")
-                        VStack(alignment: .leading,spacing: 15){
-                            TextStyles.subtitleMedium2("Geribildirimler:")
-                            FeedbackCard( name: "John Doe", role: "Listener", rating: 4, feedbackText: "Fantastic insights. Thank you for your support!")
-                            FeedbackCard( name: "Jane Smith", role: "Listener", rating: 5, feedbackText: "Good conversation. Thanks for listening!")
-                        }
-                        HStack(spacing: 80){
-                            CustomButton(title: Constants.TextConstants.cancel, width: 123, height: 35, backgroundColor: Color.white, borderColor: Color.primaryColor, textcolor: Color.primaryColor, action: {
-                                navigateToHomeView = true
-                                dismiss()
-                                showBottomTabBar = true
-                            },
-                                     font: .custom("SFPro-Display-Medium", size: 10))
-                            
-                            CustomButton(title: Constants.TextConstants.accept, width: 123, height: 35, backgroundColor: Color.primaryColor, borderColor: Color.primaryColor, textcolor: Color.white, action: {navigateToChatView = true}, font: .custom("SFPro-Display-Medium",size: 10))
-                        }
-                        .padding(.top,85)
+        
+        NavigationStack{
+            ZStack{
+                Color.backgroundPrimary.ignoresSafeArea()
+                VStack(){
+                    CustomToolBar(title: "Konuşma Başlat",icon: nil,action: nil,userImageURL: "",hasUserImage: false,titleAlignment: .center,textAction: {
                         
+                    },paddingSize: 125)
+                        .padding(.bottom,20)
+                    ScrollView{
+                        VStack(spacing: 35){
+                            if let matchedUser = matchedUser {
+                                FeedbackCard( name: matchedUser.username, role:"Dinelyici",
+                                              rating: 0,feedbackText: matchedUser.about ?? "Henüz hakkında bilgi yok." )
+                                
+                                .onAppear{
+                                    viewModel.fetchFeedbacks(for: matchedUser.id)
+                                    print("feedback çekmek için gelen kullancı: \(matchedUser.id)")
+                                }
+                                VStack(alignment: .leading, spacing: 15){
+                                    TextStyles.subtitleMedium("Geribildirimler:")
+                                    if !viewModel.feedbacks.isEmpty{
+                                        ForEach(viewModel.feedbacks){ feedback in
+                                            FeedbackCard(name: feedback.username, role: feedback.role,rating: feedback.rating,
+                                                         feedbackText:feedback.feedbackText )
+                                        }
+                                    }else{
+                                        TextStyles.subtitleMedium2("Kullanıcının geribildirim değerlendirmesi bulunmamaktadır!")
+                                    }
+                                }
+                            }else {
+                                TextStyles.subtitleMedium("Şimdilik eşleşen kullanıcı bulunmamaktadır. Daha sonra tekrar deneyiniz.")
+                                    .multilineTextAlignment(.center)
+                                    .lineLimit(nil)
+                            }
+                           // .padding(.top,150)
+                        }
                     }
-                }
-                .navigationDestination(isPresented: $navigateToChatView)
-                {
-                    ChatView(showBottomTabBar: $showBottomTabBar)
-                        .onAppear{
-                            showBottomTabBar = false
-                        }
-                        .onDisappear{
+                    HStack(spacing: 80){
+                        CustomButton(title: Constants.TextConstants.cancel, width: 123, height: 35, backgroundColor: Color.white, borderColor: Color.primaryColor, textcolor: Color.primaryColor, action: {
+                            navigateToHomeView = true
+                            dismiss()
                             showBottomTabBar = true
-                        }
-                        .navigationBarBackButtonHidden(true)
+                        },
+                                     font: .custom("SFPro-Display-Medium", size: 10))
+                        
+                        CustomButton(title: Constants.TextConstants.accept, width: 123, height: 35, backgroundColor: Color.primaryColor, borderColor: Color.primaryColor, textcolor: Color.white, action: {
+                            if let matchedUser = matchedUser{
+                                viewModel.startChat(with: matchedUser, currentUser: appState.currentUser!)
+                            }
+                            navigateToAccept = true
+                          
+                            showBottomTabBar = true
+                        }, font: .custom("SFPro-Display-Medium",size: 10))
+                      
+                    }
+                    .padding(.bottom,30)
+                    
                 }
             }
+            .navigationDestination(isPresented: $navigateToAccept)
+            {
+                HomeView(showBottomTabBar: $showBottomTabBar, appState: appState)
+                onDisappear{
+                    showBottomTabBar = true
+                }
+                    .navigationBarBackButtonHidden(true)
+            }
         }
+   
     }
 }
 

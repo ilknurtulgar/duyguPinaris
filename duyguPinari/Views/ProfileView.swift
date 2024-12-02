@@ -4,6 +4,7 @@
 //
 //  Created by İlknur Tulgar on 7.11.2024.
 //
+
 import FirebaseAuth
 import SwiftUI
 
@@ -26,8 +27,7 @@ struct ProfileView: View {
                 ScrollView {
                     VStack {
                         ProfileImage()
-                            .padding(.top, 100)
-                        
+                            .padding(.top, 50)
                         TextStyles.title(appState.currentUser?.username ?? "nullim")
                             .padding(.top, 18)
                             .padding(.bottom, 18)
@@ -85,10 +85,13 @@ struct ProfileView: View {
                                 appState.currentUser = nil
                                 do{
                                     try Auth.auth().signOut()
+                                    print("çıkış")
+                                    appState.chatUsers = []
+                                    destination = .logout
                                 }catch{
                                     print("error signing out: \(error.localizedDescription)")
                                 }
-                                destination = .logout
+                           
                                 
                             }
                         )
