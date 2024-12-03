@@ -84,7 +84,7 @@ struct StartChattingView: View {
                 }
             }
             .navigationDestination(isPresented: $navigateToNextView){
-                SelectConversationView(matchedUser: $matchedUser, appState: _appState, showBottomTabBar: $showBottomTabBar)
+                SelectConversationView(matchedUser: $matchedUser, appState: _appState, showBottomTabBar: $showBottomTabBar,topic: viewModel.topic)
                     .onAppear{
                         showBottomTabBar = false
                     }

@@ -47,7 +47,9 @@ class HomeViewModel: ObservableObject {
                     guard let users = data["users"] as? [String],
                           let lastMessage = data["lastMessage"] as? String,
                           let unreadMessage = data["unreadMessage"] as? Int,
-                          let profileImage = data["profileImage"] as? String else {
+                          let profileImage = data["profileImage"] as? String,
+                          let topic = data["topic"] as? String
+                    else {
                         continue
                     }
                     
@@ -64,7 +66,8 @@ class HomeViewModel: ObservableObject {
                                 username: username,
                                 message: lastMessage,
                                 unreadMessage: unreadMessage,
-                                profileImage: profileImage
+                                profileImage: profileImage,
+                                topic: topic
                             )
                             fetchedUsers.append(chatUser)
                         }

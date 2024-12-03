@@ -13,20 +13,22 @@ class SelectConversationViewModel: ObservableObject {
     let db = Firestore.firestore()
     var homeViewModel: HomeViewModel?
     
-    func startChat(with user: User,currentUser: User){
+    func startChat(with user: User,currentUser: User,topic: String){
         let currentUserChatData: [String: Any] = [
             "users": [currentUser.id,user.id],
             "lastMessage": "Sohbete başlamak için tıklayın",
             "unreadMessage": 0,
             "profileImage": "",
-            "timestamp": FieldValue.serverTimestamp()
+            "timestamp": FieldValue.serverTimestamp(),
+            "topic": topic
         ]
         let matchedUserChatData: [String: Any] = [
             "users": [user.id,currentUser.id],
             "lastMessage": "Sohbete başlamak için tıklayın",
             "unreadMessage": 0,
             "profileImage": "",
-            "timestamp": FieldValue.serverTimestamp()
+            "timestamp": FieldValue.serverTimestamp(),
+            "topic": topic
         ]
         
         db.collection("users").document(currentUser.id).collection("chats").document(user.id).setData(currentUserChatData){error in

@@ -15,6 +15,7 @@ struct SelectConversationView: View {
     @EnvironmentObject var appState: AppState
     @Binding var showBottomTabBar: Bool
     @StateObject private var viewModel = SelectConversationViewModel()
+    var topic: String 
     var body: some View {
         
         NavigationStack{
@@ -64,7 +65,7 @@ struct SelectConversationView: View {
                         
                         CustomButton(title: Constants.TextConstants.accept, width: 123, height: 35, backgroundColor: Color.primaryColor, borderColor: Color.primaryColor, textcolor: Color.white, action: {
                             if let matchedUser = matchedUser{
-                                viewModel.startChat(with: matchedUser, currentUser: appState.currentUser!)
+                                viewModel.startChat(with: matchedUser, currentUser: appState.currentUser!,topic: topic)
                             }
                             navigateToAccept = true
                           

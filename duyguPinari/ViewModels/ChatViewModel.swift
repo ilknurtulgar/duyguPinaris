@@ -14,6 +14,23 @@ class ChatViewModel: ObservableObject {
     //@EnvironmentObject var appState: AppState
     private var db = Firestore.firestore()
     
+    func fetchAbout(for chatUserId: String, completion: @escaping (String?) -> Void) {
+        db.collection("users").document(chatUserId).getDocument { document, error in
+            if let error = error {
+                print("Hakkında bilgisi alınamadı: \(error.localizedDescription)")
+                completion(nil)
+                return
+            }
+            
+            if let document = document, document.exists, let about = document.data()?["about"] as? String {
+                completion(about)
+            } else {
+                completion(nil)
+            }
+        }
+    }
+
+    
     func fetchMessages(for chatUserId: String, currentUserId: String) {
         print("current: \(currentUserId)")
         print("chatuserID: \(chatUserId)")

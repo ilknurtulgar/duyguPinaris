@@ -14,6 +14,7 @@ struct ChatView: View {
     @State private var newMessage: String = ""
     @State private var aboutNavigate = false
     var shadow: Bool = false
+    @State private var aboutText: String = "Hakkında bilgisi mevcut değil."
     @EnvironmentObject var appState: AppState
     @StateObject var viewModel = ChatViewModel()
 
@@ -81,11 +82,16 @@ struct ChatView: View {
                     .padding(.top,10)
                 }
                 .navigationDestination(isPresented: $aboutNavigate) {
-                    AboutView(isActive: aboutNavigate, showBottomTabBar: $showBottomTabBar,chatUser: chatUser)
+                    AboutView(isActive: aboutNavigate, showBottomTabBar: $showBottomTabBar,chatUser: chatUser,about: aboutText)
                         .navigationBarBackButtonHidden(true)
                 }
                 .onAppear {
                     viewModel.fetchMessages(for: chatUser.id, currentUserId: appState.currentUser?.id ?? "")
+                    viewModel.fetchAbout(for: chatUser.id) { about in
+                            if let about = about {
+                                self.aboutText = about
+                            }
+                        }
                 }
             }
         }

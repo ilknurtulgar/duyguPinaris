@@ -24,6 +24,7 @@ struct AboutView: View {
     @State private var showAlert: Bool = false
     @Binding var showBottomTabBar: Bool
     var chatUser: ChatUser
+    var about: String
     var body: some View {
         NavigationStack{
             ZStack {
@@ -42,7 +43,7 @@ struct AboutView: View {
                             TextStyles.subtitleMedium2("Hakkında:")
                                 .frame(maxWidth: 430,alignment: .leading)
                                 .padding(.leading,70)
-                            TextStyles.bodyRegular("Teknoloji ve inovasyona ilgi duyan, her zaman yeni fikirler ve çözümler üretmeye odaklanan bir profesyoneldir. Hedef odaklı çalışarak karmaşık problemleri çözmeyi ve yenilikçi projelerde yer almayı sever. Sosyal etkileşimde güçlü, takım çalışmasına yatkın ve liderlik becerileriyle dikkat çeker. Zamanını verimli kullanarak kişisel ve profesyonel gelişimine yatırım yapar. Boş zamanlarında film izlemeyi, müzik dinlemeyi ve seyahat etmeyi tercih eder.")
+                            TextStyles.bodyRegular(about)
                                 .asText()
                                 .customAboutText(backgroundColor: Color.white,borderColor: Color.secondaryColor,shadow: true)
                             
@@ -50,7 +51,7 @@ struct AboutView: View {
                                 .frame(maxWidth: 430,alignment: .leading)
                                 .padding(.leading,70)
                             
-                            TextStyles.bodyRegular("Sosyal Anksiyete")
+                            TextStyles.bodyRegular(chatUser.topic ?? "")
                             
                                 .asText()
                                 .customAboutText(backgroundColor: Color.white,borderColor: Color.secondaryColor,shadow: true,isTopic: true)
