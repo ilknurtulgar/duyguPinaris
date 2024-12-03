@@ -34,11 +34,11 @@ struct EditProfileView: View {
                         VStack(spacing: 16) {
                             ProfileImage()
                                 .padding(.top, 16)
-                            CustomTextField(text: $viewModel.user.username, placeholder: "", subtitle: "UserName:")
+                            CustomTextField(text: $viewModel.user.username, placeholder: "", subtitle: "Kullanıcı Adı:")
                             CustomTextField(text: $viewModel.user.email, placeholder: "alexa@example.com", subtitle: "E mail:")
                             CustomTextField(text: $viewModel.user.password, placeholder: Constants.TextConstants.placeholderPassword, isSecure: true, subtitle: Constants.TextConstants.passwordTitle)
                             CustomTextField(text: $viewModel.user.age, placeholder: "25", subtitle: "Yaş:")
-                            CustomTextField(text: Binding(get: { viewModel.user.about ?? "" }, set: { viewModel.user.about = $0 }), placeholder: "Alexa Richardson", isAbout: true, subtitle: "About:")
+                            CustomTextField(text: Binding(get: { viewModel.user.about ?? "" }, set: { viewModel.user.about = $0 }), placeholder: "Alexa Richardson", isAbout: true, subtitle: "Hakkında:")
                             
                             HStack(spacing: 68) {
                                 CustomButton(

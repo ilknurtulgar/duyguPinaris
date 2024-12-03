@@ -17,6 +17,8 @@
 		832EC72D2CFDE2E400996372 /* CustomGetMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832EC72C2CFDE2E400996372 /* CustomGetMessage.swift */; };
 		832EC72F2CFDE46900996372 /* SpecificCornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832EC72E2CFDE46900996372 /* SpecificCornerRadius.swift */; };
 		832EC7312CFDF5E900996372 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832EC7302CFDF5E900996372 /* AboutView.swift */; };
+		832EC7332CFE7B1000996372 /* AddFeedbackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832EC7322CFE7B1000996372 /* AddFeedbackView.swift */; };
+		832EC7352CFE82C000996372 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832EC7342CFE82C000996372 /* RatingView.swift */; };
 		8339AA862CD8B340002A98B1 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8339AA852CD8B340002A98B1 /* LoginView.swift */; };
 		8339AA882CD8B68D002A98B1 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8339AA872CD8B68D002A98B1 /* UIColorExtensions.swift */; };
 		8339AA8A2CD8BB50002A98B1 /* TextStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8339AA892CD8BB50002A98B1 /* TextStyles.swift */; };
@@ -93,6 +95,8 @@
 		832EC72C2CFDE2E400996372 /* CustomGetMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomGetMessage.swift; sourceTree = "<group>"; };
 		832EC72E2CFDE46900996372 /* SpecificCornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecificCornerRadius.swift; sourceTree = "<group>"; };
 		832EC7302CFDF5E900996372 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		832EC7322CFE7B1000996372 /* AddFeedbackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFeedbackView.swift; sourceTree = "<group>"; };
+		832EC7342CFE82C000996372 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		8339AA852CD8B340002A98B1 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		8339AA872CD8B68D002A98B1 /* UIColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
 		8339AA892CD8BB50002A98B1 /* TextStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStyles.swift; sourceTree = "<group>"; };
@@ -288,6 +292,7 @@
 				83CC4D0D2CEC73F7005ABF77 /* StartChattingView.swift */,
 				83CC4D172CECBE49005ABF77 /* SelectConversationView.swift */,
 				832EC7302CFDF5E900996372 /* AboutView.swift */,
+				832EC7322CFE7B1000996372 /* AddFeedbackView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -331,6 +336,7 @@
 				832EC72A2CFDDFE900996372 /* SendMessageField.swift */,
 				832EC72C2CFDE2E400996372 /* CustomGetMessage.swift */,
 				832EC72E2CFDE46900996372 /* SpecificCornerRadius.swift */,
+				832EC7342CFE82C000996372 /* RatingView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -488,6 +494,7 @@
 				8323D1302CF75FB900159B07 /* AppState.swift in Sources */,
 				8339AA862CD8B340002A98B1 /* LoginView.swift in Sources */,
 				832EC72F2CFDE46900996372 /* SpecificCornerRadius.swift in Sources */,
+				832EC7352CFE82C000996372 /* RatingView.swift in Sources */,
 				832EC72B2CFDDFE900996372 /* SendMessageField.swift in Sources */,
 				83DB027E2CEBF854000CBCD6 /* ChatListCard.swift in Sources */,
 				83CC4D102CEC7FCB005ABF77 /* CustomPicker.swift in Sources */,
@@ -500,6 +507,7 @@
 				83CC4D0E2CEC73F7005ABF77 /* StartChattingView.swift in Sources */,
 				8343C99B2CD2136700107507 /* ContentView.swift in Sources */,
 				836D5EC02CEA81BA0065D027 /* Constants.swift in Sources */,
+				832EC7332CFE7B1000996372 /* AddFeedbackView.swift in Sources */,
 				8343C9992CD2136700107507 /* duyguPinariApp.swift in Sources */,
 				83572EB42CFB5C7F00E113D4 /* SelectConversationViewModel.swift in Sources */,
 				839CBAD02CDC30FE0066BE03 /* ProfileImage.swift in Sources */,

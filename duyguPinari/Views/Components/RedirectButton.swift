@@ -22,9 +22,9 @@ struct CustomRedirectButton: View {
             HStack {
                 icon
                     .resizable()
-                    .frame(width: 15, height: 15)
+                    .frame(width: 18, height: 18)
                     .foregroundColor(Color.textColor)
-                   .padding(.leading, 10) // Standart padding
+               //    .padding(.leading, 10) // Standart padding
                 TextStyles.subtitleMedium(title)
                     .padding(.leading, 10)
                 Spacer()
@@ -38,12 +38,14 @@ struct CustomRedirectButton: View {
                     ) {
                         // Empty label for Toggle
                     }
+                    .padding(.trailing, 5) // Tutarlı padding
                     .toggleStyle(SwitchToggleStyle(tint: Color.primaryColor))
                     .scaleEffect(0.6)
-                    .padding(.trailing, 10) // Tutarlı padding
+                   
                 }
             }
             .frame(width: 295, height: 40) // Sabit genişlik
+            .padding(.leading,10)
         //    .padding(.all,6)
             .background(Color.white)
             .cornerRadius(15)
