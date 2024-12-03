@@ -10,8 +10,9 @@ import SwiftUI
 struct HomeView: View {
     @State private var navigateToFilterView: Bool = false
     @Binding var showBottomTabBar: Bool
-    @State private var destination: String?
+    @State private var isChat: Bool = false
     @EnvironmentObject var appState: AppState
+    @State private var selectedChatUser: ChatUser?
     @StateObject var viewModel: HomeViewModel
     
     init(showBottomTabBar: Binding<Bool>, appState: AppState) {
@@ -45,7 +46,10 @@ struct HomeView: View {
                                 ForEach(viewModel.chatUsers){user in
                                     ChatListCard(profileImageURL: user.profileImage, title: user.username, messageDetails: user.message, unreadMessages: user.unreadMessage, showBottomTabBar: $showBottomTabBar, action: {
                                         showBottomTabBar = false
-                                        destination = "chat"
+                                        isChat = true
+                                        selectedChatUser = user
+                                        print("home -> currentUserId: (\(appState.currentUser?.id ?? "" )")
+                            
                                     })
                                 }
                             }
@@ -63,16 +67,17 @@ struct HomeView: View {
                     .navigationBarBackButtonHidden(true)
             }
             
-            .navigationDestination(isPresented: .constant(destination == "chat")){
-                ChatView(showBottomTabBar: $showBottomTabBar)
-                    .onAppear{
-                        showBottomTabBar = false
-                    }
-                    .onDisappear{
-                        destination = nil
-                        
-                    }
-                    .navigationBarBackButtonHidden(true)
+            .navigationDestination(isPresented: $isChat){
+               
+                if let selectedChatUser = selectedChatUser {
+                 
+                    ChatView(showBottomTabBar: $showBottomTabBar,chatUser: selectedChatUser)
+                        .environmentObject(appState)
+                        .onAppear{
+                            showBottomTabBar = false
+                        }
+                        .navigationBarBackButtonHidden(true)
+                }
             }
             .navigationBarHidden(true)
            .onAppear {
@@ -81,7 +86,6 @@ struct HomeView: View {
                } // ilk yükleme
            
                   }
-           
         }
     }
     

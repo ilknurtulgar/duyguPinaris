@@ -22,13 +22,14 @@ struct AboutView: View {
     @State var isDone: Bool = false
     @Environment(\.dismiss) private var dismiss
     @State private var showAlert: Bool = false
-
+    @Binding var showBottomTabBar: Bool
+    var chatUser: ChatUser
     var body: some View {
         NavigationStack{
             ZStack {
                 Color.backgroundPrimary.ignoresSafeArea()
                 VStack(spacing: 0) {
-                    CustomToolBar(title: "chat", icon: Image(systemName: "chevron.left"), action: {
+                    CustomToolBar(title: chatUser.username, icon: Image(systemName: "chevron.left"), action: {
                         dismiss()
                         isActive = false // ChatView'e dönmek için
                     }, userImageURL: "", hasUserImage: true, titleAlignment: .leading, textAction: nil,paddingSize: 10)
@@ -65,8 +66,15 @@ struct AboutView: View {
                     }
                 }
                 .navigationDestination(isPresented: $isDone){
-                    AddFeedbackView()
+                    AddFeedbackView(showBottomTabBar: $showBottomTabBar)
                         .navigationBarBackButtonHidden(true)
+                        .onAppear {
+                            showBottomTabBar = false
+                        }
+                        .onDisappear{
+                            isDone = false
+                        }
+                      
                 }
                 .alert("Konuşmayı Bitirme", isPresented: $showAlert) {
                     Button("Hayır", role: .cancel) { }

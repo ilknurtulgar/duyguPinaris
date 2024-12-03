@@ -22,7 +22,7 @@ struct CustomRedirectButton: View {
             HStack {
                 icon
                     .resizable()
-                    .frame(width: 18, height: 18)
+                    .frame(width: 15, height: 15)
                     .foregroundColor(Color.textColor)
                //    .padding(.leading, 10) // Standart padding
                 TextStyles.subtitleMedium(title)

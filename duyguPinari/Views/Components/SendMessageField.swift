@@ -12,7 +12,7 @@ struct SendMessageField: View {
     var onSend: () -> Void
     
     var body: some View{
-        VStack(spacing: 0){
+        VStack(spacing: 5){
             
             Rectangle()
                 .frame(height: 1)
@@ -25,11 +25,12 @@ struct SendMessageField: View {
                     onSend()
                     }
                 }){
-                    Image(systemName: "paperplane.circle")
+                    Image(systemName: "paperplane.circle.fill")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 24,height: 24)
-                        .foregroundColor(Color.primaryColor)
+                        .frame(width: 35,height: 35)
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.white,Color.primaryColor)
                 }
             }
            

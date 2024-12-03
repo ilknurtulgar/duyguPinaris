@@ -13,4 +13,5 @@ struct ChatUser: Identifiable {
     var message: String
     var unreadMessage: Int
     var profileImage: String?
+   // var topic: String?
 }

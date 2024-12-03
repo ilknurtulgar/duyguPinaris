@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		831F4A872CFF4F4E0054FA89 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831F4A862CFF4F4E0054FA89 /* Message.swift */; };
+		831F4A892CFF516D0054FA89 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831F4A882CFF516D0054FA89 /* ChatViewModel.swift */; };
 		8323D1282CF62EDF00159B07 /* ChatUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8323D1272CF62EDF00159B07 /* ChatUser.swift */; };
 		8323D12A2CF62F5800159B07 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8323D1292CF62F5800159B07 /* HomeViewModel.swift */; };
 		8323D12E2CF73AE200159B07 /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8323D12D2CF73AE200159B07 /* EditProfileViewModel.swift */; };
@@ -85,6 +87,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		831F4A862CFF4F4E0054FA89 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		831F4A882CFF516D0054FA89 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		8323D1272CF62EDF00159B07 /* ChatUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatUser.swift; sourceTree = "<group>"; };
 		8323D1292CF62F5800159B07 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		8323D12D2CF73AE200159B07 /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
@@ -250,6 +254,7 @@
 				836D5EB82CEA109C0065D027 /* User.swift */,
 				83CC4D112CECAF2C005ABF77 /* ChatSelection.swift */,
 				8323D1272CF62EDF00159B07 /* ChatUser.swift */,
+				831F4A862CFF4F4E0054FA89 /* Message.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -265,6 +270,7 @@
 				8323D12D2CF73AE200159B07 /* EditProfileViewModel.swift */,
 				833E87082CF9FD6E004A844C /* ProfileViewModel.swift */,
 				83572EB32CFB5C7F00E113D4 /* SelectConversationViewModel.swift */,
+				831F4A882CFF516D0054FA89 /* ChatViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -488,6 +494,7 @@
 				83CC4D182CECBE49005ABF77 /* SelectConversationView.swift in Sources */,
 				83CC4D142CECB04D005ABF77 /* StartChattingViewModel.swift in Sources */,
 				833E87092CF9FD6E004A844C /* ProfileViewModel.swift in Sources */,
+				831F4A872CFF4F4E0054FA89 /* Message.swift in Sources */,
 				836D5EB92CEA109C0065D027 /* User.swift in Sources */,
 				836D5EC42CEAA1CA0065D027 /* CustomButton.swift in Sources */,
 				83CC4D122CECAF2C005ABF77 /* ChatSelection.swift in Sources */,
@@ -520,6 +527,7 @@
 				8323D12E2CF73AE200159B07 /* EditProfileViewModel.swift in Sources */,
 				839CBAD32CDC337D0066BE03 /* CustomAboutText.swift in Sources */,
 				832EC72D2CFDE2E400996372 /* CustomGetMessage.swift in Sources */,
+				831F4A892CFF516D0054FA89 /* ChatViewModel.swift in Sources */,
 				835660642CE616E90081F52B /* EditProfileView.swift in Sources */,
 				8339AA882CD8B68D002A98B1 /* UIColorExtensions.swift in Sources */,
 				835660682CE6650F0081F52B /* FeedbacksView.swift in Sources */,

@@ -66,11 +66,7 @@ struct LoginView: View {
                             font: .custom("SFPro-Display-Medium", size: 15))
                         //65
                         .padding(.top, 35)
-                        .navigationDestination(isPresented: $isNavigatingToHome) {
-                            HomeView( showBottomTabBar: $showBottomTabBar, appState: appState)
-                                .navigationBarHidden(true) // Üst çubuğu gizle
-                            
-                        }
+                    
                         self.withHorizontalLinesAndText(Constants.TextConstants.or)
                         
                         CustomButton(
@@ -88,13 +84,20 @@ struct LoginView: View {
                         
                         .padding(.top, 15)
                         
-                        .navigationDestination(isPresented: $isNavigatingToRegister) {
-                            RegisterView(showBottomTabBar: $showBottomTabBar)
-                                .navigationBarHidden(true)
-                            
-                        }
+                   
                     }
                 }
+             
+            }
+            .navigationDestination(isPresented: $isNavigatingToHome) {
+                HomeView( showBottomTabBar: $showBottomTabBar, appState: appState)
+                    .navigationBarHidden(true) // Üst çubuğu gizle
+                
+            }
+            .navigationDestination(isPresented: $isNavigatingToRegister) {
+                RegisterView(showBottomTabBar: $showBottomTabBar)
+                    .navigationBarHidden(true)
+                
             }
         }
     }

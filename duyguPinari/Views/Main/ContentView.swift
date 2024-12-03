@@ -35,6 +35,7 @@ struct ContentView: View {
                         BottomTabBar(selectedTab: $appState.selectedTab)
                             .padding(.bottom, 10)
                     }
+                 
                 }
             } else {
                 LoginView(appState: appState,showBottomTabBar: $showBottomTabBar)

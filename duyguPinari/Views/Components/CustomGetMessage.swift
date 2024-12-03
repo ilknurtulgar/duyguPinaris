@@ -10,44 +10,96 @@ import SwiftUI
 struct CustomGetMessage: View {
     let message: String
     let isCurrentUser: Bool
+    var profileImageURL: String?
     let time: String
 
     var body: some View {
-        HStack {
-            if isCurrentUser {
-                Spacer() // Mesajı sağ tarafa itmek için
+        HStack(alignment: .top, spacing: 10) { // HStack içerisindeki öğeleri hizalamak için
+            if !isCurrentUser, let userImageURL = profileImageURL {
+                VStack {
+                    AsyncImage(url: URL(string: userImageURL)) { phase in
+                        switch phase {
+                        case .empty:
+                            Image(systemName: "person.circle")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 40, height: 40)
+                                .clipShape(Circle())
+                        case .success(let image):
+                            image
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 40, height: 40)
+                                .clipShape(Circle())
+                        case .failure:
+                            Image(systemName: "person.circle")
+                                .resizable()
+                                .frame(width: 40, height: 40)
+                                .clipShape(Circle())
+                        @unknown default:
+                            EmptyView()
+                        }
+                    }
+                }
             }
 
+            // Mesaj kutusu ve zamanın hizalanması
             VStack(alignment: isCurrentUser ? .trailing : .leading) {
-                // Mesaj içeriği
-                Text(message)
-                    .padding(10)
-                    .foregroundColor(.textColor)
-                    .background(Color.white)
-                    .customCornerRadius(15, corners:  isCurrentUser ?  [.topRight, .bottomRight] : [.topLeft, .bottomLeft] )
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 15)
-                            .stroke(Color.primaryColor, lineWidth: 2) // Kenar rengi daha belirgin
-                            .customCornerRadius(15, corners: isCurrentUser ?  [.topRight, .bottomRight] : [.topLeft, .bottomLeft] )
-                    )
-                    .shadow(color: .black.opacity(0.2), radius: 4, x: 0, y: 2) // Shadow'u biraz daha belirginleştirdik
-                    .frame(maxWidth: UIScreen.main.bounds.width * 0.7, alignment: isCurrentUser ? .trailing : .leading) // Maksimum genişlik ayarı
-                // Zamanı mesajın altında göstermek
-                Text(time)
-                    .font(.footnote)
-                    .foregroundColor(.gray)
-                    .padding(.top, 2) // Zamanın biraz daha yukarıda olmasını sağlamak
-                    .frame(maxWidth: .infinity, alignment: isCurrentUser ? .trailing : .leading) // Zaman hizalaması
-                
+                ZStack {
+                    RoundedRectangle(cornerRadius: 15)
+                        .stroke(Color.primaryColor, lineWidth: 1)
+                        .background(Color.white)
+                        .cornerRadius(15)
+                        .shadow(color: .black.opacity(0.2), radius: 4, x: 0, y: 2)
+
+                    VStack(alignment: isCurrentUser ? .trailing : .leading) {
+                        Text(message)
+                            .foregroundColor(.textColor)
+                            .multilineTextAlignment(isCurrentUser ? .trailing : .leading)
+                            .lineLimit(nil)
+
+                        Text(time)
+                            .font(.footnote)
+                            .foregroundColor(.gray)
+                            .padding(.top, 2)
+                            .multilineTextAlignment(isCurrentUser ? .leading : .trailing)
+                    }
+                }
+                .frame(minWidth: 50, maxWidth: 250, minHeight: 40, alignment: isCurrentUser ? .trailing : .leading) // Mesaj kutusunu hizalamak
             }
-            .padding(isCurrentUser ? .trailing : .leading, 10) // Mesajın iç hizalaması
-            .padding(.vertical, 5)
-            
-            if !isCurrentUser {
-                Spacer() // Mesajı sol tarafa itmek için
+
+            // Kullanıcı resmi
+            if isCurrentUser, let userImageURL = profileImageURL {
+                VStack {
+                    AsyncImage(url: URL(string: userImageURL)) { phase in
+                        switch phase {
+                        case .empty:
+                            Image(systemName: "person.circle")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 40, height: 40)
+                                .clipShape(Circle())
+                        case .success(let image):
+                            image
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 40, height: 40)
+                                .clipShape(Circle())
+                        case .failure:
+                            Image(systemName: "person.circle")
+                                .resizable()
+                                .frame(width: 40, height: 40)
+                                .clipShape(Circle())
+                        @unknown default:
+                            EmptyView()
+                        }
+                    }
+                }
             }
         }
-        .padding(isCurrentUser ? .leading : .trailing, 50) // Mesajın dış paddingi
+        .padding(isCurrentUser ? .leading : .trailing, 15) // Mesajın etrafındaki padding
+        .frame(maxWidth: .infinity, alignment: isCurrentUser ? .trailing : .leading) // Mesaj kutusunu sağa veya sola hizalamak
     }
 }
+
 

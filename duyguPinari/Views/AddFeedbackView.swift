@@ -12,6 +12,8 @@ struct AddFeedbackView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var rating: Int = 0
     @State var isState: Bool = false
+    @EnvironmentObject var appState: AppState
+    @Binding var showBottomTabBar: Bool
     @State private var showAlert: Bool = false
     var body: some View {
         NavigationStack {
@@ -39,6 +41,7 @@ struct AddFeedbackView: View {
                             RatingView(rating: $rating) // Yıldız Derecelendirme
                                                           .padding(.leading, 70)
                                                           .padding(.top, 10)
+                                                          .padding(.bottom,30)
                             TextStyles.subtitleMedium2("Sohbet nasıl geçti:")
                                 .padding(.leading, 70)
                             
@@ -72,14 +75,17 @@ struct AddFeedbackView: View {
                     )
                     .padding(.bottom, 30)
                 }
-               /*/ .navigationDestination(isPresented: $isState){
-                  HomeView()
+               .navigationDestination(isPresented: $isState){
+                  HomeView(showBottomTabBar: $showBottomTabBar, appState: appState)
                         .navigationBarBackButtonHidden(true)
-                }*/
+                      
+            
+                }
                 .alert("Geri Bildirim Verme", isPresented: $showAlert) {
                     Button("Hayır", role: .cancel) { }
                     Button("Evet") {
                     isState = true
+                        showBottomTabBar = true
                     }
                 } message: {
                     Text("Geri dönerseniz geri bildiriminiz iptal olacaktır. Onaylıyor musunuz?")
@@ -89,6 +95,6 @@ struct AddFeedbackView: View {
     }
 }
 
-#Preview {
+/*#Preview {
     AddFeedbackView()
-}
+}*/
