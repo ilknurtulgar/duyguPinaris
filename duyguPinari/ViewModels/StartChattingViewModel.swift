@@ -28,7 +28,6 @@ class StartChattingViewModel: ObservableObject {
     }
     
     let agesList = ["18 - 30","31 - 45","46 - 60"]
-  //  let roleList = ["Dinleyici", "Anatıcı"]
     let topicList = ["Stres ve Anksiyete","İlişki Sorunları","Kaygı ve Kayıp","İş Yerinde Stres","Yalnızlık","Aile İlişkileri","Sosyal Anksiyete","Ebeveynlik Zorlukları","Hayat ve Kariyer Dengesi"]
     
     
@@ -89,7 +88,7 @@ class StartChattingViewModel: ObservableObject {
                 
                 guard let documents = snapshot?.documents, !documents.isEmpty else {
                     DispatchQueue.main.async {
-                        self.errorMessage = "Eşleşecek uygun bir kullanıcı bulunamadı. Lütfen daha sonra tekrar deneyin."
+                        self.errorMessage = "Eşleşecek uygun bir kullanıcı bulunamadı.\n Lütfen daha sonra tekrar deneyin."
                     }
                     completion(.success(nil))
                     return
@@ -111,7 +110,10 @@ class StartChattingViewModel: ObservableObject {
                 }
                 
                 //currentUser listenin dışına ekleme
-                let filteredUsers = matchingUsers.filter{ $0.id != currentUser.id}
+              //  print("chatUsers: \(String(describing: appState.chatUsers.first))")
+                let filteredUsers = matchingUsers.filter { user in
+                    return user.id != currentUser.id && !appState.chatUsers.contains { $0.id == user.id }
+                          }
                 if filteredUsers.isEmpty{
                     DispatchQueue.main.async {
                         self.errorMessage = "Eşleşecek uygun bir kullanıcı bulunamadı. Lütfen daha sonra tekrar deneyin."
@@ -123,6 +125,7 @@ class StartChattingViewModel: ObservableObject {
                     let randomUser = filteredUsers.randomElement()
                     
                     if let matchedUser = randomUser{
+        
                         completion(.success(matchedUser))
                     }else{
                         completion(.success(nil))

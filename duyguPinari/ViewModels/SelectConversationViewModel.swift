@@ -14,22 +14,51 @@ class SelectConversationViewModel: ObservableObject {
     var homeViewModel: HomeViewModel?
     
     func startChat(with user: User,currentUser: User,topic: String){
+        print("---------------STARTCHAT--------------------")
+        print("chatuser : (\(user)")
+        print("currentUser: \(currentUser)")
+        print("----------------------------------")
+    
         let currentUserChatData: [String: Any] = [
             "users": [currentUser.id,user.id],
             "lastMessage": "Sohbete başlamak için tıklayın",
             "unreadMessage": 0,
             "profileImage": "",
             "timestamp": FieldValue.serverTimestamp(),
-            "topic": topic
+            "topic": topic,
+            "role": "Anlatıcı"
         ]
+        
+        let currentUserChatUser = ChatUser(
+            id: currentUser.id,
+            username: currentUser.username,
+            message: "Sohbete başlamak için tıklayın",
+            unreadMessage: 0,
+            profileImage: "",  // Eğer mevcutsa profil resmini buraya ekleyebilirsiniz
+            topic: topic,
+            role: "Anlatıcı",
+            timestamp: Date() // Firestore'daki timestamp'a uygun olarak
+        )
+        
         let matchedUserChatData: [String: Any] = [
             "users": [user.id,currentUser.id],
             "lastMessage": "Sohbete başlamak için tıklayın",
             "unreadMessage": 0,
             "profileImage": "",
             "timestamp": FieldValue.serverTimestamp(),
-            "topic": topic
+            "topic": topic,
+            "role": "Dinleyici"
         ]
+        let matchedUserChatUser = ChatUser(
+                   id: user.id,
+                   username: user.username,
+                   message: "Sohbete başlamak için tıklayın",
+                   unreadMessage: 0,
+                   profileImage: "",  // Eğer mevcutsa profil resmini buraya ekleyebilirsiniz
+                   topic: topic,
+                   role: "Dinleyici",
+                   timestamp: Date() // Firestore'daki timestamp'a uygun olarak
+               )
         
         db.collection("users").document(currentUser.id).collection("chats").document(user.id).setData(currentUserChatData){error in
             if let error = error{
@@ -52,7 +81,7 @@ class SelectConversationViewModel: ObservableObject {
     
     func fetchFeedbacks(for userId: String){
         db.collection("feedbacks")
-            .whereField("receiverID", isEqualTo: userId)
+            .whereField("senderID", isEqualTo: userId)
             .getDocuments{
                 snapshot , error in
                 if let error = error {
@@ -67,9 +96,10 @@ class SelectConversationViewModel: ObservableObject {
                           let senderID = data["senderID"] as? String,
                           let profileImageURL = data["profileImageURL"] as? String?,
                           let username = data["username"] as? String,
-                          let role = data["role"] as? String,
                           let rating = data["rating"] as? Int,
-                          let feedbackText = data["feedbackText"] as? String else{
+                          let feedbackText = data["feedbackText"] as? String,
+                          let role = data["role"] as? String
+                    else{
                         return nil
                     }
                     return Feedback(id: id, receiverID: receiverID, senderID: senderID,profileImage: profileImageURL, username: username, role: role, rating: rating, feedbackText: feedbackText)

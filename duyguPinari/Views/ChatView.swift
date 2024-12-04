@@ -29,7 +29,6 @@ struct ChatView: View {
                     }, userImageURL: chatUser.profileImage ?? "", hasUserImage: true, titleAlignment: .leading, textAction: {
                         aboutNavigate = true
                     }, paddingSize: 10)
-                   // .padding(.bottom, 15)
 
                     ScrollViewReader { proxy in
                         ScrollView {
@@ -82,8 +81,15 @@ struct ChatView: View {
                     .padding(.top,10)
                 }
                 .navigationDestination(isPresented: $aboutNavigate) {
-                    AboutView(isActive: aboutNavigate, showBottomTabBar: $showBottomTabBar,chatUser: chatUser,about: aboutText)
+                    AboutView( showBottomTabBar: $showBottomTabBar,chatUser: chatUser,about: aboutText)
+                        .environmentObject(appState)
                         .navigationBarBackButtonHidden(true)
+    
+                        .onDisappear{
+                            aboutNavigate = false
+                        
+                        }
+                    
                 }
                 .onAppear {
                     viewModel.fetchMessages(for: chatUser.id, currentUserId: appState.currentUser?.id ?? "")

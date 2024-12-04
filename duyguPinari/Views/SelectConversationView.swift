@@ -34,7 +34,6 @@ struct SelectConversationView: View {
                                 
                                 .onAppear{
                                     viewModel.fetchFeedbacks(for: matchedUser.id)
-                                    print("feedback çekmek için gelen kullancı: \(matchedUser.id)")
                                 }
                                 VStack(alignment: .leading, spacing: 15){
                                     TextStyles.subtitleMedium("Geribildirimler:")
@@ -66,6 +65,10 @@ struct SelectConversationView: View {
                         CustomButton(title: Constants.TextConstants.accept, width: 123, height: 35, backgroundColor: Color.primaryColor, borderColor: Color.primaryColor, textcolor: Color.white, action: {
                             if let matchedUser = matchedUser{
                                 viewModel.startChat(with: matchedUser, currentUser: appState.currentUser!,topic: topic)
+                                print("*******************ACCEPT SELECTCONVERSATİONVİEW**************************")
+                                print("SELECTVİEW:matchedUser: \(matchedUser)")
+                                print("SELECTVİEW:currentUser: \(appState.currentUser?.id ??   "nulim")")
+                                print("***********************************************************************")
                             }
                             navigateToAccept = true
                           

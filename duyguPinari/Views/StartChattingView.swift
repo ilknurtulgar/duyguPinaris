@@ -89,6 +89,7 @@ struct StartChattingView: View {
                         showBottomTabBar = false
                     }
                     .navigationBarHidden(true)
+              
             }
         }
     }

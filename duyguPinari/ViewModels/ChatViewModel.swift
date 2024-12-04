@@ -32,8 +32,6 @@ class ChatViewModel: ObservableObject {
 
     
     func fetchMessages(for chatUserId: String, currentUserId: String) {
-        print("current: \(currentUserId)")
-        print("chatuserID: \(chatUserId)")
         isLoading = true
         db.collection("users")
             .document(currentUserId)
@@ -43,7 +41,6 @@ class ChatViewModel: ObservableObject {
             .order(by: "timestamp")
             .getDocuments { snapshot, error in
                 if let error = error {
-                    print("\(chatUserId)")
                     print("Mesajlar çekilemedi: \(error.localizedDescription)")
                     self.isLoading = false
                     return
@@ -75,7 +72,6 @@ class ChatViewModel: ObservableObject {
         ]
         
         // Giriş yapan kullanıcının koleksiyonuna mesaj ekleme
-        print("userscurr:\(currentUserId)")
         db.collection("users").document(currentUserId)
             .collection("chats").document(chatUserId)
             .collection("messages").addDocument(data: messageData) { error in

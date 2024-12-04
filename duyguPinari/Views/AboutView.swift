@@ -18,11 +18,13 @@ extension View {
 }
 
 struct AboutView: View {
-    @State var isActive: Bool
+    
     @State var isDone: Bool = false
-    @Environment(\.dismiss) private var dismiss
+    @State var backNavigate: Bool = false
+   // @Environment(\.dismiss) private var dismiss
     @State private var showAlert: Bool = false
     @Binding var showBottomTabBar: Bool
+    @EnvironmentObject var appState: AppState
     var chatUser: ChatUser
     var about: String
     var body: some View {
@@ -31,8 +33,8 @@ struct AboutView: View {
                 Color.backgroundPrimary.ignoresSafeArea()
                 VStack(spacing: 0) {
                     CustomToolBar(title: chatUser.username, icon: Image(systemName: "chevron.left"), action: {
-                        dismiss()
-                        isActive = false // ChatView'e dönmek için
+                       backNavigate = true
+                        // dismiss()
                     }, userImageURL: "", hasUserImage: true, titleAlignment: .leading, textAction: nil,paddingSize: 10)
                     
                     ScrollView {
@@ -43,7 +45,7 @@ struct AboutView: View {
                             TextStyles.subtitleMedium2("Hakkında:")
                                 .frame(maxWidth: 430,alignment: .leading)
                                 .padding(.leading,70)
-                            TextStyles.bodyRegular(about)
+                            TextStyles.subtitleMedium2(about)
                                 .asText()
                                 .customAboutText(backgroundColor: Color.white,borderColor: Color.secondaryColor,shadow: true)
                             
@@ -51,7 +53,7 @@ struct AboutView: View {
                                 .frame(maxWidth: 430,alignment: .leading)
                                 .padding(.leading,70)
                             
-                            TextStyles.bodyRegular(chatUser.topic ?? "")
+                            TextStyles.subtitleMedium(chatUser.topic ?? "")
                             
                                 .asText()
                                 .customAboutText(backgroundColor: Color.white,borderColor: Color.secondaryColor,shadow: true,isTopic: true)
@@ -67,13 +69,23 @@ struct AboutView: View {
                     }
                 }
                 .navigationDestination(isPresented: $isDone){
-                    AddFeedbackView(showBottomTabBar: $showBottomTabBar)
+                    AddFeedbackView(showBottomTabBar: $showBottomTabBar,chatUser: chatUser)
                         .navigationBarBackButtonHidden(true)
+                        .environmentObject(appState)
                         .onAppear {
                             showBottomTabBar = false
                         }
                         .onDisappear{
                             isDone = false
+                        }
+                      
+                }
+                .navigationDestination(isPresented: $backNavigate){
+                ChatView(showBottomTabBar: $showBottomTabBar,chatUser: chatUser)
+                        .navigationBarBackButtonHidden(true)
+                        .environmentObject(appState)
+                        .onDisappear{
+                            backNavigate = false
                         }
                       
                 }

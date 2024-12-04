@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		831F4A872CFF4F4E0054FA89 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831F4A862CFF4F4E0054FA89 /* Message.swift */; };
 		831F4A892CFF516D0054FA89 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831F4A882CFF516D0054FA89 /* ChatViewModel.swift */; };
+		831F4A8D2CFFBFA00054FA89 /* AddFeedbackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831F4A8C2CFFBFA00054FA89 /* AddFeedbackViewModel.swift */; };
 		8323D1282CF62EDF00159B07 /* ChatUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8323D1272CF62EDF00159B07 /* ChatUser.swift */; };
 		8323D12A2CF62F5800159B07 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8323D1292CF62F5800159B07 /* HomeViewModel.swift */; };
 		8323D12E2CF73AE200159B07 /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8323D12D2CF73AE200159B07 /* EditProfileViewModel.swift */; };
@@ -89,6 +90,7 @@
 /* Begin PBXFileReference section */
 		831F4A862CFF4F4E0054FA89 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		831F4A882CFF516D0054FA89 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
+		831F4A8C2CFFBFA00054FA89 /* AddFeedbackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFeedbackViewModel.swift; sourceTree = "<group>"; };
 		8323D1272CF62EDF00159B07 /* ChatUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatUser.swift; sourceTree = "<group>"; };
 		8323D1292CF62F5800159B07 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		8323D12D2CF73AE200159B07 /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 				833E87082CF9FD6E004A844C /* ProfileViewModel.swift */,
 				83572EB32CFB5C7F00E113D4 /* SelectConversationViewModel.swift */,
 				831F4A882CFF516D0054FA89 /* ChatViewModel.swift */,
+				831F4A8C2CFFBFA00054FA89 /* AddFeedbackViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -526,6 +529,7 @@
 				83DB02802CEC01BF000CBCD6 /* ChatView.swift in Sources */,
 				8323D12E2CF73AE200159B07 /* EditProfileViewModel.swift in Sources */,
 				839CBAD32CDC337D0066BE03 /* CustomAboutText.swift in Sources */,
+				831F4A8D2CFFBFA00054FA89 /* AddFeedbackViewModel.swift in Sources */,
 				832EC72D2CFDE2E400996372 /* CustomGetMessage.swift in Sources */,
 				831F4A892CFF516D0054FA89 /* ChatViewModel.swift in Sources */,
 				835660642CE616E90081F52B /* EditProfileView.swift in Sources */,

@@ -33,7 +33,6 @@ struct LoginView: View {
                         CustomTextField(text: $viewModel.user.email,placeholder: Constants.TextConstants.placeholderEmail,  subtitle: Constants.TextConstants.emailTitle)
                         CustomTextField(text: $viewModel.user.password,placeholder: Constants.TextConstants.placeholderPassword,  isSecure: true, subtitle: Constants.TextConstants.passwordTitle)
                         Button(action:{
-                            print("heres")
                         }){
                             TextStyles.bodyRegular("Şifrenizi mi unuttunuz?")
                                 .padding(.leading,200)

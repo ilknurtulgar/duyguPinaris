@@ -22,13 +22,13 @@ class FeedbacksViewModel: ObservableObject {
             print("No user logged in")
             return
         }
-        print("Fetching feedbacks for user ID: \(userID)")
+      //  print("Fetching feedbacks for user ID: \(userID)")
         let db = Firestore.firestore()
         
         // userID'yi kullanarak doğru koleksiyona sorgu gönderiyoruz
         
         db.collection("feedbacks")
-            .whereField("receiverID", isEqualTo: userID)
+            .whereField("senderID", isEqualTo: userID)
             .getDocuments{ [weak self] snapshot, error in
                 if let error = error {
                     print("error getting feedbacks: \(error.localizedDescription)")
@@ -50,39 +50,6 @@ class FeedbacksViewModel: ObservableObject {
                 } ?? []
             }
             }
-        
-        
-     /*   db.collection("users").document(userID).collection("feedbacks")
-            .getDocuments { [weak self] snapshot, error in
-                if let error = error {
-                    print("Error getting feedbacks: \(error.localizedDescription)")
-                    return
-                }
-                
-                // Firestore belgelerini Feedback modeline dönüştürmek
-                self?.feedbacks = snapshot?.documents.compactMap { document in
-                    let data = document.data()
-                    return Feedback(
-                        id: document.documentID,
-                        receiverID: data["receiverID"] as? String ?? "",
-                        senderID:  data["senderID"] as? String ?? "",
-                        profileImage: data["profileImageURL"] as? String,
-                        username: data["username"] as? String ?? "nullim",
-                        role: data["role"] as? String ?? "nullim",
-                        rating: data["rating"] as? Int ?? 0,
-                        feedbackText: data["feedbackText"] as? String ?? "nullim"
-                    )
-                } ?? []
-            }*/
     }
 
-/*{
- "feedbackText": "Çok yardımsever birisin!",
- "rating": 4,
- "role": "user",
- "senderId": "userA123",
- "receiverId": "userB456",
- "profileImageURL": "https://.../userA.jpg",
- "name": "Kullanıcı A"
-}
-*/
+

@@ -48,8 +48,6 @@ struct HomeView: View {
                                         showBottomTabBar = false
                                         isChat = true
                                         selectedChatUser = user
-                                        print("home -> currentUserId: (\(appState.currentUser?.id ?? "" )")
-                            
                                     })
                                 }
                             }
@@ -76,13 +74,14 @@ struct HomeView: View {
                         .onAppear{
                             showBottomTabBar = false
                         }
+            
                         .navigationBarBackButtonHidden(true)
                 }
             }
             .navigationBarHidden(true)
            .onAppear {
                viewModel.fetchChatUsers(for: appState.currentUser?.id ?? "") {
-                   
+                   print("chat users fetched by homeview \(viewModel.chatUsers.count)")
                } // ilk yükleme
            
                   }

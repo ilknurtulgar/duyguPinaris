@@ -18,8 +18,8 @@ class HomeViewModel: ObservableObject {
         self.chatUsers = appState.chatUsers // Başlangıçta AppState'teki kullanıcıları al
     }
     
-    func fetchChatUsers(for userId: String,completion: @escaping () -> Void ){
-        guard appState.chatUsers.isEmpty else {
+    func fetchChatUsers(for userId: String, forceReload: Bool = false, completion: @escaping () -> Void) {
+        if !forceReload, !appState.chatUsers.isEmpty {
             print("AppState'den kullanıcılar gösteriliyor, tekrar yüklenmiyor.")
             self.chatUsers = appState.chatUsers
             completion()
@@ -38,20 +38,17 @@ class HomeViewModel: ObservableObject {
                 guard let self = self else { return }
                 let chatDocuments = snapshot?.documents ?? []
                 var fetchedUsers: [ChatUser] = []
-
                 let group = DispatchGroup()
-
+                
                 for document in chatDocuments {
                     let data = document.data()
-                    
                     guard let users = data["users"] as? [String],
                           let lastMessage = data["lastMessage"] as? String,
                           let unreadMessage = data["unreadMessage"] as? Int,
                           let profileImage = data["profileImage"] as? String,
-                          let topic = data["topic"] as? String
-                    else {
-                        continue
-                    }
+                          let topic = data["topic"] as? String,
+                          let role = data["role"] as? String 
+                    else { continue }
                     
                     let chatUserId = users.first { $0 != userId } ?? ""
                     
@@ -67,20 +64,24 @@ class HomeViewModel: ObservableObject {
                                 message: lastMessage,
                                 unreadMessage: unreadMessage,
                                 profileImage: profileImage,
-                                topic: topic
+                                topic: topic,
+                                role: role
                             )
                             fetchedUsers.append(chatUser)
                         }
                         group.leave()
                     }
                 }
-
+                
                 group.notify(queue: .main) {
+                    print("Kullanıcılar: \(fetchedUsers)")
                     self.chatUsers = fetchedUsers
-                    self.appState.chatUsers = fetchedUsers // AppState'i güncelle
+                    self.appState.chatUsers = fetchedUsers
                     completion()
                 }
             }
     }
+    
 }
+
 

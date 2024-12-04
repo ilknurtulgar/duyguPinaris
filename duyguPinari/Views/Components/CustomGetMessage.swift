@@ -53,12 +53,12 @@ struct CustomGetMessage: View {
                         .shadow(color: .black.opacity(0.2), radius: 4, x: 0, y: 2)
 
                     VStack(alignment: isCurrentUser ? .trailing : .leading) {
-                        Text(message)
+                        TextStyles.subtitleMedium2(message)
                             .foregroundColor(.textColor)
                             .multilineTextAlignment(isCurrentUser ? .trailing : .leading)
                             .lineLimit(nil)
 
-                        Text(time)
+                        TextStyles.bodyRegular(time)
                             .font(.footnote)
                             .foregroundColor(.gray)
                             .padding(.top, 2)

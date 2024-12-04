@@ -14,4 +14,6 @@ struct ChatUser: Identifiable {
     var unreadMessage: Int
     var profileImage: String?
     var topic: String?
+    var role: String?
+    var timestamp: Date?
 }

@@ -15,6 +15,7 @@ class AppState: ObservableObject {
     @Published var selectedTab: String = "Home"
     @Published var currentUser: User?
     @Published var isLoading: Bool = false // Veri yükleniyor durumu
+    @Published var homeViewModel: HomeViewModel?
     @Published var chatUsers: [ChatUser] = []
     init() {
         print("appstate initialized")
