@@ -42,12 +42,13 @@ class HomeViewModel: ObservableObject {
                 
                 for document in chatDocuments {
                     let data = document.data()
-                    guard let users = data["users"] as? [String],
-                          let lastMessage = data["lastMessage"] as? String,
+                    guard 
                           let unreadMessage = data["unreadMessage"] as? Int,
                           let profileImage = data["profileImage"] as? String,
                           let topic = data["topic"] as? String,
-                          let role = data["role"] as? String 
+                          let role = data["role"] as? String ,
+                        let users = data["users"] as? [String],
+                          let lastMessage = data["lastMessage"] as? String?
                     else { continue }
                     
                     let chatUserId = users.first { $0 != userId } ?? ""
@@ -61,11 +62,13 @@ class HomeViewModel: ObservableObject {
                             let chatUser = ChatUser(
                                 id: chatUserId,
                                 username: username,
-                                message: lastMessage,
+                                message: lastMessage ?? "",
                                 unreadMessage: unreadMessage,
                                 profileImage: profileImage,
                                 topic: topic,
-                                role: role
+                                role: role,
+                                users: users,
+                                lastMessage: lastMessage ?? ""
                             )
                             fetchedUsers.append(chatUser)
                         }
@@ -80,6 +83,7 @@ class HomeViewModel: ObservableObject {
                     completion()
                 }
             }
+      
     }
     
 }

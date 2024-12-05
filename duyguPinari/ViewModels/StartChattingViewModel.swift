@@ -56,6 +56,7 @@ class StartChattingViewModel: ObservableObject {
             return
         }
         startChat()
+        print("startcurrentUser: \(String(describing: appState.currentUser))")
         guard let  currentUser = appState.currentUser else{
             completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Geçerli kullanıcı bulunamadı."])))
             return

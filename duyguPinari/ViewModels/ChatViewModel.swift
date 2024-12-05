@@ -63,7 +63,7 @@ class ChatViewModel: ObservableObject {
             }
     }
     
-    // Yeni mesaj gönderme
+    // Yeni mesaj gönderme ve son mesajı güncelleme
     func sendMessage(to chatUserId: String, messageContent: String, currentUserId: String) {
         let messageData: [String: Any] = [
             "content": messageContent,
@@ -79,8 +79,11 @@ class ChatViewModel: ObservableObject {
                     print("Mesaj gönderilemedi1: \(error.localizedDescription)")
                 } else {
                     print("Mesaj başarıyla gönderildi.")
+                    //llastmessage da eklemee
+                    self.updateLastMessage(for: chatUserId,newMessage:messageContent,currentUserId: currentUserId)
                 }
             }
+
         
         // Konuşulan kullanıcının koleksiyonuna mesaj ekleme
         db.collection("users").document(chatUserId)
@@ -90,8 +93,26 @@ class ChatViewModel: ObservableObject {
                     print("Mesaj gönderilemedi: \(error.localizedDescription)")
                 } else {
                     print("Mesaj başarıyla gönderildi.")
+                    self.updateLastMessage(for: currentUserId,newMessage:messageContent,currentUserId: currentUserId)
                 }
             }
+    }
+    func updateLastMessage(for chatUserId: String,newMessage: String, currentUserId: String){
+        //giriş yapan kullanıcının chatini güncelleme
+        db.collection("users").document(currentUserId).collection("chats").document(chatUserId).updateData(["lastMessage": newMessage,"timestamp": FieldValue.serverTimestamp()]){error in
+            if let error = error {
+                print("lastMessage güncellenirken hata oluştu[currentUserId]:\(error.localizedDescription)")
+            }else{
+                print("lastMessage başarıyla güncellendi[currentUserId].")
+            }
+        }
+        db.collection("users").document(chatUserId).collection("chats").document(currentUserId).updateData(["lastMessage": newMessage,"timestamp": FieldValue.serverTimestamp()]){error in
+            if let error = error{
+                print("lastMessage güncellenirken hata oluştu[chatUserId]: \(error.localizedDescription)")
+            }else{
+                print("lastMessage başarıyla güncellendi[chatUserId].")
+            }
+        }
     }
 }
 

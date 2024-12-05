@@ -24,6 +24,9 @@ struct ChatView: View {
                 Color.backgroundPrimary.ignoresSafeArea()
                 VStack(spacing: 0) {
                     CustomToolBar(title: chatUser.username, icon: Image(systemName: "chevron.left"), action: {
+                        appState.homeViewModel?.fetchChatUsers(for: appState.currentUser?.id ?? "") {
+                            print("HomeView'a dönmeden önce chat users güncellendi")
+                        }
                         showBottomTabBar = true
                         dismiss()
                     }, userImageURL: chatUser.profileImage ?? "", hasUserImage: true, titleAlignment: .leading, textAction: {
@@ -75,6 +78,7 @@ struct ChatView: View {
                             )
                             viewModel.messages.append(newMessageObject)
                             viewModel.sendMessage(to: chatUser.id, messageContent: newMessage, currentUserId: appState.currentUser?.id ?? "")
+                            viewModel.updateLastMessage(for: chatUser.id, newMessage: newMessage, currentUserId: appState.currentUser?.id ?? "")
                             newMessage = ""
                         }
                     }
@@ -99,6 +103,7 @@ struct ChatView: View {
                             }
                         }
                 }
+             
             }
         }
     }

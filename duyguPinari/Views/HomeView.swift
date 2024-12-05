@@ -16,9 +16,9 @@ struct HomeView: View {
     @StateObject var viewModel: HomeViewModel
     
     init(showBottomTabBar: Binding<Bool>, appState: AppState) {
-          _viewModel = StateObject(wrappedValue: HomeViewModel(appState: appState))
-          _showBottomTabBar = showBottomTabBar
-      }
+        _viewModel = StateObject(wrappedValue: HomeViewModel(appState: appState))
+        _showBottomTabBar = showBottomTabBar
+    }
     
     var body: some View {
         NavigationStack{
@@ -28,6 +28,7 @@ struct HomeView: View {
                     HStack{
                         Spacer()
                         AddConversationButton(action: {
+                            print("home current: \(String(describing: appState.currentUser))")
                             showBottomTabBar=false
                             navigateToFilterView=true
                         })
@@ -41,54 +42,59 @@ struct HomeView: View {
                                 TextStyles.subtitleMedium("Mesaj oluşturmak için mesaj butonuna tıklayın\n ve sohbete başlayın!")
                                     .multilineTextAlignment(.center)
                                     .padding()
-                                    
+                                
                             }else {
                                 ForEach(viewModel.chatUsers){user in
                                     ChatListCard(profileImageURL: user.profileImage, title: user.username, messageDetails: user.message, unreadMessages: user.unreadMessage, showBottomTabBar: $showBottomTabBar, action: {
                                         showBottomTabBar = false
                                         isChat = true
                                         selectedChatUser = user
+                                        
+                                        // mesaj gelince lasti güncellme
+                                        
                                     })
                                 }
                             }
                         }
-                        .padding(.top,30)
                     }
+                    .padding(.top,30)
                 }
             }
+        }
         
-            .navigationDestination(isPresented: $navigateToFilterView){
-                StartChattingView(showBottomTabBar: $showBottomTabBar)
-                    .onDisappear{
-                        showBottomTabBar=true
+        .navigationDestination(isPresented: $navigateToFilterView){
+            StartChattingView(showBottomTabBar: $showBottomTabBar)
+                .environmentObject(appState)
+                .onDisappear{
+                    showBottomTabBar=true
+                }
+                .navigationBarBackButtonHidden(true)
+        }
+        
+        .navigationDestination(isPresented: $isChat){
+            
+            if let selectedChatUser = selectedChatUser {
+                
+                ChatView(showBottomTabBar: $showBottomTabBar,chatUser: selectedChatUser)
+                    .environmentObject(appState)
+                    .onAppear{
+                        showBottomTabBar = false
                     }
+                
                     .navigationBarBackButtonHidden(true)
             }
+        }
+        .navigationBarHidden(true)
+        .onAppear {
+            viewModel.fetchChatUsers(for: appState.currentUser?.id ?? "") {
+                print("chat users fetched by homeview \(viewModel.chatUsers.count)")
+            } // ilk yükleme
             
-            .navigationDestination(isPresented: $isChat){
-               
-                if let selectedChatUser = selectedChatUser {
-                 
-                    ChatView(showBottomTabBar: $showBottomTabBar,chatUser: selectedChatUser)
-                        .environmentObject(appState)
-                        .onAppear{
-                            showBottomTabBar = false
-                        }
-            
-                        .navigationBarBackButtonHidden(true)
-                }
-            }
-            .navigationBarHidden(true)
-           .onAppear {
-               viewModel.fetchChatUsers(for: appState.currentUser?.id ?? "") {
-                   print("chat users fetched by homeview \(viewModel.chatUsers.count)")
-               } // ilk yükleme
-           
-                  }
         }
     }
-    
 }
+
+
 
 
 /*#Preview {

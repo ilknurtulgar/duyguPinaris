@@ -18,56 +18,42 @@ class SelectConversationViewModel: ObservableObject {
         print("chatuser : (\(user)")
         print("currentUser: \(currentUser)")
         print("----------------------------------")
-    
-        let currentUserChatData: [String: Any] = [
-            "users": [currentUser.id,user.id],
-            "lastMessage": "Sohbete başlamak için tıklayın",
-            "unreadMessage": 0,
-            "profileImage": "",
-            "timestamp": FieldValue.serverTimestamp(),
-            "topic": topic,
-            "role": "Anlatıcı"
-        ]
         
         let currentUserChatUser = ChatUser(
-            id: currentUser.id,
+            id:UUID().uuidString,
             username: currentUser.username,
             message: "Sohbete başlamak için tıklayın",
             unreadMessage: 0,
             profileImage: "",  // Eğer mevcutsa profil resmini buraya ekleyebilirsiniz
             topic: topic,
             role: "Anlatıcı",
-            timestamp: Date() // Firestore'daki timestamp'a uygun olarak
+            timestamp: Date(), // Firestore'daki timestamp'a uygun olarak
+            users: [currentUser.id,user.id],
+            lastMessage: "Sohbete başlamak için tıklayın"
         )
         
-        let matchedUserChatData: [String: Any] = [
-            "users": [user.id,currentUser.id],
-            "lastMessage": "Sohbete başlamak için tıklayın",
-            "unreadMessage": 0,
-            "profileImage": "",
-            "timestamp": FieldValue.serverTimestamp(),
-            "topic": topic,
-            "role": "Dinleyici"
-        ]
         let matchedUserChatUser = ChatUser(
-                   id: user.id,
-                   username: user.username,
-                   message: "Sohbete başlamak için tıklayın",
-                   unreadMessage: 0,
-                   profileImage: "",  // Eğer mevcutsa profil resmini buraya ekleyebilirsiniz
-                   topic: topic,
-                   role: "Dinleyici",
-                   timestamp: Date() // Firestore'daki timestamp'a uygun olarak
-               )
+            
+            id: UUID().uuidString,
+            username: user.username,
+            message: "Sohbete başlamak için tıklayın",
+            unreadMessage: 0,
+            profileImage: "",  // Eğer mevcutsa profil resmini buraya ekleyebilirsiniz
+            topic: topic,
+            role: "Dinleyici",
+            timestamp: Date(), // Firestore'daki timestamp'a uygun olarak
+            users: [user.id,currentUser.id],
+            lastMessage: "Sohbete başlamak için tıklayın"
+        )
         
-        db.collection("users").document(currentUser.id).collection("chats").document(user.id).setData(currentUserChatData){error in
+        db.collection("users").document(currentUser.id).collection("chats").document(user.id).setData(currentUserChatUser.toDictionary()){error in
             if let error = error{
                 print("currentUser: sohbet oluşturulamadı: \(error.localizedDescription)")
             }else{
                 print("currentUser: sohbet başarıyla başlatıldı.")
             }
         }
-        db.collection("users").document(user.id).collection("chats").document(currentUser.id).setData(matchedUserChatData){ error in
+        db.collection("users").document(user.id).collection("chats").document(currentUser.id).setData(matchedUserChatUser.toDictionary()){ error in
             if let error = error{
                 print("matchedUser: sohbet oluşturulamadı: \(error.localizedDescription)")
             }else{

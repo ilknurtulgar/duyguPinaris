@@ -15,4 +15,5 @@ struct User{
     var password: String
     var about: String?
     var talkState: Bool?
+    var profileImageURL: String?
 }
