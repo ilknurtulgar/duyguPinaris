@@ -65,10 +65,13 @@ struct SelectConversationView: View {
                         CustomButton(title: Constants.TextConstants.accept, width: 123, height: 35, backgroundColor: Color.primaryColor, borderColor: Color.primaryColor, textcolor: Color.white, action: {
                             if let matchedUser = matchedUser{
                                 viewModel.startChat(with: matchedUser, currentUser: appState.currentUser!,topic: topic)
-                                print("*******************ACCEPT SELECTCONVERSATİONVİEW**************************")
-                                print("SELECTVİEW:matchedUser: \(matchedUser)")
-                                print("SELECTVİEW:currentUser: \(appState.currentUser?.id ??   "nulim")")
-                                print("***********************************************************************")
+                               /* DispatchQueue.main.async {
+                                    
+                                    appState.homeViewModel?.fetchChatUsers(for: appState.currentUser?.id ?? "") {
+                                        print("HomeView'a dönmeden önce chat users güncellendi")
+                                    }
+                                }*/
+                               
                             }
                             navigateToAccept = true
                           

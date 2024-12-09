@@ -15,8 +15,8 @@ struct AddFeedbackView: View {
     @Binding var showBottomTabBar: Bool
     @State private var showAlert: Bool = false
     @StateObject var viewModel = AddFeedbackViewModel()
-   
     var chatUser: ChatUser
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -24,7 +24,7 @@ struct AddFeedbackView: View {
                 
                 VStack(spacing: 0) {
                     CustomToolBar(
-                        title: "matchedUserName",
+                        title:chatUser.username,
                         icon: Image(systemName: "chevron.left"),
                         action: {
                             showAlert = true

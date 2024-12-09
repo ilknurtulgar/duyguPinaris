@@ -12,19 +12,29 @@ class HomeViewModel: ObservableObject {
     @Published var chatUsers: [ChatUser] = []
     private var appState: AppState
     let db = Firestore.firestore()
-    
     init(appState: AppState) {
         self.appState = appState
         self.chatUsers = appState.chatUsers // Başlangıçta AppState'teki kullanıcıları al
+     /*   print("-----------------------------------------------")
+        print("chatUsers(AppSate): \(appState.chatUsers)")
+        print("-----------------------------------------------")
+        print("chatUsers:\(chatUsers)")
+        print("-----------------------------------------------")*/
     }
     
     func fetchChatUsers(for userId: String, forceReload: Bool = false, completion: @escaping () -> Void) {
-        if !forceReload, !appState.chatUsers.isEmpty {
+       /* if !forceReload, !appState.chatUsers.isEmpty {
             print("AppState'den kullanıcılar gösteriliyor, tekrar yüklenmiyor.")
             self.chatUsers = appState.chatUsers
             completion()
             return
-        }
+        }*/
+        guard !userId.isEmpty else {
+                print("Geçersiz kullanıcı ID'si.")
+                self.chatUsers = []
+                completion()
+                return
+            }
         
         db.collection("users").document(userId).collection("chats")
             .order(by: "timestamp", descending: true)
@@ -48,7 +58,8 @@ class HomeViewModel: ObservableObject {
                           let topic = data["topic"] as? String,
                           let role = data["role"] as? String ,
                         let users = data["users"] as? [String],
-                          let lastMessage = data["lastMessage"] as? String?
+                          let lastMessage = data["lastMessage"] as? String?,
+                          let timestamp = (data["timestamp"] as? Timestamp)?.dateValue()
                     else { continue }
                     
                     let chatUserId = users.first { $0 != userId } ?? ""
@@ -67,7 +78,7 @@ class HomeViewModel: ObservableObject {
                                 profileImage: profileImage,
                                 topic: topic,
                                 role: role,
-                                users: users,
+                                timestamp: timestamp, users: users,
                                 lastMessage: lastMessage ?? ""
                             )
                             fetchedUsers.append(chatUser)
@@ -77,9 +88,14 @@ class HomeViewModel: ObservableObject {
                 }
                 
                 group.notify(queue: .main) {
-                    print("Kullanıcılar: \(fetchedUsers)")
+                   // print("Kullanıcılar: \(fetchedUsers)")
                     self.chatUsers = fetchedUsers
                     self.appState.chatUsers = fetchedUsers
+                   /* print("**************************")
+                    print("chatUSERS: \(self.chatUsers)")
+                    print("**************************")
+                    print("appstateChatUsers: \(self.appState.chatUsers)")
+                    print("**************************")*/
                     completion()
                 }
             }

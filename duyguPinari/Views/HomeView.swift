@@ -28,7 +28,7 @@ struct HomeView: View {
                     HStack{
                         Spacer()
                         AddConversationButton(action: {
-                            print("home current: \(String(describing: appState.currentUser))")
+                          //  print("home current: \(String(describing: appState.currentUser))")
                             showBottomTabBar=false
                             navigateToFilterView=true
                         })
@@ -44,7 +44,7 @@ struct HomeView: View {
                                     .padding()
                                 
                             }else {
-                                ForEach(viewModel.chatUsers){user in
+                                ForEach(appState.chatUsers.sorted(by: { $0.timestamp ?? Date() > $1.timestamp ?? Date() })){user in
                                     ChatListCard(profileImageURL: user.profileImage, title: user.username, messageDetails: user.message, unreadMessages: user.unreadMessage, showBottomTabBar: $showBottomTabBar, action: {
                                         showBottomTabBar = false
                                         isChat = true
@@ -86,10 +86,17 @@ struct HomeView: View {
         }
         .navigationBarHidden(true)
         .onAppear {
-            viewModel.fetchChatUsers(for: appState.currentUser?.id ?? "") {
-                print("chat users fetched by homeview \(viewModel.chatUsers.count)")
+        /*    viewModel.fetchChatUsers(for: appState.currentUser?.id ?? "") {
+             //   print("chat users fetched by homeview \(viewModel.chatUsers.count)")
             } // ilk yükleme
-            
+          */
+            guard let userId = appState.currentUser?.id, !userId.isEmpty else {
+                 print("Kullanıcı ID'si yok, sohbetler çekilmiyor.")
+                 return
+             }
+             viewModel.fetchChatUsers(for: userId) {
+                 print("Sohbet kullanıcıları alındı.")
+             }
         }
     }
 }

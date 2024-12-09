@@ -56,6 +56,7 @@ struct RegisterView: View {
                         .padding(.top, 65)
                         .navigationDestination(isPresented: $isRegistering) {
                             HomeView( showBottomTabBar: $showBottomTabBar, appState: appState)
+                                .environmentObject(appState)
                                 .navigationBarHidden(true)
                         }
                         self.withHorizontalLinesAndText(Constants.TextConstants.or)

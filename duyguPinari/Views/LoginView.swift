@@ -58,7 +58,7 @@ struct LoginView: View {
                                 
                                 viewModel.loginUser { success in
                                     if success{
-                                        
+                                        print("girdim")
                                         appState.isLoggedIn = true
                                         showBottomTabBar = true
                                         isNavigatingToHome = true
