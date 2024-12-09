@@ -95,7 +95,7 @@ struct HomeView: View {
                  return
              }
              viewModel.fetchChatUsers(for: userId) {
-                 print("Sohbet kullanıcıları alındı.")
+               //  print("Sohbet kullanıcıları alındı.")
              }
         }
     }

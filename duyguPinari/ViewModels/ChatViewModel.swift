@@ -94,9 +94,37 @@ class ChatViewModel: ObservableObject {
                 } else {
                     print("Mesaj başarıyla gönderildi.")
                     self.updateLastMessage(for: currentUserId,newMessage:messageContent,currentUserId: currentUserId)
+                    self.incrementUnreadMessages(for: chatUserId,senderId: currentUserId)
                 }
             }
     }
+    
+    func incrementUnreadMessages(for chatUserId: String, senderId: String){
+        let chatDocRef = db.collection("users").document(chatUserId)
+            .collection("chats").document(senderId)
+        chatDocRef.updateData(["unreadMessage": FieldValue.increment(Int64(1))]){
+            error in
+            if let error = error {
+                print("okunmamış mesajlar güncellenemedi \(error.localizedDescription)")
+            }else{
+                print("okunmamış mesaj sayısı güncellendi")
+            }
+        }
+    }
+    
+    func resetUnreadMessages(for currentUserId: String, chatUserId: String) {
+        let chatDocRef = db.collection("users").document(currentUserId)
+            .collection("chats").document(chatUserId)
+        
+        chatDocRef.updateData(["unreadMessage": 0]){error in
+            if let error = error{
+                print("unread mesaj sıfırlanamadı \(error.localizedDescription)")
+            }else{
+                print("unread mesaj başarıyla sıfırlandı.")
+            }
+        }
+    }
+    
     func updateLastMessage(for chatUserId: String,newMessage: String, currentUserId: String){
         //giriş yapan kullanıcının chatini güncelleme
         db.collection("users").document(currentUserId).collection("chats").document(chatUserId).updateData(["lastMessage": newMessage,"timestamp": FieldValue.serverTimestamp()]){error in
