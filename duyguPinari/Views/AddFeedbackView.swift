@@ -94,9 +94,11 @@ struct AddFeedbackView: View {
                     HomeView(showBottomTabBar: $showBottomTabBar, appState: appState)
                         .environmentObject(appState)
                         .navigationBarBackButtonHidden(true)
-                        .onDisappear{
+                        onDisappear{
                             appState.homeViewModel?.fetchChatUsers(for: appState.currentUser?.id ?? ""){
                             }
+                            showBottomTabBar = true
+                            
                             isState = false
                            
                         }

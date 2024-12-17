@@ -27,6 +27,7 @@ struct AboutView: View {
     @EnvironmentObject var appState: AppState
     var chatUser: ChatUser
     var about: String
+    
     var body: some View {
         NavigationStack{
             ZStack {
@@ -34,7 +35,7 @@ struct AboutView: View {
                 VStack(spacing: 0) {
                     CustomToolBar(title: chatUser.username, icon: Image(systemName: "chevron.left"), action: {
                        backNavigate = true
-                        // dismiss()
+                        
                     }, userImageURL: "", hasUserImage: true, titleAlignment: .leading, textAction: nil,paddingSize: 10)
                     
                     ScrollView {

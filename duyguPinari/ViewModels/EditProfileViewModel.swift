@@ -1,135 +1,101 @@
-//
-//  EditProfileViewModel.swift
-//  duyguPinari
-//
-//  Created by İlknur Tulgar on 27.11.2024.
-//
-
 import SwiftUI
-import FirebaseFirestore
+import Firebase
 import FirebaseAuth
 import FirebaseStorage
+import FirebaseFirestore
 
-class EditProfileViewModel: ObservableObject {
+final class EditProfileViewModel: ObservableObject {
     @Published var user: User
     @Published var isLoading: Bool = false
     @Published var errorMessage: String? = nil
     
-    private var appState: AppState
+    var appState: AppState
     
     init(appState: AppState) {
         self.appState = appState
         if let currentUser = appState.currentUser {
             self.user = currentUser
         } else {
-            self.user = User(id: "", username: "", email: "", age: "", password: "", about: nil, profileImageURL: "")
+            self.user = User(id: "", username: "", email: "", age: "", password: "", about: nil, profileImageURL: nil)
         }
     }
     
-    func uploadProfileImage(_ image: UIImage) {
-        let storage = Storage.storage()
-        let storageRef = storage.reference().child("profile_images/\(UUID().uuidString).jpg")
+    // MARK: - Profil Resmi Yükleme
+    func uploadProfileImage(_ image: UIImage, completion: @escaping (Bool) -> Void) {
+        let storageRef = Storage.storage().reference().child("profile_images/\(UUID().uuidString).jpg")
+        guard let imageData = image.jpegData(compressionQuality: 0.8) else { return }
         
-        if let imageData = image.jpegData(compressionQuality: 0.8) {
-            storageRef.putData(imageData, metadata: nil) { [weak self] _, error in
-                if let error = error {
-                    self?.errorMessage = "Error uploading image: \(error.localizedDescription)"
-                    print(self?.errorMessage ?? "")
-                    return
-                }
-                storageRef.downloadURL { url, error in
-                    if let error = error {
-                        self?.errorMessage = "Error fetching image URL: \(error.localizedDescription)"
-                        print(self?.errorMessage ?? "")
-                        return
-                    }
-                    if let url = url {
-                        self?.user.profileImageURL = url.absoluteString
-                        self?.saveProfileImageURL(url.absoluteString)
-                    }
-                }
-            }
-        }
-    }
-    
-    func saveProfileImageURL(_ url: String) {
-        guard let userID = Auth.auth().currentUser?.uid else { return }
-        let db = Firestore.firestore()
-        db.collection("users").document(userID).updateData(["profileImageURL": url]) { error in
+        storageRef.putData(imageData, metadata: nil) { [weak self] _, error in
             if let error = error {
-                self.errorMessage = "Error updating Firestore with image URL: \(error.localizedDescription)"
-                print(self.errorMessage ?? "")
-            } else {
-                print("Profile image URL saved to Firestore successfully.")
-            }
-        }
-    }
-    
-    func updateUserProfile(userPassword: String) {
-        guard let userID = Auth.auth().currentUser?.uid else { return }
-        guard let currentUser = Auth.auth().currentUser else { return }
-        
-        self.isLoading = true
-        
-        // Yeniden kimlik doğrulama
-        let credential = EmailAuthProvider.credential(withEmail: currentUser.email ?? "", password: userPassword)
-        currentUser.reauthenticate(with: credential) { [weak self] _, error in
-            if let error = error {
-                self?.isLoading = false
-                self?.errorMessage = "Reauthentication failed: \(error.localizedDescription)"
-                print(self?.errorMessage ?? "")
+                self?.errorMessage = "Resim yüklenirken hata oluştu: \(error.localizedDescription)"
+                completion(false)
                 return
             }
-            
-            // E-posta güncelleme işlemi
-            currentUser.updateEmail(to: self?.user.email ?? "") { [weak self] error in
-                if let error = error {
-                    self?.isLoading = false
-                    self?.errorMessage = "Error updating email: \(error.localizedDescription)"
-                    print(self?.errorMessage ?? "")
-                    return
-                }
-                
-                // E-posta doğrulama linki gönder
-                currentUser.sendEmailVerification { error in
-                    if let error = error {
-                        self?.isLoading = false
-                        self?.errorMessage = "Error sending email verification: \(error.localizedDescription)"
-                        print(self?.errorMessage ?? "")
-                        return
-                    }
-                    print("Verification email sent successfully.")
-                    
-                    // Kullanıcı doğrulamayı yaptıktan sonra Firestore profilini güncelle
-                    self?.updateFirestoreProfile(userID: userID)
+            storageRef.downloadURL { url, error in
+                if let url = url {
+                    self?.user.profileImageURL = url.absoluteString
+                    self?.saveProfileImageURL(url.absoluteString)
+                    completion(true)
+                } else {
+                    self?.errorMessage = "Resim URL'si alınırken hata oluştu"
+                    completion(false)
                 }
             }
         }
     }
     
-    private func updateFirestoreProfile(userID: String) {
+    private func saveProfileImageURL(_ url: String) {
         let db = Firestore.firestore()
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        db.collection("users").document(userID).updateData(["profileImageURL": url])
+    }
+    
+    // MARK: - E-mail Güncelleme
+    func updateUserProfile(updateEmail: Bool, newEmail: String, currentPassword: String, completion: @escaping (Bool) -> Void) {
+        isLoading = true
+        
+        if updateEmail {
+            // E-posta güncelleniyor, önce kullanıcıyı yeniden kimlik doğrulama yap
+            print("geldim: \(newEmail)")
+                    AuthenticationManager.shared.updateEmail(newEmail: newEmail,currentPassword: currentPassword) { success, errorMessage in
+                        if success {
+                            // E-posta başarılı şekilde güncellendiyse, Firestore'da güncelleme yapılacak
+                            self.user.email = newEmail
+                            print("atanan e mail: \(self.user.email)")
+                            print("ıd: \(self.user.id)")
+                            self.updateFirestoreProfile(userID: Auth.auth().currentUser?.uid ?? "", completion: completion)
+                        } else {
+                            self.errorMessage = errorMessage
+                            print("hata var : \(String(describing: self.errorMessage))")
+                            completion(false)
+                        }
+                        self.isLoading = false
+                    }
+                }
+         else {
+            // E-posta güncellenmiyorsa, Firestore'u direkt güncelle
+            updateFirestoreProfile(userID: Auth.auth().currentUser?.uid ?? "", completion: completion)
+        }
+    }
+    
+    private func updateFirestoreProfile(userID: String, completion: @escaping (Bool) -> Void) {
+        let db = Firestore.firestore()
+        print("gelenID: \(userID)")
         db.collection("users").document(userID).updateData([
-            "username": self.user.username,
-            "email": self.user.email,
-            "age": self.user.age,
-            "about": self.user.about ?? "",
-            "profileImageURL": self.user.profileImageURL ?? ""
-        ]) { [weak self] error in
-            self?.isLoading = false
+            "username": user.username,
+            "email": user.email,
+            "age": user.age,
+            "about": user.about ?? "",
+            "profileImageURL": user.profileImageURL ?? ""
+        ]) { error in
             if let error = error {
-                self?.errorMessage = "Error updating Firestore profile: \(error.localizedDescription)"
-                print(self?.errorMessage ?? "")
+                self.errorMessage = "Firestore güncellemesi başarısız: \(error.localizedDescription)"
+                completion(false)
             } else {
-                // Firestore'da işlem başarılıysa appState'i güncelle
-                self?.appState.currentUser = self?.user
-                print("Profile updated in Firestore successfully.")
+                // Güncellenen kullanıcıyı appState'e kaydet
+                self.appState.currentUser = self.user
+                completion(true)
             }
         }
     }
 }
-
-
-
-
-

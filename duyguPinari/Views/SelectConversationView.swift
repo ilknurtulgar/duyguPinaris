@@ -65,13 +65,6 @@ struct SelectConversationView: View {
                         CustomButton(title: Constants.TextConstants.accept, width: 123, height: 35, backgroundColor: Color.primaryColor, borderColor: Color.primaryColor, textcolor: Color.white, action: {
                             if let matchedUser = matchedUser{
                                 viewModel.startChat(with: matchedUser, currentUser: appState.currentUser!,topic: topic)
-                               /* DispatchQueue.main.async {
-                                    
-                                    appState.homeViewModel?.fetchChatUsers(for: appState.currentUser?.id ?? "") {
-                                        print("HomeView'a dönmeden önce chat users güncellendi")
-                                    }
-                                }*/
-                               
                             }
                             navigateToAccept = true
                           
@@ -83,14 +76,14 @@ struct SelectConversationView: View {
                     
                 }
             }
-            .navigationDestination(isPresented: $navigateToAccept)
-            {
+            .navigationDestination(isPresented: $navigateToAccept) {
                 HomeView(showBottomTabBar: $showBottomTabBar, appState: appState)
-                onDisappear{
-                    showBottomTabBar = true
-                }
+                    onDisappear {
+                        showBottomTabBar = true
+                    }
                     .navigationBarBackButtonHidden(true)
             }
+
         }
    
     }

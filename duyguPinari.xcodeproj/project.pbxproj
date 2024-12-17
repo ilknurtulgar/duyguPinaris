@@ -70,6 +70,7 @@
 		83CC4D182CECBE49005ABF77 /* SelectConversationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CC4D172CECBE49005ABF77 /* SelectConversationView.swift */; };
 		83DB027E2CEBF854000CBCD6 /* ChatListCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DB027D2CEBF854000CBCD6 /* ChatListCard.swift */; };
 		83DB02802CEC01BF000CBCD6 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DB027F2CEC01BF000CBCD6 /* ChatView.swift */; };
+		83FE7BAF2D119D9000D895BA /*  AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FE7BAE2D119D9000D895BA /*  AuthenticationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -152,6 +153,7 @@
 		83CC4D172CECBE49005ABF77 /* SelectConversationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectConversationView.swift; sourceTree = "<group>"; };
 		83DB027D2CEBF854000CBCD6 /* ChatListCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListCard.swift; sourceTree = "<group>"; };
 		83DB027F2CEC01BF000CBCD6 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		83FE7BAE2D119D9000D895BA /*  AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " AuthenticationManager.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +209,7 @@
 		8343C9972CD2136700107507 /* duyguPinari */ = {
 			isa = PBXGroup;
 			children = (
+				83FE7BAD2D119D7C00D895BA /* Services */,
 				835B6BD02CF3A255002FF44A /* Core */,
 				836D5EBE2CEA81AA0065D027 /* Constants */,
 				836D5EB52CEA02F50065D027 /* ViewModels */,
@@ -361,6 +364,14 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		83FE7BAD2D119D7C00D895BA /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				83FE7BAE2D119D9000D895BA /*  AuthenticationManager.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -524,6 +535,7 @@
 				83DB027E2CEBF854000CBCD6 /* ChatListCard.swift in Sources */,
 				83CC4D102CEC7FCB005ABF77 /* CustomPicker.swift in Sources */,
 				8371EDF12CD975640069E1CE /* AuthTitle.swift in Sources */,
+				83FE7BAF2D119D9000D895BA /*  AuthenticationManager.swift in Sources */,
 				835B6BD22CF3A26F002FF44A /* AppDelegate.swift in Sources */,
 				839CBACA2CDC1C500066BE03 /* withHorizontalLinesAndText.swift in Sources */,
 				8371EDF32CDA048A0069E1CE /* RegisterView.swift in Sources */,

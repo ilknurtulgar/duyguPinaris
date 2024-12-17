@@ -18,19 +18,21 @@ struct FeedbacksView: View {
        }
     
     var body: some View {
-        ZStack{
-            Color.backgroundPrimary.ignoresSafeArea()
-            VStack(){
-                CustomToolBar(title: "Geri Bildirimler", icon: Image(systemName: "chevron.left"),action: { dismiss()
-                    showBotttomTabBar = true},userImageURL: "",hasUserImage: false,titleAlignment: .center,textAction: {
-                        
-                    },paddingSize: 70)
-                .padding(.bottom,30)
-                ScrollView{
-                    VStack(spacing: 30){
-                        ForEach(viewModel.feedbacks){ feedback in
-                            FeedbackCard(profileImageURL: feedback.profileImage, name: feedback.username, role: feedback.role, rating: feedback.rating, feedbackText: feedback.feedbackText)
+        NavigationStack{
+            ZStack{
+                Color.backgroundPrimary.ignoresSafeArea()
+                VStack(){
+                    CustomToolBar(title: "Geri Bildirimler", icon: Image(systemName: "chevron.left"),action: { dismiss()
+                        showBotttomTabBar = true},userImageURL: "",hasUserImage: false,titleAlignment: .center,textAction: {
                             
+                        },paddingSize: 70)
+                    .padding(.bottom,30)
+                    ScrollView{
+                        VStack(spacing: 30){
+                            ForEach(viewModel.feedbacks){ feedback in
+                                FeedbackCard(profileImageURL: feedback.profileImage, name: feedback.username, role: feedback.role, rating: feedback.rating, feedbackText: feedback.feedbackText)
+                                
+                            }
                         }
                     }
                 }

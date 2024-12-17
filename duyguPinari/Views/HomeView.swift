@@ -64,10 +64,11 @@ struct HomeView: View {
         
         .navigationDestination(isPresented: $navigateToFilterView){
             StartChattingView(showBottomTabBar: $showBottomTabBar)
-                .environmentObject(appState)
+              
                 .onDisappear{
                     showBottomTabBar=true
                 }
+                .environmentObject(appState)
                 .navigationBarBackButtonHidden(true)
         }
         
@@ -86,16 +87,12 @@ struct HomeView: View {
         }
         .navigationBarHidden(true)
         .onAppear {
-        /*    viewModel.fetchChatUsers(for: appState.currentUser?.id ?? "") {
-             //   print("chat users fetched by homeview \(viewModel.chatUsers.count)")
-            } // ilk yükleme
-          */
             guard let userId = appState.currentUser?.id, !userId.isEmpty else {
                  print("Kullanıcı ID'si yok, sohbetler çekilmiyor.")
                  return
              }
              viewModel.fetchChatUsers(for: userId) {
-               //  print("Sohbet kullanıcıları alındı.")
+                 print("Sohbet kullanıcıları alındı.")
              }
         }
     }

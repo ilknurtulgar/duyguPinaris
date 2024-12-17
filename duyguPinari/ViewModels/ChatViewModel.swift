@@ -112,15 +112,17 @@ class ChatViewModel: ObservableObject {
         }
     }
     
-    func resetUnreadMessages(for currentUserId: String, chatUserId: String) {
+    func resetUnreadMessages(for currentUserId: String, chatUserId: String,chatUser: ChatUser) {
+            if chatUser.unreadMessage > 0 {
         let chatDocRef = db.collection("users").document(currentUserId)
             .collection("chats").document(chatUserId)
         
-        chatDocRef.updateData(["unreadMessage": 0]){error in
-            if let error = error{
-                print("unread mesaj sıfırlanamadı \(error.localizedDescription)")
-            }else{
-                print("unread mesaj başarıyla sıfırlandı.")
+            chatDocRef.updateData(["unreadMessage": 0]){error in
+                if let error = error{
+                    print("unread mesaj sıfırlanamadı \(error.localizedDescription)")
+                }else{
+                    print("unread mesaj başarıyla sıfırlandı.")
+                }
             }
         }
     }

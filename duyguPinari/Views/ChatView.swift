@@ -102,7 +102,7 @@ struct ChatView: View {
                                 self.aboutText = about
                             }
                         }
-                    viewModel.resetUnreadMessages(for: appState.currentUser?.id ?? "",chatUserId:chatUser.id)
+                    viewModel.resetUnreadMessages(for: appState.currentUser?.id ?? "",chatUserId:chatUser.id,chatUser: chatUser)
                 }
              
             }

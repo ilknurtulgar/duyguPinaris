@@ -6,14 +6,15 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct EditProfileView: View {
     @Environment(\.dismiss) private var dismiss
     @Binding var showBottomTabBar: Bool
     @StateObject private var viewModel: EditProfileViewModel
     @State private var showAlert: Bool = false
+    @State private var showEmailAlert: Bool = false
     @State private var selectedImage: UIImage? = nil
-    
     init(appState: AppState, showBottomTabBar: Binding<Bool>) {
         _viewModel = StateObject(wrappedValue: EditProfileViewModel(appState: appState))
         _showBottomTabBar = showBottomTabBar
@@ -75,8 +76,7 @@ struct EditProfileView: View {
                                     borderColor: Color.primaryColor,
                                     textcolor: Color.white,
                                     action: {
-                                        // Onayla butonuna tıklanınca yapılacak işlemler
-                                        showAlert = true
+                                        handleChanges()
                                     },
                                     font: .custom("SFPro-Display-Medium", size: 10)
                                 )
@@ -94,23 +94,60 @@ struct EditProfileView: View {
                     }
                     
                     Button("Onayla") {
-                        // Onayla butonuna tıklanınca yapılacak işlemler
-                        if let selectedImage = selectedImage {
-                            // Profil resmi yüklenecekse
-                            viewModel.uploadProfileImage(selectedImage)
-                        }
-                        // Kullanıcı bilgileri güncelleniyor
-                        viewModel.updateUserProfile(userPassword: viewModel.user.password)
+                      
+                    saveChanges()
+                        
                         showBottomTabBar = true
                         dismiss()
+                        // Kullanıcı bilgileri güncelleniyor
+                       
                     }
                 }
                 message: {
                     Text("Değişiklikleri kaydetmeyi onaylıyor musunuz?")
                 }
                 
+                .alert("E mail güncelleme", isPresented: $showEmailAlert) {
+                    Button("İptal", role: .cancel) {
+                        // İptal butonuna tıklanınca yapılacak işlemler
+                    }
+                    
+                    Button("Onayla") {
+                      
+                    saveChanges(updateEmail: true)
+                        // Kullanıcı bilgileri güncelleniyor
+                        showBottomTabBar = true
+                        dismiss()
+                       
+                    }
+                }
+                message: {
+                    Text("E mail adresiniz değiştirilecek ve doğrulama linki gönderilecek. Onaylıyor musunuz?")
+                }
+                
             }
         }
+    }
+  
+    private func handleChanges() {
+           if viewModel.user.email != viewModel.appState.currentUser?.email {
+               showEmailAlert = true
+           } else {
+               showAlert = true
+           }
+       }
+       
+    private func saveChanges(updateEmail: Bool = false) {
+          viewModel.updateUserProfile(updateEmail: updateEmail, newEmail: viewModel.user.email, currentPassword: viewModel.user.password) { success in
+              if success {
+                  print("email güncellendi")
+                      
+                  
+              } else {
+                  // Hata durumu
+                  viewModel.errorMessage = "Profil güncelleme sırasında hata oluştu."
+              }
+          }
     }
 }
 
