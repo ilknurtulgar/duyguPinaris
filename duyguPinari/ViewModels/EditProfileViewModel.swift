@@ -21,6 +21,7 @@ final class EditProfileViewModel: ObservableObject {
     }
     
     // MARK: - Profil Resmi Yükleme
+    
     func uploadProfileImage(_ image: UIImage, completion: @escaping (Bool) -> Void) {
         let storageRef = Storage.storage().reference().child("profile_images/\(UUID().uuidString).jpg")
         guard let imageData = image.jpegData(compressionQuality: 0.8) else { return }
@@ -50,13 +51,14 @@ final class EditProfileViewModel: ObservableObject {
         db.collection("users").document(userID).updateData(["profileImageURL": url])
     }
     
+    
     // MARK: - E-mail Güncelleme
+    
     func updateUserProfile(updateEmail: Bool, newEmail: String, currentPassword: String, completion: @escaping (Bool) -> Void) {
         isLoading = true
         
         if updateEmail {
             // E-posta güncelleniyor, önce kullanıcıyı yeniden kimlik doğrulama yap
-            print("geldim: \(newEmail)")
                     AuthenticationManager.shared.updateEmail(newEmail: newEmail,currentPassword: currentPassword) { success, errorMessage in
                         if success {
                             // E-posta başarılı şekilde güncellendiyse, Firestore'da güncelleme yapılacak
@@ -73,7 +75,6 @@ final class EditProfileViewModel: ObservableObject {
                     }
                 }
          else {
-            // E-posta güncellenmiyorsa, Firestore'u direkt güncelle
             updateFirestoreProfile(userID: Auth.auth().currentUser?.uid ?? "", completion: completion)
         }
     }

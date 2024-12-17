@@ -13,7 +13,7 @@ struct EditProfileView: View {
     @Binding var showBottomTabBar: Bool
     @StateObject private var viewModel: EditProfileViewModel
     @State private var showAlert: Bool = false
-    @State private var showEmailAlert: Bool = false
+    @State private var isEmailUpdate: Bool = false
     @State private var selectedImage: UIImage? = nil
     init(appState: AppState, showBottomTabBar: Binding<Bool>) {
         _viewModel = StateObject(wrappedValue: EditProfileViewModel(appState: appState))
@@ -95,7 +95,7 @@ struct EditProfileView: View {
                     
                     Button("Onayla") {
                       
-                    saveChanges()
+                    saveChanges(updateEmail: isEmailUpdate)
                         
                         showBottomTabBar = true
                         dismiss()
@@ -106,48 +106,25 @@ struct EditProfileView: View {
                 message: {
                     Text("Değişiklikleri kaydetmeyi onaylıyor musunuz?")
                 }
-                
-                .alert("E mail güncelleme", isPresented: $showEmailAlert) {
-                    Button("İptal", role: .cancel) {
-                        // İptal butonuna tıklanınca yapılacak işlemler
-                    }
-                    
-                    Button("Onayla") {
-                      
-                    saveChanges(updateEmail: true)
-                        // Kullanıcı bilgileri güncelleniyor
-                        showBottomTabBar = true
-                        dismiss()
-                       
-                    }
-                }
-                message: {
-                    Text("E mail adresiniz değiştirilecek ve doğrulama linki gönderilecek. Onaylıyor musunuz?")
-                }
-                
             }
         }
     }
   
     private func handleChanges() {
-           if viewModel.user.email != viewModel.appState.currentUser?.email {
-               showEmailAlert = true
-           } else {
+        isEmailUpdate = viewModel.user.email != viewModel.appState.currentUser?.email
                showAlert = true
-           }
        }
        
     private func saveChanges(updateEmail: Bool = false) {
-          viewModel.updateUserProfile(updateEmail: updateEmail, newEmail: viewModel.user.email, currentPassword: viewModel.user.password) { success in
-              if success {
-                  print("email güncellendi")
-                      
-                  
-              } else {
-                  // Hata durumu
-                  viewModel.errorMessage = "Profil güncelleme sırasında hata oluştu."
-              }
-          }
+        viewModel.updateUserProfile(updateEmail: updateEmail, newEmail: viewModel.user.email, currentPassword: viewModel.user.password) { success in
+            if success {
+                print(updateEmail ? "E-posta güncellendi" : "Profil güncellendi")
+            } else {
+                viewModel.errorMessage = updateEmail
+                ? "E-posta güncellenirken hata oluştu."
+                : "Profil güncelleme sırasında hata oluştu."
+            }
+        }
     }
 }
 
