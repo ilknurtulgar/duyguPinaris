@@ -44,5 +44,25 @@ class AuthenticationManager {
             completion(true, "tamamdır")
         }
     }
+    func updatePassword(newPassword: String, currentPassword: String, completion: @escaping (Bool, String?) -> Void) {
+        reauthenticateUser(currentPassword: currentPassword) { success, errorMessage in
+            if success {
+                guard let currentUser = Auth.auth().currentUser else {
+                    completion(false, "Mevcut kullanıcı bulunamadı!")
+                    return
+                }
+                
+                currentUser.updatePassword(to: newPassword) { error in
+                    if let error = error {
+                        completion(false, "Şifre güncellenirken hata oluştu: \(error.localizedDescription)")
+                        return
+                    }
+                    completion(true, "Şifre başarıyla güncellendi.")
+                }
+            } else {
+                completion(false, errorMessage)
+            }
+        }
+    }
 }
 

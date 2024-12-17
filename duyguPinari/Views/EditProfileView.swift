@@ -14,6 +14,7 @@ struct EditProfileView: View {
     @StateObject private var viewModel: EditProfileViewModel
     @State private var showAlert: Bool = false
     @State private var isEmailUpdate: Bool = false
+    @State private var isPasswordUpdate: Bool = false
     @State private var selectedImage: UIImage? = nil
     init(appState: AppState, showBottomTabBar: Binding<Bool>) {
         _viewModel = StateObject(wrappedValue: EditProfileViewModel(appState: appState))
@@ -53,6 +54,12 @@ struct EditProfileView: View {
                                 isAbout: true,
                                 subtitle: "Hakkında:"
                             )
+                            if let errorMessage = viewModel.errorMessage {
+                                Text(errorMessage)
+                                    .foregroundColor(.red)
+                                    .font(.caption)
+                                    .padding(.top,4)
+                            }
                             HStack(spacing: 68) {
                                 CustomButton(
                                     title: Constants.TextConstants.cancel,
@@ -95,7 +102,7 @@ struct EditProfileView: View {
                     
                     Button("Onayla") {
                       
-                    saveChanges(updateEmail: isEmailUpdate)
+                    saveChanges(updateEmail: isEmailUpdate,updatePassword: isPasswordUpdate)
                         
                         showBottomTabBar = true
                         dismiss()
@@ -111,12 +118,22 @@ struct EditProfileView: View {
     }
   
     private func handleChanges() {
-        isEmailUpdate = viewModel.user.email != viewModel.appState.currentUser?.email
-               showAlert = true
-       }
+        let currentUser = viewModel.appState.currentUser
+        isEmailUpdate = viewModel.user.email != currentUser?.email
+        isPasswordUpdate = viewModel.user.password != currentUser?.password
+        if isPasswordUpdate && viewModel.user.password.count < 6 {
+            viewModel.errorMessage = "Şifre en az 6 karakter olmalıdır."
+            showAlert = false
+        }else{
+            showAlert = true
+        }
        
-    private func saveChanges(updateEmail: Bool = false) {
-        viewModel.updateUserProfile(updateEmail: updateEmail, newEmail: viewModel.user.email, currentPassword: viewModel.user.password) { success in
+    }
+
+       
+    private func saveChanges(updateEmail: Bool = false,updatePassword: Bool = false) {
+       
+        viewModel.updateUserProfile(updateEmail: updateEmail, updatePassword: updatePassword, newEmail: viewModel.user.email, newPassword: viewModel.user.password, currentPassword: viewModel.appState.currentUser?.password ?? "") { success in
             if success {
                 print(updateEmail ? "E-posta güncellendi" : "Profil güncellendi")
             } else {

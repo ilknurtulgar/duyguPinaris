@@ -76,7 +76,7 @@ struct AddFeedbackView: View {
                         borderColor: Color.primaryColor,
                         textcolor: Color.white,
                         action: {
-                            let feedback = Feedback(id: UUID().uuidString, receiverID: chatUser.id, senderID: appState.currentUser?.id ?? "", username: chatUser.username, role: chatUser.role ?? "yokum", rating: rating, feedbackText: feedbackText)
+                            let feedback = Feedback(id: UUID().uuidString, receiverID: chatUser.id, senderID: appState.currentUser?.id ?? "", username: appState.currentUser?.username ?? "", role: chatUser.role ?? "yokum", rating: rating, feedbackText: feedbackText)
                             viewModel.addFeedbackAndDeleteChat(feedback: feedback, currentUserId: appState.currentUser?.id ?? "", chatUserId: chatUser.id){ success in
                                 if success {
                                     isState = true

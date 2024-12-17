@@ -28,7 +28,7 @@ class FeedbacksViewModel: ObservableObject {
         // userID'yi kullanarak doğru koleksiyona sorgu gönderiyoruz
         
         db.collection("feedbacks")
-            .whereField("senderID", isEqualTo: userID)
+            .whereField("receiverID", isEqualTo: userID)
             .getDocuments{ [weak self] snapshot, error in
                 if let error = error {
                     print("error getting feedbacks: \(error.localizedDescription)")

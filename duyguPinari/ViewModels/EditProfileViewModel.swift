@@ -54,38 +54,57 @@ final class EditProfileViewModel: ObservableObject {
     
     // MARK: - E-mail Güncelleme
     
-    func updateUserProfile(updateEmail: Bool, newEmail: String, currentPassword: String, completion: @escaping (Bool) -> Void) {
+    func updateUserProfile(updateEmail: Bool, updatePassword: Bool, newEmail: String, newPassword: String, currentPassword: String, completion: @escaping (Bool) -> Void) {
         isLoading = true
         
         if updateEmail {
-            // E-posta güncelleniyor, önce kullanıcıyı yeniden kimlik doğrulama yap
-                    AuthenticationManager.shared.updateEmail(newEmail: newEmail,currentPassword: currentPassword) { success, errorMessage in
-                        if success {
-                            // E-posta başarılı şekilde güncellendiyse, Firestore'da güncelleme yapılacak
-                            self.user.email = newEmail
-                            print("atanan e mail: \(self.user.email)")
-                            print("ıd: \(self.user.id)")
-                            self.updateFirestoreProfile(userID: Auth.auth().currentUser?.uid ?? "", completion: completion)
-                        } else {
-                            self.errorMessage = errorMessage
-                            print("hata var : \(String(describing: self.errorMessage))")
-                            completion(false)
-                        }
-                        self.isLoading = false
-                    }
+            print("e maile geldim")
+            // E-posta güncellemesi
+            AuthenticationManager.shared.updateEmail(newEmail: newEmail, currentPassword: currentPassword) { success, errorMessage in
+                if success {
+                    self.user.email = newEmail
+                    self.checkPasswordUpdate(updatePassword: updatePassword, newPassword: newPassword, currentPassword: currentPassword, completion: completion)
+                } else {
+                    self.errorMessage = errorMessage
+                    completion(false)
+                    self.isLoading = false
                 }
-         else {
-            updateFirestoreProfile(userID: Auth.auth().currentUser?.uid ?? "", completion: completion)
+            }
+        } else {
+            print("şifreye geldim")
+            // Şifre güncellemesini kontrol et
+            checkPasswordUpdate(updatePassword: updatePassword, newPassword: newPassword, currentPassword: currentPassword, completion: completion)
         }
     }
+
+    // Şifre güncellemesini kontrol eden yardımcı fonksiyon
+    private func checkPasswordUpdate(updatePassword: Bool, newPassword: String, currentPassword: String, completion: @escaping (Bool) -> Void) {
+        if updatePassword {
+            AuthenticationManager.shared.updatePassword(newPassword: newPassword, currentPassword: currentPassword) { success, errorMessage in
+                if success {
+                    print("güncelledim")
+                    self.updateFirestoreProfile(userID: Auth.auth().currentUser?.uid ?? "", completion: completion)
+                } else {
+                    self.errorMessage = errorMessage
+                    print("güncellenemedim: \(String(describing: errorMessage))")
+                    completion(false)
+                    self.isLoading = false
+                }
+            }
+        }
+        self.updateFirestoreProfile(userID: Auth.auth().currentUser?.uid ?? "", completion: completion)
+    }
+
     
     private func updateFirestoreProfile(userID: String, completion: @escaping (Bool) -> Void) {
+        print("girdim firestore")
         let db = Firestore.firestore()
         print("gelenID: \(userID)")
         db.collection("users").document(userID).updateData([
             "username": user.username,
             "email": user.email,
             "age": user.age,
+            "password": user.password,
             "about": user.about ?? "",
             "profileImageURL": user.profileImageURL ?? ""
         ]) { error in

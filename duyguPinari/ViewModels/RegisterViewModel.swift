@@ -42,11 +42,27 @@ class RegisterViewModel: ObservableObject {
             return
         }
         
+        if user.password.count < 6 {
+             errorMessage = "Şifre en az 6 karakter uzunluğunda olmalıdır."
+             completion(false, nil)
+             return
+         }
+        
         // First, create the user in Firebase Auth
         Auth.auth().createUser(withEmail: user.email, password: user.password) { [weak self] authResult, error in
-            if let error = error {
+            if let error = error as NSError? {
                 DispatchQueue.main.async {
-                    self?.errorMessage = error.localizedDescription
+                    
+                    switch error.code {
+                           case AuthErrorCode.weakPassword.rawValue:
+                               self?.errorMessage = "Şifre en az 6 karakter uzunluğunda olmalıdır."
+                           case AuthErrorCode.emailAlreadyInUse.rawValue:
+                               self?.errorMessage = "Bu e-posta adresi zaten kullanımda."
+                           case AuthErrorCode.invalidEmail.rawValue:
+                               self?.errorMessage = "Geçersiz e-posta formatı."
+                           default:
+                               self?.errorMessage = "Kayıt sırasında hata oluştu: \(error.localizedDescription)"
+                           }
                     completion(false, nil)
                 }
                 return
