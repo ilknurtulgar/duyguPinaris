@@ -10,7 +10,6 @@ import SwiftUI
 struct ChatUser: Identifiable {
     var id: String
     var username: String
-    var message: String
     var unreadMessage: Int
     var profileImage: String?
     var topic: String?
@@ -23,7 +22,6 @@ struct ChatUser: Identifiable {
            return [
                "id": id,
                "username": username,
-               "message": message,
                "unreadMessage": unreadMessage,
                "profileImage": profileImage ?? "",
                "topic": topic ?? "",

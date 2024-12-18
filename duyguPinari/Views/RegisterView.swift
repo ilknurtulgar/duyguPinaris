@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct RegisterView: View {
     
@@ -33,6 +34,10 @@ struct RegisterView: View {
                             Text(errorMessage)
                                 .foregroundStyle(.red)
                         }
+                        TextStyles.subtitleRegular("*Şifreyi en az 6 karakter şeklinde giriniz\n*Kayıt olduktan sonra uygulamayı kullanabilmek için e mail adresinize gönderilecek olan doğrulamayı onaylayınız.")
+                            .foregroundStyle(Color.textColor)
+                            .multilineTextAlignment(.center)
+                            .padding(.top,5)
                         
                         CustomButton(
                             title: Constants.TextConstants.signup,
@@ -49,6 +54,7 @@ struct RegisterView: View {
                                             showBottomTabBar = true
                                             appState.isLoggedIn = true
                                             appState.fetchUserProfile()
+                                            sendEmailVerification()
                                         }else{
                                             isRegistering = false
                                         }
@@ -79,6 +85,16 @@ struct RegisterView: View {
                         }
                     }
                 }
+            }
+        }
+    }
+    private func sendEmailVerification(){
+        Auth.auth().currentUser?.sendEmailVerification{error in
+            if error != nil {
+        print("doğrulama gönderdim")
+              
+            }else {
+        print("gönderemedim kanka")
             }
         }
     }

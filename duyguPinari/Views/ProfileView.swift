@@ -18,6 +18,8 @@ struct ProfileView: View {
     @Binding var showBottomTabBar: Bool
     @State private var destination: Destination?
     @EnvironmentObject var appState: AppState
+    @State private var showAlert: Bool = false
+     @State private var alertMessage: String = ""
     private let viewModel = ProfileViewModel()
     
     var body: some View {
@@ -58,20 +60,7 @@ struct ProfileView: View {
                         .padding(.bottom, 14)
                         
                         CustomRedirectButton(icon: Image(systemName: "person.2.circle"), title: "Dinleyici",isTalk: true,action: {
-                            if let currentUser = appState.currentUser{
-                                let newState = !(currentUser.talkState ?? false)
-                                appState.currentUser?.talkState = newState
-                                viewModel.updateTalkState(id: currentUser.id, newTalkState: newState){
-                                    result in
-                                    switch result {
-                                    case .success():
-                                        print("takstate updated")
-                                    case .failure(let failure):
-                                        print("talkstate didnt update: \(failure.localizedDescription)")
-                                    }
-                                }
-                            }
-                            
+                            handleTalkStateUpdate()
                         })
                             .padding(.bottom,14)
                         
@@ -100,6 +89,12 @@ struct ProfileView: View {
                     .padding(.horizontal, 16)
                 }
             }
+            .alert(isPresented: $showAlert){
+                Alert(title: Text("E mail Doğrulama Gerekli"),
+                      message: Text(alertMessage),
+                      dismissButton: .default(Text("Tamam"))
+                )
+            }
             .navigationDestination(isPresented: .constant(destination == .editProfile)) {
                 EditProfileView(appState: appState, showBottomTabBar: $showBottomTabBar)
                     .navigationBarBackButtonHidden(true)
@@ -120,6 +115,28 @@ struct ProfileView: View {
                         destination = nil
                     }
             }
+        }
+    }
+    private func handleTalkStateUpdate() {
+        guard let currentUser = Auth.auth().currentUser else { return }
+        
+        if currentUser.isEmailVerified {
+            // E-posta doğrulanmışsa talkState güncellenebilir
+            if let user = appState.currentUser {
+                let newState = !(user.talkState ?? false)
+                appState.currentUser?.talkState = newState
+                viewModel.updateTalkState(id: user.id, newTalkState: newState) { result in
+                    switch result {
+                    case .success():
+                        print("TalkState updated")
+                    case .failure(let error):
+                        print("Failed to update TalkState: \(error.localizedDescription)")
+                    }
+                }
+            }
+        } else {
+            alertMessage = "Dinleyici modunu aktif etmek için e mail doğrulamanız gerekiyor. Lütfen e mail adresinizi kontrol edin."
+            showAlert = true
         }
     }
 }

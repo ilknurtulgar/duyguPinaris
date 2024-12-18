@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct HomeView: View {
     @State private var navigateToFilterView: Bool = false
@@ -14,6 +15,8 @@ struct HomeView: View {
     @EnvironmentObject var appState: AppState
     @State private var selectedChatUser: ChatUser?
     @StateObject var viewModel: HomeViewModel
+    @State private var alertMessage: String = ""
+    @State private var showAlert: Bool = false
     
     init(showBottomTabBar: Binding<Bool>, appState: AppState) {
         _viewModel = StateObject(wrappedValue: HomeViewModel(appState: appState))
@@ -28,13 +31,19 @@ struct HomeView: View {
                     HStack{
                         Spacer()
                         AddConversationButton(action: {
-                          //  print("home current: \(String(describing: appState.currentUser))")
-                            showBottomTabBar=false
-                            navigateToFilterView=true
+                            guard let currentUser = Auth.auth().currentUser else {return}
+                            if currentUser.isEmailVerified{
+                                showBottomTabBar=false
+                                navigateToFilterView=true
+                            }else {
+                                alertMessage = "Konuşma başlatabilmek için e-postanızı doğrulamanız gerekiyor. E-postanıza gönderilen doğrulama bağlantısını kullanarak doğrulayabilirsiniz."
+                                showAlert = true
+                            }
+                          
                         })
-                    }
-                    .padding(.top,10)
-                    .padding(.trailing,85)
+                   
+                    }     .padding(.top,10)
+                        .padding(.trailing,85)
                     
                     ScrollView{
                         VStack(spacing: 40){
@@ -45,7 +54,7 @@ struct HomeView: View {
                                 
                             }else {
                                 ForEach(appState.chatUsers.sorted(by: { $0.timestamp ?? Date() > $1.timestamp ?? Date() })){user in
-                                    ChatListCard(profileImageURL: user.profileImage, title: user.username, messageDetails: user.message, unreadMessages: user.unreadMessage, showBottomTabBar: $showBottomTabBar, action: {
+                                    ChatListCard(profileImageURL: user.profileImage, title: user.username, messageDetails: user.lastMessage ?? "Sohbete başlamak için tıklayın", unreadMessages: user.unreadMessage, showBottomTabBar: $showBottomTabBar, action: {
                                         showBottomTabBar = false
                                         isChat = true
                                         selectedChatUser = user
@@ -59,6 +68,15 @@ struct HomeView: View {
                     }
                     .padding(.top,30)
                 }
+            }
+            .alert(isPresented: $showAlert){
+                Alert(title: Text("E mail Doğrulama gerekli"),
+                message: Text(alertMessage),
+                      primaryButton: .default(Text("Tekrar Gönder")){
+                    sendEmailVerification()
+                },secondaryButton: .cancel(Text("Tamam"))
+                
+                )
             }
         }
         
@@ -94,6 +112,17 @@ struct HomeView: View {
              viewModel.fetchChatUsers(for: userId) {
                  print("Sohbet kullanıcıları alındı.")
              }
+        }
+    }
+    private func sendEmailVerification(){
+        Auth.auth().currentUser?.sendEmailVerification{error in
+            if let error = error {
+                alertMessage = "Doğrulama e mail gönderilirken bir hata oluştu:\(error.localizedDescription)"
+                showAlert = true
+            }else {
+                alertMessage = "Doğrulama e-postası tekrar gönderildi. Lütfen e-postanızı kontrol edin."
+            showAlert = true
+            }
         }
     }
 }

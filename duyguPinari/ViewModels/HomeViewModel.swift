@@ -73,7 +73,6 @@ class HomeViewModel: ObservableObject {
                             let chatUser = ChatUser(
                                 id: chatUserId,
                                 username: username,
-                                message: lastMessage ?? "",
                                 unreadMessage: unreadMessage,
                                 profileImage: profileImage,
                                 topic: topic,

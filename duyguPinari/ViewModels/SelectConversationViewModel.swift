@@ -22,7 +22,6 @@ class SelectConversationViewModel: ObservableObject {
         let currentUserChatUser = ChatUser(
             id:UUID().uuidString,
             username: currentUser.username,
-            message: "Sohbete başlamak için tıklayın",
             unreadMessage: 0,
             profileImage: "",  // Eğer mevcutsa profil resmini buraya ekleyebilirsiniz
             topic: topic,
@@ -36,7 +35,6 @@ class SelectConversationViewModel: ObservableObject {
             
             id: UUID().uuidString,
             username: user.username,
-            message: "Sohbete başlamak için tıklayın",
             unreadMessage: 0,
             profileImage: "",  // Eğer mevcutsa profil resmini buraya ekleyebilirsiniz
             topic: topic,
@@ -66,7 +64,7 @@ class SelectConversationViewModel: ObservableObject {
     
     func fetchFeedbacks(for userId: String){
         db.collection("feedbacks")
-            .whereField("senderID", isEqualTo: userId)
+            .whereField("receiverID", isEqualTo: userId)
             .getDocuments{
                 snapshot , error in
                 if let error = error {

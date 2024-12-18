@@ -127,22 +127,28 @@ class ChatViewModel: ObservableObject {
         }
     }
     
-    func updateLastMessage(for chatUserId: String,newMessage: String, currentUserId: String){
-        //giriş yapan kullanıcının chatini güncelleme
-        db.collection("users").document(currentUserId).collection("chats").document(chatUserId).updateData(["lastMessage": newMessage,"timestamp": FieldValue.serverTimestamp()]){error in
+    func updateLastMessage(for chatUserId: String, newMessage: String, currentUserId: String) {
+        let chatDocRef1 = db.collection("users").document(currentUserId).collection("chats").document(chatUserId)
+        let chatDocRef2 = db.collection("users").document(chatUserId).collection("chats").document(currentUserId)
+        
+        // Giriş yapan kullanıcı için güncelle
+        chatDocRef1.setData(["lastMessage": newMessage, "timestamp": FieldValue.serverTimestamp()], merge: true) { error in
             if let error = error {
-                print("lastMessage güncellenirken hata oluştu[currentUserId]:\(error.localizedDescription)")
-            }else{
+                print("lastMessage güncellenirken hata oluştu[currentUserId]: \(error.localizedDescription)")
+            } else {
                 print("lastMessage başarıyla güncellendi[currentUserId].")
             }
         }
-        db.collection("users").document(chatUserId).collection("chats").document(currentUserId).updateData(["lastMessage": newMessage,"timestamp": FieldValue.serverTimestamp()]){error in
-            if let error = error{
+        
+        // Karşı kullanıcı için güncelle
+        chatDocRef2.setData(["lastMessage": newMessage, "timestamp": FieldValue.serverTimestamp()], merge: true) { error in
+            if let error = error {
                 print("lastMessage güncellenirken hata oluştu[chatUserId]: \(error.localizedDescription)")
-            }else{
+            } else {
                 print("lastMessage başarıyla güncellendi[chatUserId].")
             }
         }
     }
+
 }
 
