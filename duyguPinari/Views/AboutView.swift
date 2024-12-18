@@ -36,11 +36,11 @@ struct AboutView: View {
                     CustomToolBar(title: chatUser.username, icon: Image(systemName: "chevron.left"), action: {
                        backNavigate = true
                         
-                    }, userImageURL: "", hasUserImage: true, titleAlignment: .leading, textAction: nil,paddingSize: 10)
+                    }, userImageURL: chatUser.profileImage, hasUserImage: true, titleAlignment: .leading, textAction: nil,paddingSize: 10)
                     
                     ScrollView {
                         VStack(spacing: 20) {
-                            ProfileImage()
+                            ProfileImage(imageURL:chatUser.profileImage)
                                 .padding(.top, 16)
                                 .padding(.bottom,20)
                             TextStyles.subtitleMedium2("Hakkında:")

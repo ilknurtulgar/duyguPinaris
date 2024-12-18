@@ -23,7 +23,7 @@ class SelectConversationViewModel: ObservableObject {
             id:UUID().uuidString,
             username: currentUser.username,
             unreadMessage: 0,
-            profileImage: "",  // Eğer mevcutsa profil resmini buraya ekleyebilirsiniz
+            profileImage:currentUser.profileImageURL,  // Eğer mevcutsa profil resmini buraya ekleyebilirsiniz
             topic: topic,
             role: "Anlatıcı",
             timestamp: Date(), // Firestore'daki timestamp'a uygun olarak
@@ -36,7 +36,7 @@ class SelectConversationViewModel: ObservableObject {
             id: UUID().uuidString,
             username: user.username,
             unreadMessage: 0,
-            profileImage: "",  // Eğer mevcutsa profil resmini buraya ekleyebilirsiniz
+            profileImage: user.profileImageURL,
             topic: topic,
             role: "Dinleyici",
             timestamp: Date(), // Firestore'daki timestamp'a uygun olarak
@@ -44,14 +44,14 @@ class SelectConversationViewModel: ObservableObject {
             lastMessage: "Sohbete başlamak için tıklayın"
         )
         
-        db.collection("users").document(currentUser.id).collection("chats").document(user.id).setData(currentUserChatUser.toDictionary()){error in
+        db.collection("users").document(currentUser.id).collection("chats").document(user.id).setData(matchedUserChatUser.toDictionary()){error in
             if let error = error{
                 print("currentUser: sohbet oluşturulamadı: \(error.localizedDescription)")
             }else{
                 print("currentUser: sohbet başarıyla başlatıldı.")
             }
         }
-        db.collection("users").document(user.id).collection("chats").document(currentUser.id).setData(matchedUserChatUser.toDictionary()){ error in
+        db.collection("users").document(user.id).collection("chats").document(currentUser.id).setData(currentUserChatUser.toDictionary()){ error in
             if let error = error{
                 print("matchedUser: sohbet oluşturulamadı: \(error.localizedDescription)")
             }else{

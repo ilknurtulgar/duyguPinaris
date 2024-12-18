@@ -57,7 +57,11 @@ struct HomeView: View {
                                     ChatListCard(profileImageURL: user.profileImage, title: user.username, messageDetails: user.lastMessage ?? "Sohbete başlamak için tıklayın", unreadMessages: user.unreadMessage, showBottomTabBar: $showBottomTabBar, action: {
                                         showBottomTabBar = false
                                         isChat = true
+                                        print("User Profile Image URL: \(String(describing: user.profileImage))")
                                         selectedChatUser = user
+                                        print("chatuserId:\(user.id)")
+                                        print("username:\(user.username)")
+                                        print("test:\(String(describing: user.role))")
                                         
                                         // mesaj gelince lasti güncellme
                                         

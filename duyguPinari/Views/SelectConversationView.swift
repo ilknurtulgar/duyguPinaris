@@ -28,8 +28,8 @@ struct SelectConversationView: View {
                     ScrollView{
                         VStack(spacing: 35){
                             if let matchedUser = matchedUser {
-                                FeedbackCard( name: matchedUser.username, role:"Dinelyici",
-                                              rating: 0,feedbackText: matchedUser.about ?? "Henüz hakkında bilgi yok." )
+                                FeedbackCard( profileImageURL: matchedUser.profileImageURL, name: matchedUser.username, role:"Dinelyici",
+                                              rating: 0,feedbackText: matchedUser.about ?? "Henüz hakkında bilgi yok.")
                                 
                                 .onAppear{
                                     viewModel.fetchFeedbacks(for: matchedUser.id)
@@ -38,7 +38,7 @@ struct SelectConversationView: View {
                                     TextStyles.subtitleMedium("Geribildirimler:")
                                     if !viewModel.feedbacks.isEmpty{
                                         ForEach(viewModel.feedbacks){ feedback in
-                                            FeedbackCard(name: feedback.username, role: feedback.role,rating: feedback.rating,
+                                            FeedbackCard(profileImageURL: feedback.profileImage,name: feedback.username, role: feedback.role,rating: feedback.rating,
                                                          feedbackText:feedback.feedbackText )
                                         }
                                     }else{

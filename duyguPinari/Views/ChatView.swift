@@ -29,7 +29,7 @@ struct ChatView: View {
                         }
                         showBottomTabBar = true
                         dismiss()
-                    }, userImageURL: chatUser.profileImage ?? "", hasUserImage: true, titleAlignment: .leading, textAction: {
+                    }, userImageURL: chatUser.profileImage, hasUserImage: true, titleAlignment: .leading, textAction: {
                         aboutNavigate = true
                     }, paddingSize: 10)
 
@@ -40,7 +40,9 @@ struct ChatView: View {
                                     CustomGetMessage(
                                         message: message.content,
                                         isCurrentUser: message.senderID == appState.currentUser?.id ?? "",
-                                        profileImageURL: chatUser.profileImage ?? "",
+                                        profileImageURL:message.senderID == appState.currentUser?.id ?? ""
+                                        ? appState.currentUser?.profileImageURL
+                                        : chatUser.profileImage,
                                         time: getCurrentTime(for: message.timestamp)
                                     )
                                     .id(message.id)

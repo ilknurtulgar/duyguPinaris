@@ -20,19 +20,19 @@ struct FeedbackCard: View {
             if let url = profileImageURL, let imageURL = URL(string: url) {
                 AsyncImage(url: imageURL) { image in
                     image.resizable()
-                        .frame(width: 32, height: 35)
+                        .frame(width: 40, height: 40)
                         .clipShape(Circle()) // Profil resmini yuvarlak yapar
                 } placeholder: {
                     Image(systemName: "person.circle")
                         .resizable()
-                        .frame(width: 32, height: 35)
+                        .frame(width: 40, height: 40)
                         .clipShape(Circle()) // Varsayılan simge
                         .foregroundColor(.gray) // Varsayılan simge rengi
                 }
             } else {
                 Image(systemName: "person.circle") // Eğer URL yoksa bu simgeyi göster
                     .resizable()
-                    .frame(width: 32, height: 35)
+                    .frame(width: 40, height: 40)
                     .clipShape(Circle()) // Varsayılan simgeyi yuvarlak yapar
                     .foregroundColor(.gray) // Varsayılan simge rengi
             }

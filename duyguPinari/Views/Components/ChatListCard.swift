@@ -6,8 +6,9 @@
 //
 
 import SwiftUI
+
 struct ChatListCard: View {
-    var profileImageURL: String? // String URL yerine
+    var profileImageURL: String?
     var title: String
     var messageDetails: String
     var unreadMessages: Int
@@ -19,13 +20,33 @@ struct ChatListCard: View {
             HStack {
                 // URL varsa AsyncImage ile resmi yükleyin
                 if let url = profileImageURL, let imageURL = URL(string: url) {
-                    AsyncImage(url: imageURL) { image in
-                        image.resizable()
-                            .frame(width: 45, height: 45)
-                            .clipShape(Circle())
-                    } placeholder: {
+                    AsyncImage(url: imageURL) { phase in
+                        switch phase {
+                        case .empty:
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle(tint: Color.primaryColor))
+                                .scaleEffect(1.5)
+                                .padding(10)
+                                .frame(width: 45, height: 45)
+                        case .success(let image):
+                            image.resizable()
+                                .frame(width: 45, height: 45)
+                                .clipShape(Circle())
+                                .padding(.all, 5)
+                        case .failure:
+                            // Resim yüklenemediğinde person.circle simgesini göster
+                            Image(systemName: "person.circle")
+                                .resizable()
+                                .frame(width: 45, height: 45)
+                                .clipShape(Circle())
+                                .foregroundColor(.gray)
+                                .padding()
+                        @unknown default:
+                            EmptyView()
+                        }
                     }
-                }else{
+                } else {
+                    // Eğer URL yoksa, person.circle simgesini göster
                     Image(systemName: "person.circle")
                         .resizable()
                         .frame(width: 45, height: 45)
@@ -33,7 +54,6 @@ struct ChatListCard: View {
                         .foregroundColor(.gray)
                         .padding()
                 }
-                
                 
                 VStack(alignment: .leading, spacing: 10) {
                     TextStyles.subtitleMedium(title)

@@ -41,7 +41,7 @@ class FeedbacksViewModel: ObservableObject {
                         id: document.documentID,
                         receiverID: data["receiverID"] as? String ?? "",
                         senderID:  data["senderID"] as? String ?? "",
-                        profileImage: data["profileImageURL"] as? String,
+                        profileImage: data["profileImage"] as? String,
                         username: data["username"] as? String ?? "nullim",
                         role: data["role"] as? String ?? "nullim",
                         rating: data["rating"] as? Int ?? 0,

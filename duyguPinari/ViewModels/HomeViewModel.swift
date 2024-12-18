@@ -69,7 +69,9 @@ class HomeViewModel: ObservableObject {
                         if let userError = userError {
                             print("Kullanıcı bilgisi getirilemedi: \(userError.localizedDescription)")
                         } else if let userData = userSnapshot?.data(),
-                                  let username = userData["username"] as? String {
+                                 
+                            let username = userData["username"] as? String {
+                            print("userData: \(userData)")
                             let chatUser = ChatUser(
                                 id: chatUserId,
                                 username: username,
@@ -90,8 +92,10 @@ class HomeViewModel: ObservableObject {
                    // print("Kullanıcılar: \(fetchedUsers)")
                     self.chatUsers = fetchedUsers
                     self.appState.chatUsers = fetchedUsers
-                   /* print("**************************")
-                    print("chatUSERS: \(self.chatUsers)")
+                    print("fetchedUser:\(self.appState.chatUsers)")
+                    print("**************************")
+                   print("fetc: \(fetchedUsers)")
+                    /*print("chatUSERS: \(self.chatUsers)")
                     print("**************************")
                     print("appstateChatUsers: \(self.appState.chatUsers)")
                     print("**************************")*/

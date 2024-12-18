@@ -107,7 +107,7 @@ class StartChattingViewModel: ObservableObject {
                     guard let talkState = data["talkState"] as? Bool, talkState == true else {
                         return nil
                     }
-                    return User(id: document.documentID, username: data["username"] as? String ?? "", email: data["email"] as? String ?? "", age: ageString, password: "",about: data["about"] as? String,talkState: talkState)
+                    return User(id: document.documentID, username: data["username"] as? String ?? "", email: data["email"] as? String ?? "", age: ageString, password: "",about: data["about"] as? String,talkState: talkState,profileImageURL: data["profileImageURL"] as? String)
                 }
                 
                 //currentUser listenin dışına ekleme

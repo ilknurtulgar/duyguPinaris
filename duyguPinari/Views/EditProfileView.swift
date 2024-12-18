@@ -15,7 +15,7 @@ struct EditProfileView: View {
     @State private var showAlert: Bool = false
     @State private var isEmailUpdate: Bool = false
     @State private var isPasswordUpdate: Bool = false
-    @State private var selectedImage: UIImage? = nil
+    @State private var imagePath: String? = nil
     init(appState: AppState, showBottomTabBar: Binding<Bool>) {
         _viewModel = StateObject(wrappedValue: EditProfileViewModel(appState: appState))
         _showBottomTabBar = showBottomTabBar
@@ -42,7 +42,12 @@ struct EditProfileView: View {
                     )
                     ScrollView {
                         VStack(spacing: 16) {
-                            ProfileImagePicker(image: $selectedImage)
+                            ProfileImagePicker(imagePath: Binding(
+                                get: { imagePath ?? viewModel.user.profileImageURL ?? "" },
+                                set: { newPath in
+                                    imagePath = newPath
+                                }
+                            ))
                                 .padding(.top, 16)
                             CustomTextField(text: $viewModel.user.username, placeholder: "", subtitle: "Kullanıcı Adı:")
                             CustomTextField(text: $viewModel.user.email, placeholder: "alexa@example.com", subtitle: "E mail:")
@@ -118,33 +123,30 @@ struct EditProfileView: View {
     }
   
     private func handleChanges() {
-        let currentUser = viewModel.appState.currentUser
-        isEmailUpdate = viewModel.user.email != currentUser?.email
-        isPasswordUpdate = viewModel.user.password != currentUser?.password
-        if let selectedImage = selectedImage {
-            viewModel.uploadProfileImage(selectedImage){success in
-                if success {
-                    print("Profil resmi başarıyla yüklendi")
-                    showAlert = true
-                }else{
-                    viewModel.errorMessage = "Profil resmi yüklenemedi."
-                }
-                
-            }
-        }
-        if isPasswordUpdate && viewModel.user.password.count < 6 {
-            viewModel.errorMessage = "Şifre en az 6 karakter olmalıdır."
-            showAlert = false
-        }else{
-            showAlert = true
-        }
-       
-    }
-
-       
+          let currentUser = viewModel.appState.currentUser
+          isEmailUpdate = viewModel.user.email != currentUser?.email
+          isPasswordUpdate = viewModel.user.password != currentUser?.password
+          
+          if let imagePath = imagePath, let imageData = try? Data(contentsOf: URL(fileURLWithPath: imagePath)), let image = UIImage(data: imageData) {
+              viewModel.uploadProfileImage(image) { success in
+                  if success {
+                      print("Profil resmi başarıyla yüklendi")
+                      showAlert = true
+                  } else {
+                      viewModel.errorMessage = "Profil resmi yüklenemedi."
+                  }
+              }
+          }
+          
+          if isPasswordUpdate && viewModel.user.password.count < 6 {
+              viewModel.errorMessage = "Şifre en az 6 karakter olmalıdır."
+              showAlert = false
+          } else {
+              showAlert = true
+          }
+      }
+    
     private func saveChanges(updateEmail: Bool = false,updatePassword: Bool = false) {
-       
-        
         viewModel.updateUserProfile(updateEmail: updateEmail, updatePassword: updatePassword, newEmail: viewModel.user.email, newPassword: viewModel.user.password, currentPassword: viewModel.appState.currentUser?.password ?? "") { success in
             if success {
                 print(updateEmail ? "E-posta güncellendi" : "Profil güncellendi")

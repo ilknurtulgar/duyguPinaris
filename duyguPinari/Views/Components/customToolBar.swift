@@ -42,15 +42,18 @@ struct CustomToolBar: View {
                             Image(systemName: "person.circle")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 24, height: 24)
+                                .clipShape(Circle())
+                                .frame(width: 35, height: 35)
                         case .success(let image):
                             image
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 24, height: 24)
+                                .clipShape(Circle())
+                                .frame(width: 35, height: 35)
                         case .failure:
                             Image(systemName: "person.circle")
                                 .resizable()
+                                .clipShape(Circle())
                                 .frame(width: 24, height: 24)
                         @unknown default:
                             EmptyView()
