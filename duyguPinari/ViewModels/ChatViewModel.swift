@@ -93,7 +93,7 @@ class ChatViewModel: ObservableObject {
                     print("Mesaj gönderilemedi: \(error.localizedDescription)")
                 } else {
                     print("Mesaj başarıyla gönderildi.")
-                    self.updateLastMessage(for: currentUserId,newMessage:messageContent,currentUserId: currentUserId)
+                    self.updateLastMessage(for: chatUserId,newMessage:messageContent,currentUserId: currentUserId)
                     self.incrementUnreadMessages(for: chatUserId,senderId: currentUserId)
                 }
             }

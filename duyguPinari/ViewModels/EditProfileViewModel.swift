@@ -34,6 +34,7 @@ final class EditProfileViewModel: ObservableObject {
             }
             storageRef.downloadURL { url, error in
                 if let url = url {
+                    // URL'yi hem Firestore'a kaydediyoruz hem de appState'e güncelliyoruz
                     self?.user.profileImageURL = url.absoluteString
                     self?.saveProfileImageURL(url.absoluteString)
                     completion(true)
@@ -44,12 +45,25 @@ final class EditProfileViewModel: ObservableObject {
             }
         }
     }
-    
+
     private func saveProfileImageURL(_ url: String) {
         let db = Firestore.firestore()
         guard let userID = Auth.auth().currentUser?.uid else { return }
-        db.collection("users").document(userID).updateData(["profileImageURL": url])
+        
+        // Firestore'da güncelleme yapıyoruz
+        db.collection("users").document(userID).updateData(["profileImageURL": url]) { error in
+            if let error = error {
+                print("Firestore güncellemesi başarısız: \(error.localizedDescription)")
+            } else {
+                // Firebase Firestore güncellenince appState'e de güncelleme yapıyoruz
+                DispatchQueue.main.async {
+                    self.appState.currentUser?.profileImageURL = url
+                    print("Yeni profil resmi URL'si: \(String(describing: self.appState.currentUser?.profileImageURL))")
+                }
+            }
+        }
     }
+
     
     
     // MARK: - E-mail Güncelleme
@@ -58,7 +72,6 @@ final class EditProfileViewModel: ObservableObject {
         isLoading = true
         
         if updateEmail {
-            print("e maile geldim")
             // E-posta güncellemesi
             AuthenticationManager.shared.updateEmail(newEmail: newEmail, currentPassword: currentPassword) { success, errorMessage in
                 if success {
@@ -71,7 +84,6 @@ final class EditProfileViewModel: ObservableObject {
                 }
             }
         } else {
-            print("şifreye geldim")
             // Şifre güncellemesini kontrol et
             checkPasswordUpdate(updatePassword: updatePassword, newPassword: newPassword, currentPassword: currentPassword, completion: completion)
         }
@@ -97,9 +109,7 @@ final class EditProfileViewModel: ObservableObject {
 
     
     private func updateFirestoreProfile(userID: String, completion: @escaping (Bool) -> Void) {
-        print("girdim firestore")
         let db = Firestore.firestore()
-        print("gelenID: \(userID)")
         db.collection("users").document(userID).updateData([
             "username": user.username,
             "email": user.email,

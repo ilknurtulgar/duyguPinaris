@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct SelectConversationView: View {
-    @State private var navigateToHomeView = false
     @State private var navigateToAccept = false
     @Environment(\.dismiss) private var dismiss
     @Binding var matchedUser: User?
@@ -56,8 +55,7 @@ struct SelectConversationView: View {
                     }
                     HStack(spacing: 80){
                         CustomButton(title: Constants.TextConstants.cancel, width: 123, height: 35, backgroundColor: Color.white, borderColor: Color.primaryColor, textcolor: Color.primaryColor, action: {
-                            navigateToHomeView = true
-                            dismiss()
+                            navigateToAccept = true
                             showBottomTabBar = true
                         },
                                      font: .custom("SFPro-Display-Medium", size: 10))

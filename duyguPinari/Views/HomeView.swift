@@ -41,10 +41,10 @@ struct HomeView: View {
                             }
                           
                         })
-                   
-                    }     .padding(.top,10)
-                        .padding(.trailing,85)
-                    
+                       
+                    }
+                    .padding(.top,10)
+                      .padding(.trailing,85)
                     ScrollView{
                         VStack(spacing: 40){
                             if viewModel.chatUsers.isEmpty{

@@ -121,6 +121,17 @@ struct EditProfileView: View {
         let currentUser = viewModel.appState.currentUser
         isEmailUpdate = viewModel.user.email != currentUser?.email
         isPasswordUpdate = viewModel.user.password != currentUser?.password
+        if let selectedImage = selectedImage {
+            viewModel.uploadProfileImage(selectedImage){success in
+                if success {
+                    print("Profil resmi başarıyla yüklendi")
+                    showAlert = true
+                }else{
+                    viewModel.errorMessage = "Profil resmi yüklenemedi."
+                }
+                
+            }
+        }
         if isPasswordUpdate && viewModel.user.password.count < 6 {
             viewModel.errorMessage = "Şifre en az 6 karakter olmalıdır."
             showAlert = false
@@ -133,6 +144,7 @@ struct EditProfileView: View {
        
     private func saveChanges(updateEmail: Bool = false,updatePassword: Bool = false) {
        
+        
         viewModel.updateUserProfile(updateEmail: updateEmail, updatePassword: updatePassword, newEmail: viewModel.user.email, newPassword: viewModel.user.password, currentPassword: viewModel.appState.currentUser?.password ?? "") { success in
             if success {
                 print(updateEmail ? "E-posta güncellendi" : "Profil güncellendi")

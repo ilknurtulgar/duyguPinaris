@@ -28,7 +28,7 @@ struct ProfileView: View {
                 Color.backgroundPrimary.ignoresSafeArea()
                 ScrollView {
                     VStack {
-                        ProfileImage()
+                        ProfileImage(imageURL: appState.currentUser?.profileImageURL)
                             .padding(.top, 50)
                         TextStyles.title(appState.currentUser?.username ?? "nullim")
                             .padding(.top, 18)
@@ -116,6 +116,7 @@ struct ProfileView: View {
                     }
             }
         }
+     
     }
     private func handleTalkStateUpdate() {
         guard let currentUser = Auth.auth().currentUser else { return }

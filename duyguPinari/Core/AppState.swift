@@ -24,7 +24,6 @@ class AppState: ObservableObject {
                   // Kullanıcı giriş yapmışsa, kullanıcı bilgilerini çek
                //   print("User is logged in with UID: \(currentUser.uid)")
                   fetchUserProfile()
-          
               } else {
                   // Kullanıcı giriş yapmamışsa
                   print("No user is logged in.")
@@ -47,7 +46,9 @@ class AppState: ObservableObject {
             else  if let document = document, document.exists {
                 let data = document.data()
                     self.currentUser = User(id: data?["id"] as? String ?? "", username: data?["username"] as? String ?? "", email: data?["email"] as? String ?? "", age: data?["age"] as? String ?? "", password:  data?["password"] as? String ?? "",about:data?["about"] as? String ?? "" ,
-                    talkState: data?["talkState"] as? Bool ?? false)
+                    talkState: data?["talkState"] as? Bool ?? false,
+                                            profileImageURL: data?["profileImageURL"] as? String ?? "")
+                print("image:\(String(describing: self.currentUser?.profileImageURL))")
                 /*if let currentUser = self.currentUser {
                                print("User ID: \(currentUser.id)")
                                print("Username: \(currentUser.username)")
