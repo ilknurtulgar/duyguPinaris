@@ -280,7 +280,6 @@
 				83572EB32CFB5C7F00E113D4 /* SelectConversationViewModel.swift */,
 				831F4A882CFF516D0054FA89 /* ChatViewModel.swift */,
 				831F4A8C2CFFBFA00054FA89 /* AddFeedbackViewModel.swift */,
-				83ACD4972D00D9DB004FBA26 /* ProfileImagePicker.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -338,6 +337,7 @@
 				8371EDF02CD975640069E1CE /* AuthTitle.swift */,
 				8371EDF62CDA07470069E1CE /* CustomTextField.swift */,
 				839CBAC92CDC1C500066BE03 /* withHorizontalLinesAndText.swift */,
+				83ACD4972D00D9DB004FBA26 /* ProfileImagePicker.swift */,
 				839CBACD2CDC21EF0066BE03 /* BottomTabBar.swift */,
 				839CBACF2CDC30FE0066BE03 /* ProfileImage.swift */,
 				839CBAD22CDC337D0066BE03 /* CustomAboutText.swift */,

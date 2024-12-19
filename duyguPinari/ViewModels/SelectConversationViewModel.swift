@@ -14,10 +14,6 @@ class SelectConversationViewModel: ObservableObject {
     var homeViewModel: HomeViewModel?
     
     func startChat(with user: User,currentUser: User,topic: String){
-    /*    print("---------------STARTCHAT--------------------")
-        print("chatuser : (\(user)")
-        print("currentUser: \(currentUser)")
-        print("----------------------------------")*/
         
         let currentUserChatUser = ChatUser(
             id:UUID().uuidString,

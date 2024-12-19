@@ -58,10 +58,6 @@ struct HomeView: View {
                                         showBottomTabBar = false
                                         isChat = true
                                         selectedChatUser = user
-                                        //print("User Profile Image URL: \(String(describing: user.profileImage))")
-                                        //print("chatuserId:\(user.id)")
-                                        //print("username:\(user.username)")
-                                        //print("test:\(String(describing: user.role))")
                                     })
                                 }
                             }
@@ -107,7 +103,6 @@ struct HomeView: View {
         .navigationBarHidden(true)
         .onAppear {
             guard let userId = appState.currentUser?.id, !userId.isEmpty else {
-                 print("Kullanıcı ID'si yok, sohbetler çekilmiyor.")
                  return
              }
              viewModel.fetchChatUsers(for: userId) {

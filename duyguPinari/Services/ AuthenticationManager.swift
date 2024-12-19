@@ -41,9 +41,19 @@ class AuthenticationManager {
                 completion(false, "E-posta güncellenirken hata oluştu: \(error.localizedDescription)")
                 return
             }
+            currentUser.sendEmailVerification { error in
+                    if let error = error {
+                        completion(false, "Doğrulama e-postası gönderilirken hata oluştu: \(error.localizedDescription)")
+                        return
+                    }
+                    
+                    completion(true, "E-posta başarıyla güncellendi. Lütfen doğrulama e-postasını kontrol edin.")
+                }
+            
             completion(true, "tamamdır")
         }
     }
+   
     func updatePassword(newPassword: String, currentPassword: String, completion: @escaping (Bool, String?) -> Void) {
         reauthenticateUser(currentPassword: currentPassword) { success, errorMessage in
             if success {

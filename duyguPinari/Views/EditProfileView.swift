@@ -114,7 +114,7 @@ struct EditProfileView: View {
                     }
                 }
                 message: {
-                    Text("Değişiklikleri kaydetmeyi onaylıyor musunuz?")
+                    Text( viewModel.user.email != viewModel.appState.currentUser?.email ? "E postanızı doğrulamak için e postanıza gönderilen doğrulamayı onaylayıp hesaba tekrar giriş yapmanız gerekmektedir." : "Değişiklikleri kaydetmeyi onaylıyor musunuz?")
                 }
             }
         }

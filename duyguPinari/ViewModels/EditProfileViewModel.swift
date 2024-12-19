@@ -87,8 +87,7 @@ final class EditProfileViewModel: ObservableObject {
             // Şifre güncellemesini kontrol et
             checkPasswordUpdate(updatePassword: updatePassword, newPassword: newPassword, currentPassword: currentPassword, completion: completion)
         }
-    }
-
+    }    
     // Şifre güncelleme cehck
     private func checkPasswordUpdate(updatePassword: Bool, newPassword: String, currentPassword: String, completion: @escaping (Bool) -> Void) {
         if updatePassword {

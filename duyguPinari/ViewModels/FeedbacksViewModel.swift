@@ -22,11 +22,9 @@ class FeedbacksViewModel: ObservableObject {
             print("No user logged in")
             return
         }
-      //  print("Fetching feedbacks for user ID: \(userID)")
         let db = Firestore.firestore()
         
         // userID'yi kullanarak doğru koleksiyona sorgusu
-        
         db.collection("feedbacks")
             .whereField("receiverID", isEqualTo: userID)
             .getDocuments{ [weak self] snapshot, error in

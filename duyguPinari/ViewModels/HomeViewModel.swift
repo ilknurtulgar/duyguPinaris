@@ -14,12 +14,7 @@ class HomeViewModel: ObservableObject {
     let db = Firestore.firestore()
     init(appState: AppState) {
         self.appState = appState
-        self.chatUsers = appState.chatUsers // Başlangıçta AppState'teki kullanıcıları alma
-     /*   print("-----------------------------------------------")
-        print("chatUsers(AppSate): \(appState.chatUsers)")
-        print("-----------------------------------------------")
-        print("chatUsers:\(chatUsers)")
-        print("-----------------------------------------------")*/
+        self.chatUsers = appState.chatUsers
     }
     
     func fetchChatUsers(for userId: String, forceReload: Bool = false, completion: @escaping () -> Void) {
@@ -82,16 +77,8 @@ class HomeViewModel: ObservableObject {
                 }
                 
                 group.notify(queue: .main) {
-                   // print("Kullanıcılar: \(fetchedUsers)")
                     self.chatUsers = fetchedUsers
                     self.appState.chatUsers = fetchedUsers
-                //    print("fetchedUser:\(self.appState.chatUsers)")
-                  //  print("**************************")
-                  // print("fetc: \(fetchedUsers)")
-                    /*print("chatUSERS: \(self.chatUsers)")
-                    print("**************************")
-                    print("appstateChatUsers: \(self.appState.chatUsers)")
-                    print("**************************")*/
                     completion()
                 }
             }

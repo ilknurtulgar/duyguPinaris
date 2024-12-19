@@ -56,7 +56,6 @@ class StartChattingViewModel: ObservableObject {
             return
         }
         startChat()
-        //print("startcurrentUser: \(String(describing: appState.currentUser))")
         guard let  currentUser = appState.currentUser else{
             completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Geçerli kullanıcı bulunamadı."])))
             return
@@ -111,7 +110,6 @@ class StartChattingViewModel: ObservableObject {
                 }
                 
                 //currentUser listenin dışına ekleme
-              //  print("chatUsers: \(String(describing: appState.chatUsers.first))")
                 let filteredUsers = matchingUsers.filter { user in
                     return user.id != currentUser.id && !appState.chatUsers.contains { $0.id == user.id }
                           }

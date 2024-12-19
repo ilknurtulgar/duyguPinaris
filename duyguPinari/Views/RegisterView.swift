@@ -34,7 +34,7 @@ struct RegisterView: View {
                             Text(errorMessage)
                                 .foregroundStyle(.red)
                         }
-                        TextStyles.subtitleRegular("*Şifreyi en az 6 karakter şeklinde giriniz\n*Kayıt olduktan sonra uygulamayı kullanabilmek için e mail adresinize gönderilecek olan doğrulamayı onaylayınız.")
+                        TextStyles.subtitleRegular("*Kayıt olduktan sonra uygulamayı kullanabilmek için e mail adresinize gönderilecek olan doğrulamayı onaylayınız.")
                             .foregroundStyle(Color.textColor)
                             .multilineTextAlignment(.center)
                             .padding(.top,5)

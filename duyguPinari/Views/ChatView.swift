@@ -58,7 +58,7 @@ struct ChatView: View {
                                 proxy.scrollTo(lastMessageId, anchor: .bottom)
                             }
                         }
-                        // iOS 17'ye uygun şekilde onChange ile eski ve yeni değeri alıyoruz
+                       
                         .onChange(of: viewModel.messages) { oldValue, newValue in
                             if newValue.count > oldValue.count {  // Yeni bir mesaj geldiğinde
                                 if let lastMessageId = newValue.last?.id {

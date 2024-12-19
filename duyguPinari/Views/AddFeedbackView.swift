@@ -83,8 +83,6 @@ struct AddFeedbackView: View {
                                     showBottomTabBar = true
                                 }
                             }
-                            
-                          //  print("Rating: \(rating), Feedback: \(feedbackText)")
                         },
                         font: .custom("SFPro-Display-Medium", size: 15)
                     )

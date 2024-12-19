@@ -23,18 +23,18 @@ struct CustomGetMessage: View {
                             Image(systemName: "person.circle")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 40, height: 40)
+                                .frame(width: 35, height: 35)
                                 .clipShape(Circle())
                         case .success(let image):
                             image
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 40, height: 40)
+                                .frame(width: 35, height: 35)
                                 .clipShape(Circle())
                         case .failure:
                             Image(systemName: "person.circle")
                                 .resizable()
-                                .frame(width: 40, height: 40)
+                                .frame(width: 35, height: 35)
                                 .clipShape(Circle())
                         @unknown default:
                             EmptyView()
@@ -77,18 +77,18 @@ struct CustomGetMessage: View {
                             Image(systemName: "person.circle")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 40, height: 40)
+                                .frame(width: 35, height: 35)
                                 .clipShape(Circle())
                         case .success(let image):
                             image
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 40, height: 40)
+                                .frame(width: 35, height: 35)
                                 .clipShape(Circle())
                         case .failure:
                             Image(systemName: "person.circle")
                                 .resizable()
-                                .frame(width: 40, height: 40)
+                                .frame(width: 35, height: 35)
                                 .clipShape(Circle())
                         @unknown default:
                             EmptyView()
