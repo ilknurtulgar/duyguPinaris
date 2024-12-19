@@ -23,10 +23,10 @@ class SelectConversationViewModel: ObservableObject {
             id:UUID().uuidString,
             username: currentUser.username,
             unreadMessage: 0,
-            profileImage:currentUser.profileImageURL,  // Eğer mevcutsa profil resmini buraya ekleyebilirsiniz
+            profileImage:currentUser.profileImageURL,
             topic: topic,
             role: "Anlatıcı",
-            timestamp: Date(), // Firestore'daki timestamp'a uygun olarak
+            timestamp: Date(),
             users: [currentUser.id,user.id],
             lastMessage: "Sohbete başlamak için tıklayın"
         )
@@ -39,7 +39,7 @@ class SelectConversationViewModel: ObservableObject {
             profileImage: user.profileImageURL,
             topic: topic,
             role: "Dinleyici",
-            timestamp: Date(), // Firestore'daki timestamp'a uygun olarak
+            timestamp: Date(),
             users: [user.id,currentUser.id],
             lastMessage: "Sohbete başlamak için tıklayın"
         )
@@ -77,7 +77,7 @@ class SelectConversationViewModel: ObservableObject {
                     guard let id = document.documentID as String?,
                           let receiverID = data["receiverID"] as? String,
                           let senderID = data["senderID"] as? String,
-                          let profileImageURL = data["profileImageURL"] as? String?,
+                          let profileImageURL = data["profileImage"] as? String?,
                           let username = data["username"] as? String,
                           let rating = data["rating"] as? Int,
                           let feedbackText = data["feedbackText"] as? String,

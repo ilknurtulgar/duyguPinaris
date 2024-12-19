@@ -11,7 +11,6 @@ import FirebaseFirestore
 class ChatViewModel: ObservableObject {
     @Published var messages: [ChatMessage] = []
     @Published var isLoading: Bool = false
-    //@EnvironmentObject var appState: AppState
     private var db = Firestore.firestore()
     
     func fetchAbout(for chatUserId: String, completion: @escaping (String?) -> Void) {

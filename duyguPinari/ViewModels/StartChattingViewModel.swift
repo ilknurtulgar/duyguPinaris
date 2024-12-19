@@ -122,7 +122,7 @@ class StartChattingViewModel: ObservableObject {
                     print("eşleşen kullanıcı bulunamadı")
                     completion(.success(nil))
                 }else{
-                    //rastgele kullanıcı seçme
+                    // kullanıcı seçme
                     let randomUser = filteredUsers.randomElement()
                     
                     if let matchedUser = randomUser{

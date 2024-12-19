@@ -25,7 +25,7 @@ class FeedbacksViewModel: ObservableObject {
       //  print("Fetching feedbacks for user ID: \(userID)")
         let db = Firestore.firestore()
         
-        // userID'yi kullanarak doğru koleksiyona sorgu gönderiyoruz
+        // userID'yi kullanarak doğru koleksiyona sorgusu
         
         db.collection("feedbacks")
             .whereField("receiverID", isEqualTo: userID)

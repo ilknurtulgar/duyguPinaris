@@ -29,7 +29,7 @@ struct SelectConversationView: View {
                         VStack(spacing: 35){
                             if let matchedUser = matchedUser {
                                 FeedbackCard( profileImageURL: matchedUser.profileImageURL, name: matchedUser.username, role:"Dinelyici",
-                                              rating: 0,feedbackText: matchedUser.about ?? "Henüz hakkında bilgi yok.")
+                                              rating: 0,feedbackText: (matchedUser.about == "" ? "Henüz hakkında bilgisi yok." : matchedUser.about) ?? "")
                                 
                                 .onAppear{
                                     viewModel.fetchFeedbacks(for: matchedUser.id)
@@ -50,7 +50,6 @@ struct SelectConversationView: View {
                                     .multilineTextAlignment(.center)
                                     .lineLimit(nil)
                             }
-                           // .padding(.top,150)
                         }
                     }
                     HStack(spacing: 80){

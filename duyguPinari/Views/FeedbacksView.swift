@@ -39,7 +39,6 @@ struct FeedbacksView: View {
                     )
                     .padding(.bottom, 30)
                     
-                    // ScrollView or No Feedback Message
                     if viewModel.feedbacks.isEmpty {
                         VStack {
                             Spacer()

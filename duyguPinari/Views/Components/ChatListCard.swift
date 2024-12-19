@@ -23,16 +23,20 @@ struct ChatListCard: View {
                     AsyncImage(url: imageURL) { phase in
                         switch phase {
                         case .empty:
+                            //Image(systemName: "person.circle")
+                              //  .resizable()
                             ProgressView()
                                 .progressViewStyle(CircularProgressViewStyle(tint: Color.primaryColor))
-                                .scaleEffect(1.5)
-                                .padding(10)
                                 .frame(width: 45, height: 45)
+                                .scaleEffect(1.5)
+                                .clipShape(Circle())
+                                .padding(.all,7)
+                          
                         case .success(let image):
                             image.resizable()
                                 .frame(width: 45, height: 45)
                                 .clipShape(Circle())
-                                .padding(.all, 5)
+                                .padding(.all, 7)
                         case .failure:
                             // Resim yüklenemediğinde person.circle simgesini göster
                             Image(systemName: "person.circle")
@@ -46,7 +50,7 @@ struct ChatListCard: View {
                         }
                     }
                 } else {
-                    // Eğer URL yoksa, person.circle simgesini göster
+                    //URL yoksa, person.circle simgesini göster
                     Image(systemName: "person.circle")
                         .resizable()
                         .frame(width: 45, height: 45)

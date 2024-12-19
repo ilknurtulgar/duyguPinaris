@@ -24,7 +24,6 @@ struct CustomRedirectButton: View {
                     .resizable()
                     .frame(width: 15, height: 15)
                     .foregroundColor(Color.textColor)
-               //    .padding(.leading, 10) // Standart padding
                 TextStyles.subtitleMedium(title)
                     .padding(.leading, 10)
                 Spacer()
@@ -44,9 +43,8 @@ struct CustomRedirectButton: View {
                    
                 }
             }
-            .frame(width: 295, height: 40) // Sabit genişlik
+            .frame(width: 295, height: 40)
             .padding(.leading,10)
-        //    .padding(.all,6)
             .background(Color.white)
             .cornerRadius(15)
             .overlay(

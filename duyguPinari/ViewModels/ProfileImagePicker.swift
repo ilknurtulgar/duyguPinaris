@@ -9,7 +9,7 @@ import SwiftUI
 import PhotosUI
 
 struct ProfileImagePicker: View {
-    @Binding var imagePath: String? // String olarak dosya yolu veya URL
+    @Binding var imagePath: String? 
     @State private var isImagePickerPresented = false
     @State private var selectedItem: PhotosPickerItem?
 

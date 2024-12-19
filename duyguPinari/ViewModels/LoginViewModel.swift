@@ -13,7 +13,7 @@ class LoginViewModel: ObservableObject {
     @Published var errorMessage: String?
     @Published var user = User(id: "", username: "", email: "", age: "", password: "")
     
-    var appState: AppState // Add appState as a dependency
+    var appState: AppState
     
     init(appState: AppState) {
         self.appState = appState
@@ -48,34 +48,29 @@ class LoginViewModel: ObservableObject {
             completion(false)
             return
         }
-
+        
         guard isValidEmail(user.email) else  {
             errorMessage = Constants.TextConstants.unvalidEmail
             completion(false)
             return
         }
-
+        
         guard !user.password.isEmpty else {
             errorMessage = Constants.TextConstants.emptyPassword
             completion(false)
             return
         }
-
+        
         Auth.auth().signIn(withEmail: user.email, password: user.password) { [weak self] authResult, error in
             if let error = error {
                 self?.errorMessage = self?.translateFirebaseError(error)
                 completion(false)
                 return
             }
-
+            
             if let userId = authResult?.user.uid {
-                // E-posta doğrulama kontrolü
-            /*    if authResult?.user.isEmailVerified == false {
-                    self?.errorMessage = "Lütfen e-posta adresinizi doğrulayın."
-                    completion(false)
-                    return
-                }*/
-
+                
+                
                 DispatchQueue.main.async {
                     self?.appState.currentUser = User(id: userId,
                                                       username: self?.user.username ?? "",
@@ -84,7 +79,7 @@ class LoginViewModel: ObservableObject {
                                                       password: self?.user.password ?? "")
                     self?.appState.isLoggedIn = true
                     self?.appState.selectedTab = "Home" // Login olduktan sonra ana sayfayı seç
-
+                    
                     self?.syncPasswordToFirestore { success, message in
                         if !success {
                             self?.errorMessage = message
@@ -95,7 +90,7 @@ class LoginViewModel: ObservableObject {
             }
         }
     }
-
+    
     func syncPasswordToFirestore(completion: @escaping (Bool, String?) -> Void) {
         guard let currentUser = Auth.auth().currentUser else {
             completion(false, "Kullanıcı oturum açmamış.")
@@ -103,7 +98,7 @@ class LoginViewModel: ObservableObject {
         }
         
         let userId = currentUser.uid
-        let newPassword = user.password // Kullanıcının manuel olarak verdiği yeni şifre
+        let newPassword = user.password
         
         guard !newPassword.isEmpty else {
             completion(false, "Şifre alanı boş olamaz.")
@@ -114,10 +109,10 @@ class LoginViewModel: ObservableObject {
         
         userRef.updateData(["password":newPassword]){error in
             if let error = error {
-                       completion(false, "Firestore güncelleme hatası: \(error.localizedDescription)")
-                   } else {
-                       completion(true, "Şifre başarıyla Firestore'da güncellendi.")
-                   }
+                completion(false, "Firestore güncelleme hatası: \(error.localizedDescription)")
+            } else {
+                completion(true, "Şifre başarıyla Firestore'da güncellendi.")
+            }
         }
     }
     
@@ -137,7 +132,7 @@ class LoginViewModel: ObservableObject {
         }
         
     }
-
+    
     
     private func isValidEmail(_ email: String) -> Bool {
         let emailRegex = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"

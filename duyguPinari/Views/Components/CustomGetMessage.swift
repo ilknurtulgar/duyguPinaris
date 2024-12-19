@@ -14,7 +14,7 @@ struct CustomGetMessage: View {
     let time: String
 
     var body: some View {
-        HStack(alignment: .top, spacing: 10) { // HStack içerisindeki öğeleri hizalamak için
+        HStack(alignment: .top, spacing: 10) {
             if !isCurrentUser, let userImageURL = profileImageURL {
                 VStack {
                     AsyncImage(url: URL(string: userImageURL)) { phase in
@@ -65,7 +65,7 @@ struct CustomGetMessage: View {
                             .multilineTextAlignment(isCurrentUser ? .leading : .trailing)
                     }
                 }
-                .frame(minWidth: 50, maxWidth: 250, minHeight: 40, alignment: isCurrentUser ? .trailing : .leading) // Mesaj kutusunu hizalamak
+                .frame(minWidth: 50, maxWidth: 250, minHeight: 40, alignment: isCurrentUser ? .trailing : .leading)
             }
 
             // Kullanıcı resmi
@@ -97,7 +97,7 @@ struct CustomGetMessage: View {
                 }
             }
         }
-        .padding(isCurrentUser ? .leading : .trailing, 15) // Mesajın etrafındaki padding
+        .padding(isCurrentUser ? .leading : .trailing, 15)
         .frame(maxWidth: .infinity, alignment: isCurrentUser ? .trailing : .leading) // Mesaj kutusunu sağa veya sola hizalamak
     }
 }

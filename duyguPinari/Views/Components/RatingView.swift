@@ -20,12 +20,12 @@ struct RatingView: View {
                     .scaledToFit()
                     .frame(width: starSize, height: starSize)
                     .foregroundColor(index <= rating ? Color.primaryColor : Color.gray) 
-                    .shadow(color: .black.opacity(0.2), radius: 4, x: 0, y: 2) // Gölge
+                    .shadow(color: .black.opacity(0.2), radius: 4, x: 0, y: 2)
                     .onTapGesture {
                         if rating == index {
-                            rating = 0 // Aynı yıldıza tıklanırsa sıfırlanır
+                            rating = 0 // Aynı yıldıza tıklanırsa sıfırla
                         } else {
-                            rating = index // Yeni yıldız değeri atanır
+                            rating = index // Yeni yıldız değeri atama
                         }
                     }
             }

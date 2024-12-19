@@ -15,7 +15,7 @@ extension Text {
         isTopic: Bool = false
     ) -> some View {
         self
-            .frame(width: 295, alignment: isTopic ? .leading : .center) // Sabit genişlik
+            .frame(width: 295, alignment: isTopic ? .leading : .center)
             .fixedSize(horizontal: true, vertical: false)
             .font(.custom("SFPro-Display-Regular", size: 12))
             .foregroundColor(.textColor)

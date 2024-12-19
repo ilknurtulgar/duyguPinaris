@@ -14,7 +14,7 @@ class HomeViewModel: ObservableObject {
     let db = Firestore.firestore()
     init(appState: AppState) {
         self.appState = appState
-        self.chatUsers = appState.chatUsers // Başlangıçta AppState'teki kullanıcıları al
+        self.chatUsers = appState.chatUsers // Başlangıçta AppState'teki kullanıcıları alma
      /*   print("-----------------------------------------------")
         print("chatUsers(AppSate): \(appState.chatUsers)")
         print("-----------------------------------------------")
@@ -23,12 +23,6 @@ class HomeViewModel: ObservableObject {
     }
     
     func fetchChatUsers(for userId: String, forceReload: Bool = false, completion: @escaping () -> Void) {
-       /* if !forceReload, !appState.chatUsers.isEmpty {
-            print("AppState'den kullanıcılar gösteriliyor, tekrar yüklenmiyor.")
-            self.chatUsers = appState.chatUsers
-            completion()
-            return
-        }*/
         guard !userId.isEmpty else {
                 print("Geçersiz kullanıcı ID'si.")
                 self.chatUsers = []
@@ -71,7 +65,6 @@ class HomeViewModel: ObservableObject {
                         } else if let userData = userSnapshot?.data(),
                                  
                             let username = userData["username"] as? String {
-                            print("userData: \(userData)")
                             let chatUser = ChatUser(
                                 id: chatUserId,
                                 username: username,
@@ -92,9 +85,9 @@ class HomeViewModel: ObservableObject {
                    // print("Kullanıcılar: \(fetchedUsers)")
                     self.chatUsers = fetchedUsers
                     self.appState.chatUsers = fetchedUsers
-                    print("fetchedUser:\(self.appState.chatUsers)")
-                    print("**************************")
-                   print("fetc: \(fetchedUsers)")
+                //    print("fetchedUser:\(self.appState.chatUsers)")
+                  //  print("**************************")
+                  // print("fetc: \(fetchedUsers)")
                     /*print("chatUSERS: \(self.chatUsers)")
                     print("**************************")
                     print("appstateChatUsers: \(self.appState.chatUsers)")

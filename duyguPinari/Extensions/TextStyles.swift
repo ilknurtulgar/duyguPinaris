@@ -13,7 +13,8 @@ import SwiftUI
 //medium 20 title
 //regular 10 body
 //subtitle medium 15
-//subtitle2 regular 12 // bu olursa ekleme
+//subtitle2 regular 12
+
 struct TextStyles {
     
     static func hugeTitle(_ text: String) -> some View {

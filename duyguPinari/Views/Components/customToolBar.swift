@@ -15,7 +15,7 @@ struct CustomToolBar: View {
     let userImageURL: String?
     let hasUserImage: Bool // Kullanıcı resmi varsa farklı padding uygulamak için
     let titleAlignment: TextAlignment
-    let textAction: (() -> Void)? // Metin tıklama eylemi
+    let textAction: (() -> Void)? // Metin tıklama
     let paddingSize: CGFloat
     
     var body: some View {
@@ -43,13 +43,13 @@ struct CustomToolBar: View {
                                 .resizable()
                                 .scaledToFit()
                                 .clipShape(Circle())
-                                .frame(width: 35, height: 35)
+                                .frame(width: 45, height: 45)
                         case .success(let image):
                             image
                                 .resizable()
                                 .scaledToFit()
                                 .clipShape(Circle())
-                                .frame(width: 35, height: 35)
+                                .frame(width: 45, height: 45)
                         case .failure:
                             Image(systemName: "person.circle")
                                 .resizable()
@@ -80,7 +80,6 @@ struct CustomToolBar: View {
             }
             .frame(width: 430, height: 40)
             
-            // Alt Çizgi
             Rectangle()
                 .frame(height: 1)
                 .foregroundColor(.secondaryColor)

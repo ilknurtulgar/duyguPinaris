@@ -34,7 +34,7 @@ struct ProfileView: View {
                             .padding(.top, 18)
                             .padding(.bottom, 18)
                         
-                        Text(appState.currentUser?.about ?? "Hakkında bilgisi bulunmamaktadır.")
+                        Text((appState.currentUser?.about == "" ? "Hakkında bilgisi bulunmamaktadır." : appState.currentUser?.about) ?? "")
                             .customAboutText()
                         
                         Spacer()

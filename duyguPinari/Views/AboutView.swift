@@ -21,7 +21,6 @@ struct AboutView: View {
     
     @State var isDone: Bool = false
     @State var backNavigate: Bool = false
-   // @Environment(\.dismiss) private var dismiss
     @State private var showAlert: Bool = false
     @Binding var showBottomTabBar: Bool
     @EnvironmentObject var appState: AppState
@@ -46,7 +45,7 @@ struct AboutView: View {
                             TextStyles.subtitleMedium2("Hakkında:")
                                 .frame(maxWidth: 430,alignment: .leading)
                                 .padding(.leading,70)
-                            TextStyles.subtitleMedium2(about)
+                            TextStyles.subtitleMedium2(about == "" ? "Hakkında bilgisi bulunmamaktadır." : about)
                                 .asText()
                                 .customAboutText(backgroundColor: Color.white,borderColor: Color.secondaryColor,shadow: true)
                             

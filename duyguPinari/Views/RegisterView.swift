@@ -94,7 +94,7 @@ struct RegisterView: View {
         print("doğrulama gönderdim")
               
             }else {
-        print("gönderemedim kanka")
+            print("gönderemedim")
             }
         }
     }

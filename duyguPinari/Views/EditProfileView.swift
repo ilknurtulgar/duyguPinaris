@@ -111,8 +111,6 @@ struct EditProfileView: View {
                         
                         showBottomTabBar = true
                         dismiss()
-                        // Kullanıcı bilgileri güncelleniyor
-                       
                     }
                 }
                 message: {

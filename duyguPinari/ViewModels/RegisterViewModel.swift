@@ -48,7 +48,7 @@ class RegisterViewModel: ObservableObject {
              return
          }
         
-        // First, create the user in Firebase Auth
+        //auth ekleme
         Auth.auth().createUser(withEmail: user.email, password: user.password) { [weak self] authResult, error in
             if let error = error as NSError? {
                 DispatchQueue.main.async {
@@ -68,7 +68,6 @@ class RegisterViewModel: ObservableObject {
                 return
             }
             
-            // Ensure the user is authenticated and retrieve the user ID
             guard let userId = authResult?.user.uid else {
                 DispatchQueue.main.async {
                     self?.errorMessage = "Kullanıcı ID alınamadı"
@@ -77,14 +76,14 @@ class RegisterViewModel: ObservableObject {
                 return
             }
             
-            // Now, save the user data to Firestore
+            // firestore kaydetme
             let db = Firestore.firestore()
             let userData: [String: Any] = [
                 "id": userId,
                 "username": self?.user.username ?? "",
                 "email": self?.user.email ?? "",
                 "age": self?.user.age ?? "",
-                "password": self?.user.password ?? "" // Storing password in Firestore is generally not recommended, use it only for example purposes
+                "password": self?.user.password ?? ""
             ]
             
             db.collection("users").document(userId).setData(userData) { [weak self] error in
@@ -96,7 +95,6 @@ class RegisterViewModel: ObservableObject {
                     return
                 }
                 
-                // Once the user data is saved in Firestore, proceed to update the ViewModel
                 DispatchQueue.main.async {
                     self?.errorMessage = nil
                     self?.user.id = userId

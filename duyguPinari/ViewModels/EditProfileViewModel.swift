@@ -50,7 +50,7 @@ final class EditProfileViewModel: ObservableObject {
         let db = Firestore.firestore()
         guard let userID = Auth.auth().currentUser?.uid else { return }
         
-        // Firestore'da güncelleme yapıyoruz
+        // Firestore'da güncelleme
         db.collection("users").document(userID).updateData(["profileImageURL": url]) { error in
             if let error = error {
                 print("Firestore güncellemesi başarısız: \(error.localizedDescription)")
@@ -89,7 +89,7 @@ final class EditProfileViewModel: ObservableObject {
         }
     }
 
-    // Şifre güncellemesini kontrol eden yardımcı fonksiyon
+    // Şifre güncelleme cehck
     private func checkPasswordUpdate(updatePassword: Bool, newPassword: String, currentPassword: String, completion: @escaping (Bool) -> Void) {
         if updatePassword {
             AuthenticationManager.shared.updatePassword(newPassword: newPassword, currentPassword: currentPassword) { success, errorMessage in
@@ -115,14 +115,13 @@ final class EditProfileViewModel: ObservableObject {
             "email": user.email,
             "age": user.age,
             "password": user.password,
-            "about": user.about ?? "",
+            "about": user.about ?? "Henüz hakkında bilgisi yok",
             "profileImageURL": user.profileImageURL ?? ""
         ]) { error in
             if let error = error {
                 self.errorMessage = "Firestore güncellemesi başarısız: \(error.localizedDescription)"
                 completion(false)
             } else {
-                // Güncellenen kullanıcıyı appState'e kaydet
                 self.appState.currentUser = self.user
                 completion(true)
             }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FeedbackCard: View {
-    var profileImageURL: String? // Profil resmi URL'si (String?)
+    var profileImageURL: String?
     var name: String
     var role: String
     var rating: Int
@@ -58,7 +58,7 @@ struct FeedbackCard: View {
                 .padding(.bottom, 13)
 
                 TextStyles.subtitleMedium2(feedbackText)
-                    .lineLimit(nil) // Çok satırlı metin desteği
+                    .lineLimit(nil)
                     .multilineTextAlignment(.leading)
             }
         }

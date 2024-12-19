@@ -68,7 +68,6 @@ struct LoginView: View {
                                     }
                                 }},
                             font: .custom("SFPro-Display-Medium", size: 15))
-                        //65
                         .padding(.top, 35)
                         
                         self.withHorizontalLinesAndText(Constants.TextConstants.or)
